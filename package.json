@@ -1,0 +1,27 @@
+{
+  "scripts": {
+    "dev": "tsx ./src/",
+    "dev:blaze": "tsx ./src/blaze/",
+    "dev:gateway": "tsx ./src/gateway/",
+    "build": "tsc",
+    "start": "tsc && node ./build",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "@types/node": "^20.12.11",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "prettier-eslint": "^16.3.0",
+    "tsx": "^4.10.1",
+    "typescript-eslint": "^7.8.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "tdf.js": "github:ploxxxy/tdf.js",
+    "typescript": "^5.4.5"
+  }
+}
