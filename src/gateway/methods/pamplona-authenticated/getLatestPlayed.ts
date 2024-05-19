@@ -2,34 +2,34 @@ export default {
   name: 'PamplonaAuthenticated.getLatestPlayed',
   execute() {
     return [
-      {
-        ugcId: {
-          userId: '1011786733',
-          id: 'fdc79be0-7288-11ee-aea0-e34b2562c43e',
-        },
-        typeId: 'ReachThis',
-        stats: {
-          reachedAt: '1698164321121',
-        },
-      },
-      {
-        ugcId: {
-          userId: '1011786733',
-          id: '97877930-71a3-11ee-aea0-e34b2562c43e',
-        },
-        typeId: 'TimeTrial',
-        stats: {
-          finishedAt: '1698065815246',
-          finishTime: '1513',
-          splitTimes: ['126', '336', '550', '876', '1016', '1280', '1514'],
-          extraStats: {
-            wallrun_distance: '3255',
-            maxperframe_distance: '608',
-            walk_distance: '68935',
-            total_distance: '97144',
-          },
-        },
-      },
+      // {
+      //   ugcId: {
+      //     userId: '1011786733',
+      //     id: 'fdc79be0-7288-11ee-aea0-e34b2562c43e',
+      //   },
+      //   typeId: 'ReachThis',
+      //   stats: {
+      //     reachedAt: '1698164321121',
+      //   },
+      // },
+      // {
+      //   ugcId: {
+      //     userId: '1011786733',
+      //     id: '97877930-71a3-11ee-aea0-e34b2562c43e',
+      //   },
+      //   typeId: 'TimeTrial',
+      //   stats: {
+      //     finishedAt: '1698065815246',
+      //     finishTime: '1513',
+      //     splitTimes: ['126', '336', '550', '876', '1016', '1280', '1514'],
+      //     extraStats: {
+      //       wallrun_distance: '3255',
+      //       maxperframe_distance: '608',
+      //       walk_distance: '68935',
+      //       total_distance: '97144',
+      //     },
+      //   },
+      // },
       {
         id: 'ch_hbb_dt4_tstamp',
         challengeType: 'HackableBillboard',

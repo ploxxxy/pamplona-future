@@ -1,12 +1,54 @@
+import { getUserFromSession } from '../..'
+import db from '../../../common/prisma'
+import { getInventoryFromDb } from './getInventory'
+
 export default {
   name: 'PamplonaAuthenticated.getInitialGameData',
   execute: async (
     params: { levelIds: number[]; clearFriendsCache: boolean },
     sessionId: string
   ) => {
-    return {
+    const personaId = getUserFromSession(sessionId)
+
+    if (!personaId) {
+      throw new Error('Invalid session')
+    }
+
+    const user = await db.user.findFirst({
+      where: {
+        personaId,
+      },
+      include: {
+        userStats: {
+          where: {
+            userId: personaId,
+          },
+        },
+        kitUnlocks: {
+          where: {
+            userId: personaId,
+          },
+        },
+        itemUnlocks: {
+          where: {
+            userId: personaId,
+          },
+        },
+      },
+    })
+
+    if (!user) {
+      throw new Error('User not found')
+    }
+
+    const userStats = user.userStats.reduce(
+      (a: { [key: string]: number }, v) => ((a[v.flag] = v.value), a),
+      {}
+    )
+
+    let returnObject = {
       playerInfo: {
-        name: 'ploxxxxxxy',
+        name: user.name,
         location: [
           {
             type: 'country',
@@ -22,501 +64,11 @@ export default {
           },
         ],
         division: {
-          name: 'Gold',
-          rank: 4,
+          name: user.division,
+          rank: user.divisionRank,
         },
       },
-      userStats: {
-        pf_GoldCompleted_Savant_Extraordinaire_Getting_Magrope: 1,
-        pf_MiscCompleted_OW_Opp_DtPh3_07: 1,
-        pf_OW_Opp_CtPh6_06_CompletedTime: 18830,
-        pf_GoldCompleted_Benefactor_Dogen_Briefing: 1,
-        pg_IntelAcEv_NumberOfFlagsSet: 3,
-        pf_Unlocks_ImpactAttack_PowerAttack: 1,
-        pf_OW_Opp_CtPh6_05_Available: 0,
-        pf_Back_in_the_Game_Timer: 0,
-        pf_Unlocks_LowerHealthProtector: 1,
-        pf_OWPh3Delivery01_Available: 1,
-        pf_BronzeCompleted_OWPh3Delivery01: 0,
-        pf_SecurityHubsCompleted_SecHubMischiefMaker: 1,
-        pf_OW_Opp_CtPh6_04_Available: 0,
-        pf_OW_Opp_DtPh3_07_Available: 0,
-        pf_Top_of_the_World_Available: 0,
-        pf_RunnerBagsMission_RunnerBagsFamilyMatters: 2,
-        pf_OW_Opp_AncPh4_05_CompletedTime: 10256,
-        pf_Unlocks_LowerHealthSentinel: 1,
-        pg_SecretBagDtCp_NumberOfFlagsSet: 1,
-        pf_The_Shard_CompletedTime: 83061,
-        pf_OW_Opp_AncPh5_03_Available: 0,
-        pf_BronzeCompleted_Security_Hub_Downtown_1: 1,
-        pf_Security_Hub_Anchor_3_Available: 0,
-        pf_GoldCompleted_Reunion: 1,
-        pf_OW_Opp_DtPh3_01_Available: 0,
-        pf_Benefactor_Dogen_Briefing_CompletedTime: 18387,
-        pf_Break_And_Entry_Available: 0,
-        pf_MiscCompleted_OW_Opp_VwPh7_02: 1,
-        pf_OW_Opp_DtPh3_06_Available: 0,
-        pf_GoldCompleted_The_Shard: 2,
-        pf_Caught_in_the_Web_CompletedTime: 13987,
-        pf_Benefactor_Lair_Briefing_CompletedTime: 9,
-        pf_MiscCompleted_OW_Opp_DtPh3_05: 1,
-        pf_RunnerBagsMission_RunnerBagsSavantExtraordinaire: 2,
-        pf_MiscCompleted_OW_Opp_AncPh5_03: 1,
-        pf_Birdman_s_Route_Timer: 0,
-        pf_Savant_Extraordinaire_Briefing_Available: 0,
-        pf_OW_Opp_DtPh3_05_Available: 0,
-        pf_SilverCompleted_Break_And_Entry_Briefing: 1,
-        pf_Birdman_s_Route_CompletedTime: 30135,
-        pf_GoldCompleted_Tickets__Please: 1,
-        pf_BronzeCompleted_Security_Hub_Downtown_4: 1,
-        pf_GoldCompleted_Kingdom: 2,
-        pf_OW_Opp_DtPh3_03_CompletedTime: 15858,
-        pf_Unlocks_ImpactAttack_Special_PowerAttack: 1,
-        pf_Drone_Works_Available: 0,
-        pf_OW_Opp_DtPh2_06_Available: 0,
-        pg_ElectronicPartsDtCh_NumberOfFlagsSet: 10,
-        pg_IntelVwRb_NumberOfFlagsSet: 3,
-        pf_GoldCompleted_Encroachment: 2,
-        pf_SecurityHubsCompleted_SecHubDowntown4: 1,
-        pf_Unlocks_MoveEnemyBack: 1,
-        pf_Unlocks_ExtendedSlide: 1,
-        pf_OW_Opp_DtPh2_04_CompletedTime: 5716,
-        pg_IntelDtCh_NumberOfFlagsSet: 2,
-        pf_Mischief_Maker_CompletedTime: 22326,
-        pf_Drone_Works_Briefing_Available: 0,
-        pf_MiscCompleted_OW_Opp_DtPh2_06: 1,
-        pf_MiscCompleted_OW_Opp_AncPh4_01: 1,
-        pf_GoldCompleted_Fly_Trap: 3,
-        pf_SilverCompleted_Top_of_the_World: 1,
-        pf_OW_Opp_DtPh3_06_CompletedTime: 1840,
-        pf_Savant_Extraordinaire_Getting_Magrope_Available: 0,
-        pf_OW_Opp_DtPh3_02_Available: 0,
-        pf_Caught_in_the_Web_Briefing_CompletedTime: 57,
-        pf_OW_Opp_DtPh3_03_Available: 0,
-        pf_SecurityHubsCompleted_SecHubDowntown3: 1,
-        pf_GreenCollectiblesMission_SavantExtraordinaire: 2,
-        pf_GoldCompleted_Kingdom_Briefing: 1,
-        pf_Savant_Extraordinaire_Timer: 0,
-        pf_XP_Gained: 52936,
-        pf_OW_Opp_AncPh4_02_CompletedTime: 5191,
-        pf_GoldCompleted_Sanctuary: 2,
-        pf_Old_Friends_Briefing_CompletedTime: 56,
-        pf_GoldCompleted_Savant_Extraordinaire_Meeting_Plastic: 1,
-        pf_Mischief_Maker_Available: 0,
-        pf_Drone_Works_CompletedTime: 21422,
-        pf_GoldCompleted_Benefactor: 3,
-        pf_Payback_CompletedTime: 13939,
-        pf_OW_Opp_AncPh5_05_Available: 0,
-        pf_Benefactor_Lair_Briefing_Available: 0,
-        pf_Be_Like_Water_Timer: 0,
-        pf_OWPh2Delivery03_Available: 1,
-        pf_Security_Hub_Downtown_1_CompletedTime: 6693,
-        pf_MiscCompleted_OW_Opp_CtPh6_01: 1,
-        pf_Back_in_the_Game_Briefing_Available: 0,
-        pf_Prisoner_X_Interrogation_CompletedTime: 10,
-        pg_SecretBagAcSh_NumberOfFlagsSet: 4,
-        pf_Two_Pigeons_With_One_Stone_CompletedTime: 12786,
-        pf_OW_Opp_AncPh5_01_Available: 0,
-        pf_GreenCollectiblesMission_Kingdom: 2,
-        pf_Prisoner_X_CompletedTime: 51480,
-        pf_OW_Opp_CtPh6_02_CompletedTime: 8027,
-        pf_OW_Opp_AncPh4_01_Available: 0,
-        pf_Generated_ActiveMission: 0,
-        pf_XP_Used: 29000,
-        pf_An_Ear_to_the_Ground_CompletedTime: 4306,
-        pf_GoldCompleted_Family_Matters_Debriefing: 1,
-        pf_GoldCompleted_Old_Friends_Briefing: 1,
-        pg_AudioPickupAcEv_NumberOfFlagsSet: 4,
-        pg_AnchorGridLeaks_NumberOfFlagsSet: 83,
-        pf_Exit_Strategy_Timer: 0,
-        pf_OW_Opp_CtPh6_05_CompletedTime: 17214,
-        pf_OW_Opp_AncPh5_04_Available: 0,
-        pf_Unlocks_HandToHandCombat: 1,
-        pf_Grid_Node_Anchor_Available: 0,
-        pf_MiscCompleted_OW_Opp_AncPh5_06: 1,
-        pf_Break_And_Entry_Briefing_CompletedTime: 83,
-        pf_MiscCompleted_OW_Opp_CtPh6_05: 1,
-        pf_MiscCompleted_OW_Opp_DtPh2_03: 1,
-        pf_GoldCompleted_Prisoner_X_Interrogation: 1,
-        pf_Prisoner_X_Interrogation_Available: 0,
-        pg_IntelRzOt_NumberOfFlagsSet: 4,
-        pf_OW_Opp_CtPh6_02_Available: 0,
-        pf_Grid_Node_Downtown_Available: 0,
-        pf_Unlocks_MoveEnemyAttack: 1,
-        pf_MiscCompleted_OW_Opp_VwPh7_01: 1,
-        pf_MiscCompleted_OW_Opp_AncPh4_08: 1,
-        pg_AudioPickupRzOt_NumberOfFlagsSet: 6,
-        pf_Unlocks_LowerHealthEnforcer: 1,
-        pf_Global_CityUnlockState: 9,
-        pf_OW_Opp_AncPh4_06_CompletedTime: 10579,
-        pf_RunnerBagsMission_RunnerBagsTheShard: 2,
-        pf_MiscCompleted_OW_Opp_DtPh3_01: 1,
-        pg_ElectronicPartsDtTd_NumberOfFlagsSet: 49,
-        pf_MiscCompleted_OW_Opp_VwPh7_06: 1,
-        pf_Sanctuary_Available: 0,
-        pf_The_Shard_Available: 0,
-        pf_MiscCompleted_OW_Opp_VwPh7_03: 1,
-        pf_The_Shard_Briefing_Available: 0,
-        pf_OW_Opp_AncPh5_02_Available: 0,
-        pf_OW_Opp_DtPh2_01_CompletedTime: 1586,
-        pf_Reunion_Available: 0,
-        pf_OW_Opp_VwPh7_06_Available: 0,
-        pf_RunnerBagsMission_RunnerBagsPrisonerX: 2,
-        pf_MiscCompleted_OW_Opp_DtPh3_08: 1,
-        pf_OW_Opp_VwPh7_05_Available: 0,
-        pf_Release_CompletedTime: 64274,
-        pf_Grid_Node_The_View_Available: 0,
-        pf_Kingdom_Debriefing_Available: 0,
-        pf_Unlocks_DoubleWallrun: 1,
-        pg_AudioPickupVwRb_NumberOfFlagsSet: 4,
-        pf_OWPh2Delivery01_CompletedTime: 6872,
-        pf_BronzeCompleted_Security_Hub_Anchor_2: 1,
-        pg_AudioPickupDtCy_NumberOfFlagsSet: 3,
-        pf_OW_Opp_AncPh4_08_CompletedTime: 7307,
-        pf_Family_Matters_Briefing_CompletedTime: 10,
-        pg_ElectronicPartsVwRb_NumberOfFlagsSet: 18,
-        pf_OWPh2Delivery02_CompletedTime: 6166,
-        pg_AudioPickupVwOp_NumberOfFlagsSet: 6,
-        pf_Family_Matters_CompletedTime: 28963,
-        pg_SecretBagVwOp_NumberOfFlagsSet: 6,
-        pf_SilverCompleted_Birdman_s_Delivery: 1,
-        pf_MiscCompleted_OW_Opp_CtPh6_04: 1,
-        pf_OW_Opp_AncPh4_07_CompletedTime: 1615,
-        pf_MiscCompleted_OW_Opp_DtPh2_02: 1,
-        pf_OW_Opp_AncPh4_05_Available: 0,
-        pf_OW_Opp_DtPh2_03_Available: 0,
-        pf_OW_Opp_DtPh3_08_CompletedTime: 12293,
-        pf_Savant_Extraordinaire_CompletedTime: 20727,
-        pf_GoldCompleted_The_Shard_Briefing: 1,
-        pf_MiscCompleted_OW_Opp_DtPh3_04: 1,
-        pf_Savant_Extraordinaire_Briefing_CompletedTime: 53,
-        pf_Back_in_the_Game_Briefing_CompletedTime: 104,
-        pf_GoldCompleted_Family_Matters: 3,
-        pg_SecretBagDtTd_NumberOfFlagsSet: 3,
-        pf_Kingdom_Timer: 0,
-        pf_Unlocks_SkillWindowSkillRoll: 1,
-        pf_Security_Hub_Downtown_3_Available: 0,
-        pf_OW_Opp_VwPh7_03_CompletedTime: 16441,
-        pf_Benefactor_Dogen_Briefing_Timer: 0,
-        pf_Kingdom_Available: 0,
-        pf_SilverCompleted_Drone_Works: 1,
-        pf_Tickets__Please_CompletedTime: 30001,
-        pf_SilverCompleted_Break_And_Entry: 1,
-        pg_IntelVwOp_NumberOfFlagsSet: 3,
-        pf_OW_Opp_AncPh4_03_CompletedTime: 2222,
-        pg_ElectronicPartsRzRdz_NumberOfFlagsSet: 16,
-        pf_Unlocks_Focus_ReachFlow_IncreaseExtra: 1,
-        pf_OW_Opp_AncPh5_06_Available: 0,
-        pf_Exit_Strategy_CompletedTime: 22261,
-        pf_GoldCompleted_Release: 3,
-        pg_SecretBagTheShard_NumberOfFlagsSet: 2,
-        pf_OWPh3Delivery01_CompletedTime: 0,
-        pf_IntelCollectiblesMission_BackInTheGame: 2,
-        pf_MiscCompleted_OW_Opp_AncPh4_02: 1,
-        pf_OW_Opp_AncPh4_04_Available: 0,
-        pf_Vive_La_Resistance_Briefing_Available: 0,
-        pf_Encroachment_Timer: 0,
-        pf_Unlocks_Glove: 1,
-        pf_OW_Opp_DtPh3_05_CompletedTime: 15303,
-        pf_OW_Opp_DtPh2_06_CompletedTime: 5492,
-        pf_GoldCompleted_Vive_La_Resistance: 3,
-        pf_OW_Opp_DtPh3_07_CompletedTime: 6922,
-        pf_OW_Opp_AncPh4_03_Available: 0,
-        pf_MiscCompleted_OW_Opp_AncPh5_04: 1,
-        pf_GreenCollectiblesMission_ViveLaResistance: 2,
-        pf_Security_Hub_Anchor_2_CompletedTime: 4416,
-        pf_Fly_Trap_CompletedTime: 50450,
-        pf_SecurityHubsCompleted_SecHubAnchor3: 1,
-        pg_SecretBagAcEv_NumberOfFlagsSet: 4,
-        pf_RunnerBagsMission_RunnerBagsViveLaResistance: 2,
-        pf_Kingdom_Briefing_CompletedTime: 10,
-        pf_OW_Opp_AncPh4_04_CompletedTime: 2450,
-        pf_Grid_Node_Construction_Available: 0,
-        pf_MiscCompleted_OW_Opp_AncPh4_03: 1,
-        pf_GoldCompleted_Birdman_s_Route: 1,
-        pf_Benefactor_CompletedTime: 44582,
-        pg_ElectronicPartsDtCp_NumberOfFlagsSet: 22,
-        pf_The_Meta_Grid_Briefing_Available: 0,
-        pf_OW_Opp_AncPh4_06_Available: 0,
-        pf_SilverCompleted_Exit_Strategy: 1,
-        pf_Kingdom_Briefing_Available: 0,
-        pf_IntelCollectiblesMission_SavantExtraordinaire: 1,
-        pf_Old_Friends_CompletedTime: 12843,
-        pf_Security_Hub_Anchor_3_CompletedTime: 8089,
-        pf_OW_Opp_AncPh5_05_CompletedTime: 1950,
-        pf_Unlocks_FlowAttack: 1,
-        pf_Finger_on_the_Pulse_Available: 0,
-        pf_MiscCompleted_OW_Opp_AncPh4_07: 1,
-        pf_OWPh2Delivery01_Available: 0,
-        pf_SilverCompleted_Finger_on_the_Pulse: 1,
-        pf_OW_Opp_CtPh6_01_Available: 0,
-        pf_Grid_Node_The_View_Timer: 0,
-        pf_OW_Opp_DtPh2_05_Available: 0,
-        pf_GoldCompleted_Grid_Node_Anchor: 1,
-        pf_BronzeCompleted_OWPh2Delivery03: 0,
-        pf_GoldCompleted_Kingdom_Execution_Scene: 1,
-        pf_SilverCompleted_Grid_Node_Downtown: 1,
-        pf_SilverCompleted_Grid_Node_Construction: 1,
-        pf_Unlocks_CombatRecovery: 1,
-        pg_ElectronicPartsAcCv_NumberOfFlagsSet: 29,
-        pf_Security_Hub_Anchor_2_Available: 0,
-        pf_Mischief_Maker_Timer: 0,
-        pf_MiscCompleted_OW_Opp_VwPh7_04: 1,
-        pf_GoldCompleted_Kingdom_Debriefing: 1,
-        pf_Grid_Node_Construction_CompletedTime: 38003,
-        pf_OW_Opp_AncPh5_03_CompletedTime: 6013,
-        pf_OW_Opp_AncPh4_08_Available: 0,
-        pf_OWPh3Delivery02_Available: 0,
-        pf_BronzeCompleted_OWPh2Delivery02: 1,
-        pf_Caught_in_the_Web_Briefing_Available: 0,
-        pf_Unlocks_IncreasedHealth0: 1,
-        pf_Unlocks_Disruptor_StunMech: 1,
-        pg_ElectronicPartsAcSh_NumberOfFlagsSet: 20,
-        pg_IntelAcCv_NumberOfFlagsSet: 3,
-        pf_Old_Friends_Briefing_Available: 0,
-        pf_Kingdom_Execution_Scene_CompletedTime: 13,
-        pf_OWPh6Delivery02_Available: 1,
-        pg_GoldCompleted_NumberOfFlagsSet: 37,
-        pf_Benefactor_Dogen_Briefing_Available: 0,
-        pf_OW_Opp_VwPh7_06_CompletedTime: 16596,
-        pf_Fly_Trap_Available: 0,
-        pf_Unlocks_Disruptor_Overload: 1,
-        pg_SecretBagRzOt_NumberOfFlagsSet: 5,
-        pf_Back_in_the_Game_Available: 0,
-        pf_Break_And_Entry_Briefing_Available: 0,
-        pf_Unlocks_Focus: 1,
-        pf_Two_Pigeons_With_One_Stone_Chase_Timer: 0,
-        pg_SecretBagAcCv_NumberOfFlagsSet: 2,
-        pf_OW_Opp_VwPh7_01_Available: 0,
-        pf_Be_Like_Water_Available: 0,
-        pf_OW_Opp_AncPh4_02_Available: 0,
-        pg_AudioPickupAcSh_NumberOfFlagsSet: 4,
-        pf_Drone_Works_Briefing_CompletedTime: 56,
-        pg_SilverCompleted_NumberOfFlagsSet: 20,
-        pg_ElectronicPartsVwOp_NumberOfFlagsSet: 30,
-        pf_OW_Opp_CtPh6_03_Available: 0,
-        pf_Vive_La_Resistance_Debriefing_Available: 0,
-        pf_SilverCompleted_Grid_Node_The_View: 1,
-        pf_OW_Opp_AncPh4_07_Available: 0,
-        pf_Vive_La_Resistance_Debriefing_CompletedTime: 111,
-        pf_GoldCompleted_Back_in_the_Game_Debriefing: 1,
-        pf_Vive_La_Resistance_Briefing_CompletedTime: 2204,
-        pf_OW_Opp_VwPh7_03_Available: 0,
-        pf_Caught_in_the_Web_Timer: 0,
-        pg_AudioPickupDtCp_NumberOfFlagsSet: 1,
-        pf_MiscCompleted_OW_Opp_DtPh3_03: 1,
-        pf_Security_Hub_The_View_1_Available: 0,
-        pg_GridNodes_NumberOfFlagsSet: 4,
-        pg_SecurityHubsCompleted_NumberOfFlagsSet: 8,
-        pf_OW_Opp_DtPh2_04_Available: 0,
-        pf_GoldCompleted_Old_Friends: 2,
-        pf_GoldCompleted_Payback: 1,
-        pf_GoldCompleted_Be_Like_Water: 2,
-        pf_SilverCompleted_Drone_Works_Briefing: 1,
-        pf_OWPh4Delivery01_CompletedTime: 0,
-        pf_OW_Opp_DtPh3_04_Available: 0,
-        pf_Break_And_Entry_Timer: 0,
-        pf_RunnerBagsMission_RunnerBagsBenefactor: 2,
-        pf_Unlocks_Disrupter_IncreaseRange: 1,
-        pf_Top_of_the_World_Briefing_CompletedTime: 58,
-        pf_GreenCollectiblesMission_FamilyMatters: 2,
-        pf_Complete_Coverage_CompletedTime: 3590,
-        pf_Prisoner_X_Timer: 0,
-        pf_Exit_Strategy_Available: 0,
-        pf_SilverCompleted_Top_of_the_World_Briefing: 1,
-        pf_Tickets__Please_Available: 0,
-        pf_OWPh4Delivery01_Available: 1,
-        pg_HackableBillboards_NumberOfFlagsSet: 12,
-        pf_Complete_Coverage_Available: 0,
-        pf_OW_Opp_DtPh2_02_CompletedTime: 7826,
-        pf_Top_of_the_World_Timer: 0,
-        pf_MiscCompleted_OW_Opp_DtPh2_05: 1,
-        pf_RunnerBagsMission_RunnerBagsBackInTheGame: 2,
-        pf_OW_Opp_VwPh7_02_CompletedTime: 15220,
-        pf_Unlocks_LowerHealthShockProtector: 1,
-        pf_IntelCollectiblesMission_Benefactor: 1,
-        pf_MiscCompleted_OW_Opp_AncPh5_01: 1,
-        pf_Birdman_s_Delivery_Available: 0,
-        pf_MiscCompleted_OW_Opp_AncPh4_04: 1,
-        pg_BronzeCompleted_NumberOfFlagsSet: 9,
-        pf_Unlocks_QuickTurn: 1,
-        pf_Unlocks_FlowAttack_PowerAttack: 1,
-        pf_Birdman_s_Route_Available: 0,
-        pf_OW_Opp_DtPh3_02_CompletedTime: 6780,
-        pf_Sanctuary_CompletedTime: 16338,
-        pg_DowntownGridLeaks_NumberOfFlagsSet: 87,
-        pf_GoldCompleted_Savant_Extraordinaire: 3,
-        pf_OW_Opp_VwPh7_01_CompletedTime: 13184,
-        pf_OW_Opp_DtPh2_05_CompletedTime: 2801,
-        pf_Family_Matters_Available: 0,
-        pf_BronzeCompleted_Security_Hub_Anchor_3: 1,
-        pf_Savant_Extraordinaire_Meeting_Plastic_CompletedTime: 146,
-        pg_ElectronicPartsTrainstation_NumberOfFlagsSet: 2,
-        pf_SilverCompleted_The_Meta_Grid: 1,
-        pf_Two_Pigeons_With_One_Stone_Chase_CompletedTime: 7816,
-        pf_Family_Matters_Debriefing_Available: 0,
-        pg_IntelAcSh_NumberOfFlagsSet: 5,
-        pf_Two_Pigeons_With_One_Stone_Chase_Available: 0,
-        pf_Security_Hub_Downtown_3_CompletedTime: 13113,
-        pg_ElectronicPartsRzOt_NumberOfFlagsSet: 14,
-        pf_OW_Opp_CtPh6_01_CompletedTime: 10450,
-        pf_MiscCompleted_OW_Opp_CtPh6_03: 1,
-        pf_MiscCompleted_OW_Opp_DtPh2_01: 1,
-        pf_OW_Opp_VwPh7_05_CompletedTime: 11039,
-        pf_Unlocks_IncreasedHealth1: 1,
-        pf_GreenCollectiblesMission_Benefactor: 2,
-        pf_Benefactor_Available: 0,
-        pf_Two_Pigeons_With_One_Stone_Available: 0,
-        pf_Two_Pigeons_With_One_Stone_Timer: 0,
-        pf_Family_Matters_Timer: 0,
-        pf_The_Shard_Timer: 0,
-        pf_SilverCompleted_Caught_in_the_Web: 1,
-        pg_SecretBagRzRdz_NumberOfFlagsSet: 5,
-        pf_Be_Like_Water_CompletedTime: 6653,
-        pf_The_Meta_Grid_Briefing_CompletedTime: 76,
-        pf_SecurityHubsCompleted_SecHubAnchor2: 1,
-        pf_OW_Opp_AncPh5_04_CompletedTime: 6001,
-        pf_Unlocks_Disruptor_StunHumans: 1,
-        pf_BronzeCompleted_OWPh2Delivery01: 1,
-        pf_SilverCompleted_An_Ear_to_the_Ground: 1,
-        pg_AudioPickupAcCv_NumberOfFlagsSet: 2,
-        pf_Back_in_the_Game_CompletedTime: 38566,
-        pf_SecurityHubsCompleted_SecHubTheView1: 1,
-        pf_GoldCompleted_Family_Matters_Briefing: 1,
-        pf_MiscCompleted_OW_Opp_DtPh3_06: 1,
-        pf_Sanctuary_Timer: 0,
-        pf_Grid_Node_Anchor_Timer: 0,
-        pg_SecretBagVwRb_NumberOfFlagsSet: 4,
-        pf_SilverCompleted_Complete_Coverage: 1,
-        pf_Unlocks_Focus_FlowAttackFluency: 1,
-        pf_Security_Hub_The_View_1_CompletedTime: 5457,
-        pf_IntelCollectiblesMission_Kingdom: 1,
-        pf_MiscCompleted_OW_Opp_AncPh5_05: 1,
-        pf_Top_of_the_World_Briefing_Available: 0,
-        pf_Old_Friends_Available: 0,
-        pf_Security_Hub_Downtown_4_Available: 0,
-        pf_SilverCompleted_Two_Pigeons_With_One_Stone: 1,
-        pf_SilverCompleted_Two_Pigeons_With_One_Stone_Chase: 1,
-        pg_MiscCompleted_NumberOfFlagsSet: 40,
-        pf_Break_And_Entry_CompletedTime: 21483,
-        pf_SecurityHubsCompleted_SecHubDowntown1: 1,
-        pf_Security_Hub_Downtown_4_CompletedTime: 17162,
-        pf_Birdman_s_Delivery_Timer: 0,
-        pf_The_Shard_Briefing_CompletedTime: 13,
-        pf_OWPh7Delivery01_Available: 1,
-        pf_Back_in_the_Game_Debriefing_CompletedTime: 103,
-        pf_GoldCompleted_Benefactor_Lair_Briefing: 1,
-        pf_OW_Opp_DtPh2_01_Available: 0,
-        pf_Caught_in_the_Web_Available: 0,
-        pf_MiscCompleted_OW_Opp_VwPh7_05: 1,
-        pf_Reunion_Timer: 0,
-        pf_Grid_Node_Downtown_CompletedTime: 44157,
-        pg_SecretBagDtCy_NumberOfFlagsSet: 3,
-        pf_Back_in_the_Game_Debriefing_Available: 0,
-        pg_IntelTrainstation_NumberOfFlagsSet: 2,
-        pg_AudioPickupTheShard_NumberOfFlagsSet: 2,
-        pf_Savant_Extraordinaire_Meeting_Plastic_Available: 0,
-        pf_Tickets__Please_Timer: 0,
-        pf_OW_Opp_DtPh3_01_CompletedTime: 12326,
-        pf_Savant_Extraordinaire_Getting_Magrope_CompletedTime: 911,
-        pf_GoldCompleted_Vive_La_Resistance_Briefing: 1,
-        pg_IntelDtCp_NumberOfFlagsSet: 4,
-        pf_BronzeCompleted_Security_Hub_Downtown_3: 1,
-        pf_OW_Opp_CtPh6_06_Available: 0,
-        pf_OWPh2Delivery02_Available: 0,
-        pf_Unlocks_IncreasedHealth2: 1,
-        pf_Fly_Trap_Timer: 0,
-        pf_OWPh4Delivery02_Available: 0,
-        pg_ConstructionGridLeaks_NumberOfFlagsSet: 74,
-        pf_GoldCompleted_Vive_La_Resistance_Debriefing: 1,
-        pf_Top_of_the_World_CompletedTime: 62327,
-        pf_Savant_Extraordinaire_Available: 0,
-        pf_Unlocks_ExtendedComboVulnerability: 1,
-        pf_Kingdom_CompletedTime: 48870,
-        pf_MiscCompleted_OW_Opp_AncPh5_02: 1,
-        pf_OW_Opp_AncPh5_06_CompletedTime: 2200,
-        pf_MiscCompleted_OW_Opp_CtPh6_02: 1,
-        pf_MiscCompleted_OW_Opp_AncPh4_06: 1,
-        pf_Payback_Available: 0,
-        pf_Security_Hub_Downtown_1_Available: 0,
-        pf_OWPh2Delivery03_CompletedTime: 0,
-        pf_BronzeCompleted_OWPh4Delivery01: 0,
-        pf_Prisoner_X_Available: 0,
-        pf_The_Meta_Grid_Available: 0,
-        pf_OW_Opp_VwPh7_02_Available: 0,
-        pf_OW_Opp_DtPh2_02_Available: 0,
-        pf_Kingdom_Debriefing_CompletedTime: 13,
-        pg_AudioPickupDtCh_NumberOfFlagsSet: 1,
-        pf_Release_Available: 0,
-        pf_Vive_La_Resistance_Available: 0,
-        pf_Birdman_s_Delivery_CompletedTime: 7678,
-        pf_Grid_Node_The_View_CompletedTime: 69256,
-        pf_OWPh6Delivery01_Available: 0,
-        pf_GoldCompleted_Prisoner_X: 3,
-        pf_Grid_Node_Downtown_Timer: 0,
-        pg_IntelDtCy_NumberOfFlagsSet: 7,
-        pf_Unlocks_Focus_ReachFlow_Increase: 1,
-        pg_TheViewGridLeaks_NumberOfFlagsSet: 80,
-        pf_OW_Opp_VwPh7_04_CompletedTime: 19581,
-        pf_Release_Timer: 0,
-        pf_Finger_on_the_Pulse_CompletedTime: 2699,
-        pf_Unlocks_FastClimb: 1,
-        pf_Family_Matters_Debriefing_CompletedTime: 13,
-        pg_IntelRzRdz_NumberOfFlagsSet: 2,
-        pf_OW_Opp_AncPh5_02_CompletedTime: 14813,
-        pf_RunnerBagsMission_RunnerBagsKingdom: 2,
-        pf_MiscCompleted_OW_Opp_CtPh6_06: 1,
-        pf_Encroachment_CompletedTime: 20542,
-        pg_AudioPickupDtTd_NumberOfFlagsSet: 3,
-        pf_MiscCompleted_OW_Opp_DtPh2_04: 1,
-        pf_GoldCompleted_Savant_Extraordinaire_Briefing: 1,
-        pf_GreenCollectiblesMission_TheShard: 2,
-        pf_OW_Opp_CtPh6_03_CompletedTime: 12915,
-        pf_Vive_La_Resistance_CompletedTime: 40883,
-        pf_OWPh5Delivery01_Available: 1,
-        pf_The_Meta_Grid_CompletedTime: 2273,
-        pf_MiscCompleted_OW_Opp_DtPh3_02: 1,
-        pf_SilverCompleted_Caught_in_the_Web_Briefing: 1,
-        pf_BronzeCompleted_OWPh6Delivery01: 1,
-        pf_SecurityHubsCompleted_SecHubPayback: 1,
-        pf_MiscCompleted_OW_Opp_AncPh4_05: 1,
-        pf_Family_Matters_Briefing_Available: 0,
-        pg_AudioPickupGridLeaks_NumberOfFlagsSet: 5,
-        pf_OW_Opp_AncPh5_01_CompletedTime: 13733,
-        pf_BronzeCompleted_Security_Hub_The_View_1: 1,
-        pf_GreenCollectiblesMission_BackInTheGame: 2,
-        pf_Unlocks_Shift: 1,
-        pf_OWPh6Delivery01_CompletedTime: 16856,
-        pf_OW_Opp_AncPh4_01_CompletedTime: 4506,
-        pg_IntelDtTd_NumberOfFlagsSet: 4,
-        pf_OW_Opp_VwPh7_04_Available: 0,
-        pf_Kingdom_Execution_Scene_Available: 0,
-        pf_OW_Opp_DtPh3_08_Available: 0,
-        pg_AudioPickupRzRdz_NumberOfFlagsSet: 4,
-        pg_ElectronicPartsAcEv_NumberOfFlagsSet: 24,
-        pf_OW_Opp_DtPh2_03_CompletedTime: 7124,
-        pf_GreenCollectiblesMission_PrisonerX: 2,
-        pf_Unlocks_FlowAttack_Special_PowerAttack: 1,
-        pf_Encroachment_Available: 0,
-        pf_OW_Opp_CtPh6_04_CompletedTime: 12760,
-        pf_Drone_Works_Timer: 0,
-        pf_Grid_Node_Construction_Timer: 0,
-        pf_Unlocks_PositionalAdvantage: 1,
-        pf_OW_Opp_DtPh3_04_CompletedTime: 7927,
-        pf_Reunion_CompletedTime: 4068,
-        pf_Grid_Node_Anchor_CompletedTime: 43980,
-        pf_SilverCompleted_The_Meta_Grid_Briefing: 1,
-        pf_GoldCompleted_Back_in_the_Game_Briefing: 1,
-        pf_GoldCompleted_Mischief_Maker: 1,
-        pg_SecretBagDtCh_NumberOfFlagsSet: 1,
-        pf_Benefactor_Timer: 0,
-        pf_Unlocks_Coil: 1,
-        pf_Old_Friends_Timer: 0,
-        pf_Vive_La_Resistance_Timer: 0,
-        pf_An_Ear_to_the_Ground_Available: 0,
-        pg_ElectronicPartsDtCy_NumberOfFlagsSet: 17,
-        pf_GoldCompleted_Back_in_the_Game: 3,
-      },
+      userStats: userStats,
       userReachThis: [],
       userTimeTrials: [],
       promotedUGC: [],
@@ -524,717 +76,243 @@ export default {
         ugcBookmarks: [],
         challengeBookmarks: [],
       },
-      inventory: {
-        kits: [
-          {
-            id: '0021B2F9-CEBD-4707-A194-D6D99B29BBBC',
-            kitType: '1C2F1E19-292D-49DF-8A75-0441F6C3B32C',
-            opened: true,
-          },
-          {
-            id: '00821411-68A8-47AC-A22E-7890174A2F73',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: true,
-          },
-          {
-            id: '06CD3E46-A1DB-4201-A574-4A7C3B5746E4',
-            kitType: '38EEF404-CD00-4964-9F10-E12E9313CCB8',
-            opened: true,
-          },
-          {
-            id: '1348E106-5B53-4749-BC68-A314671E873A',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: false,
-          },
-          {
-            id: '18D7396B-5D95-4A98-B08A-8CE44D4DA3D0',
-            kitType: 'E3CCCE96-2FEE-46FF-A690-F6CDFAB56FEB',
-            opened: true,
-          },
-          {
-            id: '1B3249F9-FD95-4647-8AF6-FAA206DC7E1C',
-            kitType: 'BB7861A9-4B9D-4ADB-8660-C9FF6C0F7986',
-            opened: true,
-          },
-          {
-            id: '1EC986BD-13AD-46E1-964D-18E37070991C',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: '223F2113-06BB-4430-991B-195D7468E0F2',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: true,
-          },
-          {
-            id: '2291E3A0-AA65-4A2D-84CF-CCBBA73DF707',
-            kitType: '7283A61B-470E-47D9-9622-92C4FF684CAA',
-            opened: false,
-          },
-          {
-            id: '25590F12-E99D-4275-A4D8-8FAAD5E9943F',
-            kitType: 'E6042F6C-AD8C-4F52-A17B-1B54EA3B38F5',
-            opened: true,
-          },
-          {
-            id: '269774C3-F4BF-4ABA-AD09-1BD7EEEE147E',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: true,
-          },
-          {
-            id: '2B716623-3F3F-41E2-B14C-ECA7B21E3CDF',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: false,
-          },
-          {
-            id: '301F39BF-A027-4535-8ED3-AB293C1C20E9',
-            kitType: 'C6509071-D1C5-4352-94A6-5CA46D678DE8',
-            opened: false,
-          },
-          {
-            id: '371956A4-BEC3-492D-960B-22848A24ADF0',
-            kitType: '38EEF404-CD00-4964-9F10-E12E9313CCB8',
-            opened: true,
-          },
-          {
-            id: '408B3A94-A824-4A57-A042-2E8BE63E361D',
-            kitType: '38EEF404-CD00-4964-9F10-E12E9313CCB8',
-            opened: true,
-          },
-          {
-            id: '4EF21635-2BC3-44C7-84D9-533F810C9675',
-            kitType: 'F1A67D70-66EF-44F0-AEAF-C86205B39871',
-            opened: true,
-          },
-          {
-            id: '52BCFB04-CF5E-4EBA-9DC8-089973ECAFD7',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: true,
-          },
-          {
-            id: '56EF37EF-77D5-4AF4-88D8-72A8E03F0403',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: '59400BE4-407C-48DB-BD64-5CEBA91A5295',
-            kitType: '38EEF404-CD00-4964-9F10-E12E9313CCB8',
-            opened: true,
-          },
-          {
-            id: '5FEE722C-8608-4A0D-A258-B7AA9678A872',
-            kitType: 'CBDEFD11-5229-4444-8D36-C3B6406B874D',
-            opened: true,
-          },
-          {
-            id: '60BA559A-E18D-4698-86BB-144E2BEA8DED',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: '6598F72A-B951-4178-AFB8-313355C26715',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: true,
-          },
-          {
-            id: '6671B289-222D-4B78-9A61-4855DA4EC381',
-            kitType: 'BB7861A9-4B9D-4ADB-8660-C9FF6C0F7986',
-            opened: true,
-          },
-          {
-            id: '78321FCF-E4D0-4B03-9A7E-3E861A5DEDAC',
-            kitType: 'BB7861A9-4B9D-4ADB-8660-C9FF6C0F7986',
-            opened: true,
-          },
-          {
-            id: '79741B91-E054-4266-919F-B3975E2AD453',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: true,
-          },
-          {
-            id: '7D3BF62C-C47B-4A68-9A9E-3F72AB447B93',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: '7F420D89-4064-42F2-A7D1-C7E7BE6627FA',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: false,
-          },
-          {
-            id: '81761505-BE87-4E25-A12D-E11435025D9F',
-            kitType: 'C6509071-D1C5-4352-94A6-5CA46D678DE8',
-            opened: true,
-          },
-          {
-            id: '847B7B7A-6483-4E57-8DFC-3DB9AF94775B',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: true,
-          },
-          {
-            id: '86E7CDCA-157B-4259-BBE7-F9C8B17F993F',
-            kitType: '1C2F1E19-292D-49DF-8A75-0441F6C3B32C',
-            opened: false,
-          },
-          {
-            id: '8DC5A500-1D55-4B78-9A24-3D1F21E95938',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: true,
-          },
-          {
-            id: '8F86B5A0-2B1A-4984-A430-1E561B09E8C9',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: '930DD4D3-9715-47F7-B655-022C7EF056AA',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: false,
-          },
-          {
-            id: '934F383A-B437-45CB-9F66-2E481B30E41D',
-            kitType: 'CBDEFD11-5229-4444-8D36-C3B6406B874D',
-            opened: true,
-          },
-          {
-            id: '9D18DEDF-62EB-440C-873E-BAA4840D947E',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: false,
-          },
-          {
-            id: '9EC2990A-CAB5-4BFE-828F-0D2B321F3646',
-            kitType: '38EEF404-CD00-4964-9F10-E12E9313CCB8',
-            opened: true,
-          },
-          {
-            id: 'A41E8D29-FA20-4095-95BC-4F97ED94DB6D',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: true,
-          },
-          {
-            id: 'A9D996D9-6985-47FC-8A7D-32FE360D1082',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: 'AB1EAC40-5392-4CC5-ABFE-2CF89A7F7659',
-            kitType: 'CBDEFD11-5229-4444-8D36-C3B6406B874D',
-            opened: true,
-          },
-          {
-            id: 'ABA7F111-2C64-43A1-B9DE-78F67E16E83C',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: true,
-          },
-          {
-            id: 'ADC337DB-95E4-4A7C-9728-C91DB6F6C3F5',
-            kitType: '1C2F1E19-292D-49DF-8A75-0441F6C3B32C',
-            opened: true,
-          },
-          {
-            id: 'AF9B9D32-EBED-4C92-9252-3F290C750B87',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: true,
-          },
-          {
-            id: 'B6CC16FE-2958-48FC-9D92-6839BA310C2A',
-            kitType: '1C2F1E19-292D-49DF-8A75-0441F6C3B32C',
-            opened: true,
-          },
-          {
-            id: 'B8B9099A-31AE-43E8-98A0-364220FDEBAC',
-            kitType: '0BA6E906-1ABE-48E4-AEE0-C2262266C790',
-            opened: true,
-          },
-          {
-            id: 'BB556CF0-ACB3-4604-9045-389BF8BD1081',
-            kitType: 'BB7861A9-4B9D-4ADB-8660-C9FF6C0F7986',
-            opened: true,
-          },
-          {
-            id: 'BCA9801E-F32E-409B-9709-0386790AB503',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: false,
-          },
-          {
-            id: 'BF6A83C1-81B2-4F89-992F-1347888783C6',
-            kitType: 'E3CCCE96-2FEE-46FF-A690-F6CDFAB56FEB',
-            opened: false,
-          },
-          {
-            id: 'C46B4D54-0B69-4220-93B0-7491D5EC023A',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: 'CDC8864D-FA35-404E-9C9A-8BDF86366E1F',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: 'D49D24FB-A726-4C5F-A903-F62921F29294',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: false,
-          },
-          {
-            id: 'D4A9BD51-8E80-4535-8335-7E45F53444B9',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: true,
-          },
-          {
-            id: 'DDE96E6D-469D-487C-9117-CE1365C8ADEE',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: 'E064CDB7-2DB0-4DC0-A367-458FE0217CFE',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-          {
-            id: 'EC594201-154E-4CAD-9FAF-A668351000DE',
-            kitType: 'BB7861A9-4B9D-4ADB-8660-C9FF6C0F7986',
-            opened: true,
-          },
-          {
-            id: 'EF3ECCBF-CBE8-4A0F-A3F1-0DAD80D6DC4A',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: true,
-          },
-          {
-            id: 'F03D6E7A-8198-4898-8B44-A0D5B19EAB8A',
-            kitType: 'DF0241FF-5B96-403A-96D5-ED0E77FCDFD5',
-            opened: true,
-          },
-          {
-            id: 'F0EAFE92-1596-42E1-A00C-B9F71D8C8006',
-            kitType: 'C6509071-D1C5-4352-94A6-5CA46D678DE8',
-            opened: true,
-          },
-          {
-            id: 'F152DC7B-C000-4819-9C88-B2E877097429',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: true,
-          },
-          {
-            id: 'F25FAD77-2AB1-4459-A1BF-73F940CF4AB2',
-            kitType: '772BCA36-59FC-46D3-81A3-5622A3C4BCD9',
-            opened: true,
-          },
-          {
-            id: 'F51D9463-0A60-4EA7-B40E-2D18BD0F67EA',
-            kitType: '1C2F1E19-292D-49DF-8A75-0441F6C3B32C',
-            opened: true,
-          },
-          {
-            id: 'FD478A49-8144-44C9-AC02-5833B8867D57',
-            kitType: '49F6EC1E-805D-455E-B211-8228BED1C3E3',
-            opened: true,
-          },
-        ],
-        items: [
-          {
-            id: '1070254556',
-            count: 1,
-          },
-          {
-            id: '1120748012',
-            count: 1,
-          },
-          {
-            id: '1143444729',
-            count: 1,
-          },
-          {
-            id: '1183558251',
-            count: 1,
-          },
-          {
-            id: '1189189939',
-            count: 1,
-          },
-          {
-            id: '1223506364',
-            count: 1,
-          },
-          {
-            id: '1223661873',
-            count: 1,
-          },
-          {
-            id: '1288457120',
-            count: 1,
-          },
-          {
-            id: '1311986746',
-            count: 1,
-          },
-          {
-            id: '1345791921',
-            count: 1,
-          },
-          {
-            id: '1396890443',
-            count: 1,
-          },
-          {
-            id: '1399141803',
-            count: 1,
-          },
-          {
-            id: '1402692594',
-            count: 1,
-          },
-          {
-            id: '1437370938',
-            count: 1,
-          },
-          {
-            id: '1448742558',
-            count: 1,
-          },
-          {
-            id: '1485773914',
-            count: 1,
-          },
-          {
-            id: '1514008114',
-            count: 1,
-          },
-          {
-            id: '1558888422',
-            count: 1,
-          },
-          {
-            id: '162594790',
-            count: 1,
-          },
-          {
-            id: '1679314630',
-            count: 1,
-          },
-          {
-            id: '1725571356',
-            count: 1,
-          },
-          {
-            id: '1824461692',
-            count: 1,
-          },
-          {
-            id: '1846159064',
-            count: 1,
-          },
-          {
-            id: '1996148657',
-            count: 1,
-          },
-          {
-            id: '2046797545',
-            count: 1,
-          },
-          {
-            id: '215898171',
-            count: 1,
-          },
-          {
-            id: '216500560',
-            count: 1,
-          },
-          {
-            id: '2213229352',
-            count: 1,
-          },
-          {
-            id: '232356850',
-            count: 1,
-          },
-          {
-            id: '2332386109',
-            count: 1,
-          },
-          {
-            id: '2398900257',
-            count: 1,
-          },
-          {
-            id: '24378910',
-            count: 1,
-          },
-          {
-            id: '244578012',
-            count: 1,
-          },
-          {
-            id: '2463240344',
-            count: 1,
-          },
-          {
-            id: '2532402073',
-            count: 1,
-          },
-          {
-            id: '2556762952',
-            count: 1,
-          },
-          {
-            id: '2573550572',
-            count: 1,
-          },
-          {
-            id: '2626703006',
-            count: 1,
-          },
-          {
-            id: '2645211691',
-            count: 1,
-          },
-          {
-            id: '2648777142',
-            count: 1,
-          },
-          {
-            id: '2683930401',
-            count: 1,
-          },
-          {
-            id: '2710233375',
-            count: 1,
-          },
-          {
-            id: '2737174629',
-            count: 1,
-          },
-          {
-            id: '2743303796',
-            count: 1,
-          },
-          {
-            id: '2863864526',
-            count: 1,
-          },
-          {
-            id: '2942898097',
-            count: 1,
-          },
-          {
-            id: '294373848',
-            count: 1,
-          },
-          {
-            id: '2973486374',
-            count: 1,
-          },
-          {
-            id: '3020191357',
-            count: 1,
-          },
-          {
-            id: '3049936381',
-            count: 1,
-          },
-          {
-            id: '3051441250',
-            count: 1,
-          },
-          {
-            id: '3119226193',
-            count: 1,
-          },
-          {
-            id: '3174165210',
-            count: 1,
-          },
-          {
-            id: '3176491650',
-            count: 1,
-          },
-          {
-            id: '3328861619',
-            count: 1,
-          },
-          {
-            id: '3331975617',
-            count: 1,
-          },
-          {
-            id: '3369933158',
-            count: 1,
-          },
-          {
-            id: '339938089',
-            count: 1,
-          },
-          {
-            id: '3420869487',
-            count: 1,
-          },
-          {
-            id: '3459691569',
-            count: 1,
-          },
-          {
-            id: '347023981',
-            count: 1,
-          },
-          {
-            id: '3542490953',
-            count: 1,
-          },
-          {
-            id: '3606065238',
-            count: 1,
-          },
-          {
-            id: '3720563836',
-            count: 1,
-          },
-          {
-            id: '3721474942',
-            count: 1,
-          },
-          {
-            id: '3732465449',
-            count: 1,
-          },
-          {
-            id: '3743738366',
-            count: 1,
-          },
-          {
-            id: '3769053394',
-            count: 1,
-          },
-          {
-            id: '3788651620',
-            count: 1,
-          },
-          {
-            id: '3804099507',
-            count: 1,
-          },
-          {
-            id: '3807408409',
-            count: 1,
-          },
-          {
-            id: '3814603228',
-            count: 1,
-          },
-          {
-            id: '3814728368',
-            count: 1,
-          },
-          {
-            id: '3834883717',
-            count: 1,
-          },
-          {
-            id: '3962444443',
-            count: 1,
-          },
-          {
-            id: '397901330',
-            count: 1,
-          },
-          {
-            id: '4036551115',
-            count: 1,
-          },
-          {
-            id: '4080907579',
-            count: 1,
-          },
-          {
-            id: '4096073036',
-            count: 1,
-          },
-          {
-            id: '411643776',
-            count: 1,
-          },
-          {
-            id: '4161462718',
-            count: 1,
-          },
-          {
-            id: '4201732671',
-            count: 1,
-          },
-          {
-            id: '420718923',
-            count: 1,
-          },
-          {
-            id: '42501458',
-            count: 1,
-          },
-          {
-            id: '4277077029',
-            count: 1,
-          },
-          {
-            id: '501936717',
-            count: 1,
-          },
-          {
-            id: '54308782',
-            count: 1,
-          },
-          {
-            id: '668878093',
-            count: 1,
-          },
-          {
-            id: '70859530',
-            count: 1,
-          },
-          {
-            id: '717478196',
-            count: 1,
-          },
-          {
-            id: '755475321',
-            count: 1,
-          },
-          {
-            id: '756825431',
-            count: 1,
-          },
-          {
-            id: '769109517',
-            count: 1,
-          },
-          {
-            id: '810778811',
-            count: 1,
-          },
-          {
-            id: '866999881',
-            count: 1,
-          },
-          {
-            id: '869446906',
-            count: 1,
-          },
-          {
-            id: '870379730',
-            count: 1,
-          },
-          {
-            id: '940859624',
-            count: 1,
-          },
-          {
-            id: '948181069',
-            count: 1,
-          },
-          {
-            id: '996320292',
-            count: 1,
-          },
-        ],
-      },
+      inventory: await getInventoryFromDb(personaId),
     }
+
+    // if (params.levelIds[0] === 2354048661) {
+    //   const userReachThisPromise = db.reachThis.findMany({
+    //     where: {
+    //       creatorId: personaId,
+    //     },
+    //   })
+
+    //   const userTimeTrialsPromise = db.timeTrial.findMany({
+    //     where: { creatorId: personaId },
+    //   })
+
+    //   const promotedReachThisPromise = db.reachThis.findMany({
+    //     where: {
+    //       creatorId: {
+    //         not: personaId,
+    //       },
+    //     },
+    //     take: 5,
+    //   })
+
+    //   const promotedTimeTrialsPromise = db.timeTrial.findMany({
+    //     where: {
+    //       creatorId: {
+    //         not: personaId,
+    //       },
+    //     },
+    //     take: 5,
+    //   })
+
+    //   // const ugcBookmarksPromise = prisma.uGCBookmark.findMany({
+    //   //   where: {
+    //   //     userId: personaId,
+    //   //   },
+    //   // })
+
+    //   // const challengeBookmarksPromise = prisma.challengeBookmark.findMany({
+    //   //   where: {
+    //   //     userId: personaId,
+    //   //   },
+    //   // })
+
+    //   await Promise.allSettled([
+    //     userReachThisPromise,
+    //     userTimeTrialsPromise,
+    //     promotedReachThisPromise,
+    //     promotedTimeTrialsPromise,
+    //     // ugcBookmarksPromise,
+    //     // challengeBookmarksPromise,
+    //   ]).then(
+    //     ([
+    //       userReachThis,
+    //       userTimeTrials,
+    //       promotedReachThis,
+    //       promotedTimeTrials,
+    //       // ugcBookmarks,
+    //       // challengeBookmarks,
+    //     ]) => {
+    //       if (userReachThis.status === 'fulfilled') {
+    //         returnObject.playerInfo.userReachThis = userReachThis.value.map(
+    //           (reachThis) => {
+    //             return {
+    //               meta: {
+    //                 ugcId: {
+    //                   userId: reachThis.creatorId,
+    //                   id: reachThis.id,
+    //                 },
+    //                 name: reachThis.name,
+    //                 creatorName: user.name,
+    //                 createdAt: reachThis.createdAt,
+    //                 updatedAt: reachThis.updatedAt,
+    //                 published: reachThis.published,
+    //                 reported: false,
+    //                 blocked: false,
+    //                 levelId: -1940918635,
+    //                 transform: {
+    //                   x: reachThis.transformX,
+    //                   y: reachThis.transformY,
+    //                   z: reachThis.transformZ,
+    //                   qx: reachThis.transformQx,
+    //                   qy: reachThis.transformQy,
+    //                   qz: reachThis.transformQz,
+    //                   qw: reachThis.transformQw,
+    //                 },
+    //                 mapPosition: {
+    //                   x: reachThis.mapPositionX,
+    //                   y: reachThis.mapPositionY,
+    //                   z: reachThis.mapPositionZ,
+    //                 },
+    //                 typeId: 'ReachThis',
+    //               },
+    //               stats: null,
+    //               userStats: null,
+    //               userRank: null,
+    //             }
+    //           }
+    //         ) as never[] // shut up typescript
+    //       }
+
+    //       if (userTimeTrials.status === 'fulfilled') {
+    //         returnObject.playerInfo.userTimeTrials = userTimeTrials.value.map(
+    //           (timeTrial) => {
+    //             return {
+    //               meta: {
+    //                 ugcId: {
+    //                   userId: timeTrial.creatorId,
+    //                   id: timeTrial.id,
+    //                 },
+    //                 name: timeTrial.name,
+    //                 creatorName: user.name,
+    //                 createdAt: timeTrial.createdAt,
+    //                 updatedAt: timeTrial.updatedAt,
+    //                 published: timeTrial.published,
+    //                 reported: false,
+    //                 blocked: false,
+    //                 levelId: -1940918635,
+    //                 transform: {
+    //                   x: timeTrial.transformX,
+    //                   y: timeTrial.transformY,
+    //                   z: timeTrial.transformZ,
+    //                   qx: timeTrial.transformQx,
+    //                   qy: timeTrial.transformQy,
+    //                   qz: timeTrial.transformQz,
+    //                   qw: timeTrial.transformQw,
+    //                 },
+    //                 teleportTransform: {
+    //                   x: timeTrial.teleportTransformX,
+    //                   y: timeTrial.teleportTransformY,
+    //                   z: timeTrial.teleportTransformZ,
+    //                   qx: timeTrial.teleportTransformQx,
+    //                   qy: timeTrial.teleportTransformQy,
+    //                   qz: timeTrial.teleportTransformQz,
+    //                   qw: timeTrial.teleportTransformQw,
+    //                 },
+    //                 ugcUrl: 'placeholder.com', // TODO: Implement
+    //                 typeId: 'TimeTrial',
+    //               },
+    //               stats: null,
+    //               userStats: null,
+    //               userRank: null,
+    //             }
+    //           }
+    //         ) as never[] // shut up typescript
+    //       }
+
+    //       const promotedUGC = []
+
+    //       if (promotedReachThis.status === 'fulfilled') {
+    //         promotedUGC.push(
+    //           ...promotedReachThis.value.map((reachThis) => {
+    //             return {
+    //               meta: {
+    //                 ugcId: {
+    //                   userId: reachThis.creatorId,
+    //                   id: reachThis.id,
+    //                 },
+    //                 name: reachThis.name,
+    //                 creatorName: reachThis.creatorName,
+    //                 createdAt: reachThis.createdAt,
+    //                 updatedAt: reachThis.updatedAt,
+    //                 published: reachThis.published,
+    //                 reported: false,
+    //                 blocked: false,
+    //                 levelId: -1940918635,
+    //                 transform: {
+    //                   x: reachThis.transformX,
+    //                   y: reachThis.transformY,
+    //                   z: reachThis.transformZ,
+    //                   qx: reachThis.transformQx,
+    //                   qy: reachThis.transformQy,
+    //                   qz: reachThis.transformQz,
+    //                   qw: reachThis.transformQw,
+    //                 },
+    //                 mapPosition: {
+    //                   x: reachThis.mapPositionX,
+    //                   y: reachThis.mapPositionY,
+    //                   z: reachThis.mapPositionZ,
+    //                 },
+    //                 typeId: 'ReachThis',
+    //               },
+    //               reason: 3, // TODO: figure out (6 = friend, 3 = random ?)
+    //             }
+    //           })
+    //         )
+    //       }
+
+    //       if (promotedTimeTrials.status === 'fulfilled') {
+    //         promotedUGC.push(
+    //           ...promotedTimeTrials.value.map((timeTrial) => {
+    //             return {
+    //               meta: {
+    //                 ugcId: {
+    //                   userId: timeTrial.creatorId,
+    //                   id: timeTrial.id,
+    //                 },
+    //                 name: timeTrial.name,
+    //                 creatorName: timeTrial.creatorName,
+    //                 createdAt: timeTrial.createdAt,
+    //                 updatedAt: timeTrial.updatedAt,
+    //                 published: timeTrial.published,
+    //                 reported: false,
+    //                 blocked: false,
+    //                 levelId: -1940918635,
+    //                 transform: {
+    //                   x: timeTrial.transformX,
+    //                   y: timeTrial.transformY,
+    //                   z: timeTrial.transformZ,
+    //                   qx: timeTrial.transformQx,
+    //                   qy: timeTrial.transformQy,
+    //                   qz: timeTrial.transformQz,
+    //                   qw: timeTrial.transformQw,
+    //                 },
+    //                 teleportTransform: {
+    //                   x: timeTrial.teleportTransformX,
+    //                   y: timeTrial.teleportTransformY,
+    //                   z: timeTrial.teleportTransformZ,
+    //                   qx: timeTrial.teleportTransformQx,
+    //                   qy: timeTrial.teleportTransformQy,
+    //                   qz: timeTrial.teleportTransformQz,
+    //                   qw: timeTrial.teleportTransformQw,
+    //                 },
+    //                 ugcUrl: 'placeholder.com', // TODO: Implement
+    //                 typeId: 'TimeTrial',
+    //               },
+    //               reason: 3, // TODO: figure out (6 = friend, 3 = random ?)
+    //             }
+    //           })
+    //         )
+    //       }
+
+    //       returnObject.playerInfo.promotedUGC = promotedUGC as never[] // shut up typescript
+    //     }
+    //   )
+    // }
+
+    return returnObject
   },
 }

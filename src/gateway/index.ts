@@ -40,8 +40,9 @@ const fastify = Fastify({
 // )
 
 const ignoreList = [
-  'PamplonaAuthenticated.grantKit',
-  'PamplonaAuthenticated.updatePersonaStats',
+  ''
+  // 'PamplonaAuthenticated.grantKit',
+  // 'PamplonaAuthenticated.updatePersonaStats',
 ]
 
 fastify.post('/gatewayApi', (req, reply) => {
@@ -50,16 +51,16 @@ fastify.post('/gatewayApi', (req, reply) => {
 
   const method = jsonRPCRequest.method
 
+  console.log(jsonRPCRequest.params)
+  
   if (!ignoreList.includes(method)) {
     console.log(method)
   }
 
   server.receive(jsonRPCRequest, { session }).then((response) => {
     if (response) {
-      console.log('res', response)
       return reply.send(response)
     } else {
-      console.log('something went wrong', method)
       return reply.send('')
     }
   })
@@ -72,6 +73,6 @@ try {
   process.exit(1)
 }
 
-export function getOnlineUser(sessionId: string) {
+export function getUserFromSession(sessionId: string) {
   return '1011786733'
 }

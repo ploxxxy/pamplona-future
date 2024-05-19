@@ -1,0 +1,214 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  personaId          String              @id @unique
+  name               String              @unique
+  division           Division            @default(Copper)
+  divisionRank       Int                 @default(5)
+  userStats          UserStats[]
+  userReachThis      ReachThis[]
+  userTimeTrials     TimeTrial[]
+  ugcBookmarks       UGCBookmark[]
+  challengeBookmarks ChallengeBookmark[]
+  kitUnlocks         KitUnlock[]
+  itemUnlocks        ItemUnlock[]
+  tagData            TagData?
+}
+
+enum Division {
+  Red
+  Gold
+  Silver
+  Bronze
+  Copper
+}
+
+model ProgressionFlag {
+  flag      String      @id @unique
+  userStats UserStats[]
+}
+
+model UserStats {
+  user   User   @relation(fields: [userId], references: [personaId])
+  userId String
+
+  flagRelation ProgressionFlag @relation(fields: [flag], references: [flag])
+  flag         String
+
+  value Int
+
+  @@id([userId, flag])
+}
+
+model ReachThis {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name      String
+  published Boolean
+
+  levelId Int @default(-1940918635)
+
+  transformX Float
+  transformY Float
+  transformZ Float
+
+  transformQx Float
+  transformQy Float
+  transformQz Float
+  transformQw Float
+
+  mapPositionX Float
+  mapPositionY Float
+  mapPositionZ Float
+
+  creator     User          @relation(fields: [creatorId], references: [personaId])
+  creatorId   String
+  creatorName String
+  bookmarks   UGCBookmark[]
+}
+
+model TimeTrial {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name      String
+  published Boolean
+
+  levelId Int @default(-1940918635)
+
+  transformX Float
+  transformY Float
+  transformZ Float
+
+  transformQx Float
+  transformQy Float
+  transformQz Float
+  transformQw Float
+
+  teleportTransformX Float
+  teleportTransformY Float
+  teleportTransformZ Float
+
+  teleportTransformQx Float
+  teleportTransformQy Float
+  teleportTransformQz Float
+  teleportTransformQw Float
+
+  creator     User          @relation(fields: [creatorId], references: [personaId])
+  creatorId   String
+  creatorName String
+  bookmarks   UGCBookmark[]
+}
+
+enum UGCType {
+  ReachThis
+  TimeTrial
+}
+
+model UGCBookmark {
+  id           String     @id @default(cuid())
+  ugcType      UGCType
+  bookmarkTime DateTime   @default(now())
+  name         String
+  reachThis    ReachThis? @relation(fields: [reachThisId], references: [id])
+  reachThisId  String?
+  timeTrial    TimeTrial? @relation(fields: [timeTrialId], references: [id])
+  timeTrialId  String?
+  user         User       @relation(fields: [userId], references: [personaId])
+  userId       String
+}
+
+enum ChallengeId {
+  ch_rrt_tv2_time
+  ch_rrt_tv04_time
+  ch_rrt_dt4_time
+  ch_rrt_tv3_time
+  ch_rrt_anc1_time
+  ch_rrt_dt1_time
+  ch_rrt_rz3_time
+  ch_rrt_tv05_time
+  ch_rrt_dt2_time
+  ch_rrt_rz4_time
+  ch_rrt_dt3_time
+  ch_rrt_anc4_time
+  ch_rrt_anc5_time
+  ch_rrt_bm1_time
+  ch_rrt_anc6_time
+  ch_rrt_tv1_time
+  ch_rrt_dt6_time
+  ch_rrt_anc2_time
+  ch_rrt_rz2_time
+  ch_rrt_anc3_time
+  ch_rrt_dt5_time
+  ch_rrt_rz1_time
+}
+
+enum ChallengeType {
+  RunnersRoute
+  HackableBillboard
+}
+
+model ChallengeBookmark {
+  id           String      @id @default(cuid())
+  bookmarkTime DateTime    @default(now())
+  challengeId  ChallengeId
+  user         User        @relation(fields: [userId], references: [personaId])
+  userId       String
+}
+
+model Kit {
+  id              String      @id
+  name            String
+  kitTypeRelation KitType     @relation(fields: [kitType], references: [id])
+  kitType         String
+  kitUnlocks      KitUnlock[]
+}
+
+model KitUnlock {
+  id     String  @id @default(cuid())
+  kit    Kit     @relation(fields: [kitId], references: [id])
+  user   User    @relation(fields: [userId], references: [personaId])
+  opened Boolean
+  kitId  String
+  userId String
+}
+
+model KitType {
+  id   String @id
+  name String
+  kits Kit[]
+}
+
+model Item {
+  id          String       @id
+  name        String
+  ItemUnlocks ItemUnlock[]
+}
+
+model ItemUnlock {
+  id     String @id @default(cuid())
+  item   Item   @relation(fields: [itemId], references: [id])
+  itemId String
+  count  Int
+  user   User   @relation(fields: [userId], references: [personaId])
+  userId String
+}
+
+model TagData {
+  id     String @id @default(cuid())
+  frame  String
+  bg     String
+  detail String
+  user   User   @relation(fields: [userId], references: [personaId])
+  userId String @unique
+}

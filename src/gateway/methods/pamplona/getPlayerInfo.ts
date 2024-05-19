@@ -19,8 +19,8 @@ export default {
         },
       ],
       division: {
-        name: 'Gold',
-        rank: 4,
+        name: 'Red',
+        rank: 1,
       },
     }
   },
