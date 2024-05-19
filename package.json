@@ -1,12 +1,16 @@
 {
   "scripts": {
-    "dev": "tsx ./src/",
-    "dev:blaze": "tsx ./src/blaze/",
-    "dev:gateway": "tsx ./src/gateway/",
+    "dev": "tsx ./src/ --env-file=.env",
+    "dev:blaze": "tsx ./src/blaze/ --env-file=.env",
+    "dev:gateway": "tsx ./src/gateway/ --env-file=.env",
     "build": "tsc",
     "start": "tsc && node ./build",
     "lint": "eslint ./src",
-    "lint:fix": "eslint --fix ./src"
+    "lint:fix": "eslint --fix ./src",
+    "resetdb": "prisma db push --force-reset && prisma db seed"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.2.0",
@@ -16,11 +20,15 @@
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "prettier-eslint": "^16.3.0",
+    "prisma": "^5.14.0",
     "tsx": "^4.10.1",
     "typescript-eslint": "^7.8.0"
   },
   "dependencies": {
+    "@prisma/client": "5.14.0",
     "chalk": "^5.3.0",
+    "fastify": "^4.27.0",
+    "json-rpc-2.0": "^1.7.0",
     "tdf.js": "github:ploxxxy/tdf.js",
     "typescript": "^5.4.5"
   }

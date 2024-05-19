@@ -100,7 +100,7 @@ export const fetchClientConfig = (value: string) => {
           bugSentryDisableCrashDumpCollection: 'true',
           bugSentryDisableGpuHangReports: 'true',
           engagementManagerApiEndpointUrlBase:
-            'http://localhost:3000/engagemtManager',
+            'http://localhost:4000/engagementManager',
           engagementManagerClientId: 'mirrorsedgecatalyst',
           gatewayApiEndpointUrl: 'http://localhost:3000/gatewayApi',
           gatewayClientId: 'pamplona-backend-as-user-pc',
