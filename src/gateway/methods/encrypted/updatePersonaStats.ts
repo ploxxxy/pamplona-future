@@ -26,15 +26,13 @@ export default {
     await db.$transaction(
       Object.entries(params.stats).map(([flag, value]) => {
         return db.userStats.upsert({
-          where: { userId_flag: { userId: '1011786733', flag } },
-          create: { userId: '1011786733', flag, value },
+          where: { userId_flag: { userId: user.personaId, flag } },
+          create: { userId: user.personaId, flag, value },
           update: { value },
         })
       })
     )
 
-    return {
-      success: true,
-    }
+    return 'success'
   },
 }

@@ -31,7 +31,7 @@ export const handleCommand = (
 ) => {
   switch (command) {
     case Commands.getLists:
-      console.log(packet.payload)
+      // console.log(packet.payload)
       // socket.write(getLists().encode(packet.header.msgNum)) // crasher
       break
     default:

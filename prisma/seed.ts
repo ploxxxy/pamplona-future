@@ -10,7 +10,7 @@ async function main() {
 
   await prisma.user.create({
     data: {
-      name: 'ploxxy',
+      name: 'ploxxxxxxy',
       personaId: '1011786733',
       division: 'Gold',
       divisionRank: 1,

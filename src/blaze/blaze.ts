@@ -77,18 +77,6 @@ export class Packet {
 
     header[15] = this.header.reserved & 0xff
 
-    // writeFileSync(
-    //   './temp/dump/' +
-    //     Component[this.header.component] +
-    //     '.' +
-    //     this.header.command +
-    //     '(' +
-    //     Math.floor(Math.random() * 10000) +
-    //     ')' +
-    //     '.tdf',
-    //   payload
-    // )
-
     return Buffer.concat([header, payload])
   }
 
@@ -108,11 +96,16 @@ export class Packet {
 
     const payload: TDF[] = []
 
-    console.log(stream.readableLength, header.payloadSize, stream.readableLength - header.payloadSize)
     
-    while (stream.readableLength > 0) {
+    const shouldBeLeft = stream.readableLength - header.payloadSize
+  
+    while (stream.readableLength > shouldBeLeft) {  
       const tdf = TDF.readTDF(stream)
       payload.push(tdf)
+    }
+
+    if (stream.readableLength != 0) {
+      console.log('found extra data after payload', stream.readableLength)
     }
 
     return new Packet(header, payload)

@@ -7,6 +7,8 @@ import { Commands as AssociationListsCommands } from './components/association-l
 import { Commands as AuthenticationCommands } from './components/authentication'
 import { Commands as UserSessionsCommands } from './components/user-sessions'
 import { Commands as UtilCommands } from './components/util'
+import { Commands as MessagingCommands } from './components/messaging'
+import { inspect } from 'util'
 
 export const logPacket = (
   header: PacketHeader,
@@ -31,7 +33,12 @@ export const logPacket = (
     case Component.AssociationLists:
       namedCommand = AssociationListsCommands[header.command]
       break
+    case Component.Messaging:
+      namedCommand = MessagingCommands[header.command]
+      break
   }
+
+  if (header.component === 0) return
 
   console.log(
     chalk[color](
@@ -39,5 +46,5 @@ export const logPacket = (
         ` [Blaze] ${incoming ? 'Received' : 'Sending'} ${Component[header.component] ?? header.component}.${namedCommand} (${header.payloadSize} bytes)`
     )
   )
-  // console.log(inspect(incoming ? _payload : '\n', false, null, true))
+  // console.log(inspect(incoming ? _payload : '', false, null, true))
 }

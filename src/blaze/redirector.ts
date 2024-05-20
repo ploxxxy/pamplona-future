@@ -14,9 +14,18 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
   <defaultdnsaddress>0</defaultdnsaddress>
 </serverinstanceinfo>`
 
-const server = http.createServer((_req, res) => {
+const server = http.createServer((req, res) => {
   console.log('[Redirector] Redirected')
 
+ let body = ''
+  req.on('data', (chunk) => {
+    body += chunk
+  })
+
+  req.on('end', () => {
+    console.log(body)
+  })
+  
   res.statusCode = 200
   res.setHeader('Content-Type', 'application/xml')
   res.end(xml)

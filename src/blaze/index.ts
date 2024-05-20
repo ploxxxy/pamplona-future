@@ -5,6 +5,7 @@ import * as AssociationLists from './components/association-lists'
 import * as Authentication from './components/authentication'
 import * as UserSessions from './components/user-sessions'
 import * as Util from './components/util'
+import * as Messaging from './components/messaging'
 import './redirector'
 import chalk from 'chalk'
 import { logPacket } from './helper'
@@ -23,7 +24,7 @@ const server = net.createServer((socket) => {
       handleIncomingPacket(packet, socket)
     } catch (error) {
       console.log(chalk.bgRedBright('[Blaze] ERROR'), error)
-      
+
       console.log({
         payloadSize:
           (data[0] << 24) | (data[1] << 16) | (data[2] << 8) | (data[3] << 0),
@@ -79,6 +80,9 @@ const handleIncomingPacket = (packet: Blaze.Packet, socket: net.Socket) => {
       break
     case Blaze.Component.AssociationLists:
       AssociationLists.handleCommand(packet.header.command, packet, socket)
+      break
+    case Blaze.Component.Messaging:
+      Messaging.handleCommand(packet.header.command, packet, socket)
       break
     default:
       throw new Error('Unhandled component: ' + packet.header.component)

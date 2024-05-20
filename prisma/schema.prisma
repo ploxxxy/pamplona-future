@@ -8,18 +8,18 @@ datasource db {
 }
 
 model User {
-  personaId          String              @id @unique
-  name               String              @unique
-  division           Division            @default(Copper)
-  divisionRank       Int                 @default(5)
-  userStats          UserStats[]
-  userReachThis      ReachThis[]
-  userTimeTrials     TimeTrial[]
-  ugcBookmarks       UGCBookmark[]
-  challengeBookmarks ChallengeBookmark[]
-  kitUnlocks         KitUnlock[]
-  itemUnlocks        ItemUnlock[]
-  tagData            TagData?
+  personaId            String              @id @unique
+  name                 String              @unique
+  division             Division            @default(Copper)
+  divisionRank         Int                 @default(5)
+  userStats            UserStats[]
+  userGeneratedContent Ugc[]
+  ugcBookmarks         UgcBookmark[]
+  challengeBookmarks   ChallengeBookmark[]
+  kitUnlocks           KitUnlock[]
+  itemUnlocks          ItemUnlock[]
+  tagData              TagData?
+  ugcEntries           UgcEntry[]
 }
 
 enum Division {
@@ -47,10 +47,15 @@ model UserStats {
   @@id([userId, flag])
 }
 
-model ReachThis {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum UgcType {
+  ReachThis
+  TimeTrial
+}
+
+model Ugc {
+  id        String @id @default(cuid())
+  createdAt String
+  updatedAt String
 
   name      String
   published Boolean
@@ -65,35 +70,34 @@ model ReachThis {
   transformQy Float
   transformQz Float
   transformQw Float
+
+  reachThis ReachThis?
+  timeTrial TimeTrial?
+
+  ugcEntries UgcEntry[]
+  ugcType    UgcType
+
+  creator   User          @relation(fields: [creatorId], references: [personaId])
+  creatorId String
+  bookmarks UgcBookmark[]
+}
+
+model ReachThis {
+  id String @id @default(uuid())
+
+  ugc   Ugc    @relation(fields: [ugcId], references: [id], onDelete: Cascade)
+  ugcId String @unique
 
   mapPositionX Float
   mapPositionY Float
   mapPositionZ Float
-
-  creator     User          @relation(fields: [creatorId], references: [personaId])
-  creatorId   String
-  creatorName String
-  bookmarks   UGCBookmark[]
 }
 
 model TimeTrial {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id String @id @default(uuid())
 
-  name      String
-  published Boolean
-
-  levelId Int @default(-1940918635)
-
-  transformX Float
-  transformY Float
-  transformZ Float
-
-  transformQx Float
-  transformQy Float
-  transformQz Float
-  transformQw Float
+  ugc   Ugc    @relation(fields: [ugcId], references: [id], onDelete: Cascade)
+  ugcId String @unique
 
   teleportTransformX Float
   teleportTransformY Float
@@ -103,31 +107,22 @@ model TimeTrial {
   teleportTransformQy Float
   teleportTransformQz Float
   teleportTransformQw Float
-
-  creator     User          @relation(fields: [creatorId], references: [personaId])
-  creatorId   String
-  creatorName String
-  bookmarks   UGCBookmark[]
 }
 
-enum UGCType {
-  ReachThis
-  TimeTrial
-}
-
-model UGCBookmark {
-  id           String     @id @default(cuid())
-  ugcType      UGCType
-  bookmarkTime DateTime   @default(now())
+model UgcBookmark {
+  id           String   @id @default(cuid())
+  ugcType      UgcType
+  bookmarkTime DateTime @default(now())
   name         String
-  reachThis    ReachThis? @relation(fields: [reachThisId], references: [id])
-  reachThisId  String?
-  timeTrial    TimeTrial? @relation(fields: [timeTrialId], references: [id])
-  timeTrialId  String?
-  user         User       @relation(fields: [userId], references: [personaId])
-  userId       String
+
+  ugc   Ugc    @relation(fields: [ugcId], references: [id])
+  ugcId String
+
+  user   User   @relation(fields: [userId], references: [personaId])
+  userId String
 }
 
+// TODO: create a challenge table instead
 enum ChallengeId {
   ch_rrt_tv2_time
   ch_rrt_tv04_time
@@ -211,4 +206,16 @@ model TagData {
   detail String
   user   User   @relation(fields: [userId], references: [personaId])
   userId String @unique
+}
+
+model UgcEntry {
+  id String @id @default(cuid())
+
+  ugc   Ugc    @relation(fields: [ugcId], references: [id])
+  ugcId String
+
+  score String
+
+  user   User   @relation(fields: [userId], references: [personaId])
+  userId String
 }

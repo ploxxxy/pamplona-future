@@ -24,6 +24,7 @@ export default {
   },
 }
 
+// TODO: remove ?
 export const getInventoryFromDb = async (personaId: string) => {
   const kits = await db.kitUnlock.findMany({
     where: {
