@@ -1,5 +1,6 @@
 import { getUserFromSession } from '../..'
 import db from '../../../common/prisma'
+import { extractUGCData } from '../../helper'
 
 export default {
   name: 'PamplonaAuthenticated.createReachThis',
@@ -8,7 +9,7 @@ export default {
       meta: {
         name: string
         levelId: number
-        published: true
+        published: boolean
         transform: {
           x: number
           y: number
@@ -65,35 +66,31 @@ export default {
         reachThis: {
           create: {
             // TODO: check if removes weird offset in-game
-            // mapPositionX: params.meta.mapPosition.x,
-            // mapPositionY: params.meta.mapPosition.y,
-            // mapPositionZ: params.meta.mapPosition.z,
-            mapPositionX: params.meta.transform.x,
-            mapPositionY: params.meta.transform.y,
-            mapPositionZ: params.meta.transform.z,
+            mapPositionX: params.meta.mapPosition.x,
+            mapPositionY: params.meta.mapPosition.y,
+            mapPositionZ: params.meta.mapPosition.z,
+            // mapPositionX: params.meta.transform.x,
+            // mapPositionY: params.meta.transform.y,
+            // mapPositionZ: params.meta.transform.z,
           },
         },
       },
       include: {
         reachThis: true,
+        creator: {
+          select: {
+            name: true,
+          },
+        },
       },
     })
 
-    if (!result.reachThis) {
+    const reachThisData = extractUGCData(result, ['META'])
+
+    if (!result.reachThis || !reachThisData) {
       throw new Error('ReachThis not created')
     }
 
-    return {
-      ugcId: {
-        id: result.reachThis.id,
-        userId: result.creatorId,
-      },
-      typeId: 'ReachThis',
-      transform: {
-        x: result.transformX,
-        y: result.transformY,
-        z: result.transformZ,
-      },
-    }
+    return reachThisData.meta
   },
 }

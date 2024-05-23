@@ -29,6 +29,6 @@ export default {
       },
     })
 
-    return result.map((ugc) => extractUGCData(ugc, ['META']))
+    return result.map((ugc) => extractUGCData(ugc, params.dataTypes))
   },
 }

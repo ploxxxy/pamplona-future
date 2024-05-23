@@ -29,7 +29,7 @@ export const handleCommand = (
   switch (command) {
     case Commands.sendMessage:
       console.log('sendMessage', packet.payload)
-      socket.write(sendMessage(0, packet).encode(0))
+      // socket.write(sendMessage(0, packet).encode(0))
       socket.write(sendMessage(1, packet).encode(packet.header.msgNum))
       break
     default:

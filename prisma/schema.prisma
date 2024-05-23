@@ -170,12 +170,13 @@ model Kit {
 }
 
 model KitUnlock {
-  id     String  @id @default(cuid())
   kit    Kit     @relation(fields: [kitId], references: [id])
   user   User    @relation(fields: [userId], references: [personaId])
   opened Boolean
   kitId  String
   userId String
+
+  @@id([kitId, userId])
 }
 
 model KitType {
@@ -191,12 +192,12 @@ model Item {
 }
 
 model ItemUnlock {
-  id     String @id @default(cuid())
   item   Item   @relation(fields: [itemId], references: [id])
   itemId String
-  count  Int
   user   User   @relation(fields: [userId], references: [personaId])
   userId String
+
+  @@id([itemId, userId])
 }
 
 model TagData {
@@ -209,13 +210,20 @@ model TagData {
 }
 
 model UgcEntry {
-  id String @id @default(cuid())
-
-  ugc   Ugc    @relation(fields: [ugcId], references: [id])
+  ugc   Ugc    @relation(fields: [ugcId], references: [id], onDelete: Cascade)
   ugcId String
 
   score String
+  finishedAt String
+
+  splitTimes String[]
+  wallrunDistance String?
+  maxperframeDistance String?
+  walkDistance String?
+  totalDistance String?
 
   user   User   @relation(fields: [userId], references: [personaId])
   userId String
+
+  @@id([ugcId, userId])
 }

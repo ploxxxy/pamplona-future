@@ -14,12 +14,16 @@ export default {
       throw new Error('Invalid session')
     }
 
-    let qty = params.radius || 5
+    const qty = params.radius || 5
 
     // TODO: query for entries NEAR user's entry
     const entries = await db.ugcEntry.findMany({
       where: {
-        ugcId: params.ugcId.id,
+        ugc: {
+          reachThis: {
+            id: params.ugcId.id,
+          },
+        },
       },
       orderBy: {
         score: 'desc',
@@ -39,7 +43,11 @@ export default {
 
     const totalCount = await db.ugcEntry.count({
       where: {
-        ugcId: params.ugcId.id,
+        ugc: {
+          reachThis: {
+            id: params.ugcId.id,
+          },
+        },
       },
     })
 
@@ -50,33 +58,48 @@ export default {
     //   },
     // })
 
-    const leaderEntry = await db.ugcEntry.findFirst({
-      where: {
-        ugcId: params.ugcId.id,
-      },
-      orderBy: {
-        score: 'desc',
-      },
-      include: {
-        user: {
-          select: {
-            division: true,
-            divisionRank: true,
-            name: true,
-            personaId: true,
-          },
+    // const leaderEntry = await db.ugcEntry.findFirst({
+    //   where: {
+    //     ugc: {
+    //       reachThis: {
+    //         id: params.ugcId.id,
+    //       }
+    //     }
+    //   },
+    //   orderBy: {
+    //     score: 'desc',
+    //   },
+    //   include: {
+    //     user: {
+    //       select: {
+    //         division: true,
+    //         divisionRank: true,
+    //         name: true,
+    //         personaId: true,
+    //       },
+    //     },
+    //   },
+    //   take: 1,
+    // })
+
+    if (!entries.length) {
+      return {
+        leaderboard: {
+          area: null,
+          totalCount: 0,
+          users: [],
         },
-      },
-      take: 1,
-    })
+        globalLeader: null,
+      }
+    }
 
     return {
       leaderboard: {
         area: null,
         totalCount,
         users: entries.map(mapEntry),
-        globalLeader: leaderEntry ? mapEntry(leaderEntry, 0) : null,
       },
+      globalLeader: mapEntry(entries[0], 0),
     }
   },
 }

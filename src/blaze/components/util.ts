@@ -104,10 +104,10 @@ export const fetchClientConfig = (value: string) => {
           engagementManagerClientId: 'mirrorsedgecatalyst',
           gatewayApiEndpointUrl: 'http://localhost:3000/gatewayApi',
           gatewayClientId: 'pamplona-backend-as-user-pc',
-          gatewayUploadEndpointUrl: 'http://localhost:3000/gatewayUpload',
+          gatewayUploadEndpointUrl: 'http://localhost:5000/gatewayUpload',
           messageManagerFetchMessagesIntervalTime: '300.0',
           messageManagerTransientMessagesToFollowers: 'false',
-          npsWebUrlBase: 'http://localhost:3000/npsWeb',
+          npsWebUrlBase: 'http://localhost:6000/npsWeb',
           presenceUpdatePositionInterval: '10.0',
           telemetryProjectId: '308903',
         })

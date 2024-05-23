@@ -45,7 +45,6 @@ export const getInventoryFromDb = async (personaId: string) => {
     },
     select: {
       itemId: true,
-      count: true,
     },
   })
 
@@ -55,6 +54,9 @@ export const getInventoryFromDb = async (personaId: string) => {
       kitType: kit.kit.kitType,
       opened: kit.opened,
     })),
-    items,
+    items: items.map((item) => ({
+      id: item.itemId,
+      count: 1,
+    })),
   }
 }

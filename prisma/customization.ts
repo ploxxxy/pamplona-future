@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { PamRunnerKitDefinitionsMeta } from './resources/RunnerKitDefinitionsMeta.json'
 
-// TODO: change to customization from 
+// TODO: change to customization from
 // UI/Art/PlayerTags (no echoes)
 // Gameplay/Social/PlayerTagDefinitions (no echoes)
 export async function main(prisma: PrismaClient) {
@@ -62,6 +62,4 @@ export async function main(prisma: PrismaClient) {
     data: allRewards,
     skipDuplicates: true,
   })
-
-  return initialRewards
 }

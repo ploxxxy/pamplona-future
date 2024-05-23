@@ -44,7 +44,8 @@ export default {
         },
         userGeneratedContent: {
           where: {
-            creatorId: !params.levelIds.includes(4294967295) ? personaId : '0',
+            creatorId: personaId,
+            levelId: params.levelIds[0] << 0,
           },
           include: {
             reachThis: true,
@@ -68,9 +69,6 @@ export default {
       {}
     )
 
-    if (!params.levelIds.includes(4294967295)) {
-    }
-
     return {
       playerInfo: {
         name: user.name,
@@ -87,10 +85,7 @@ export default {
       userTimeTrials: user.userGeneratedContent
         .filter((ugc) => ugc.ugcType === 'TimeTrial')
         .map((ugc) => extractUGCData(ugc, ['META'])),
-      promotedUGC: user.userGeneratedContent.map((ugc) => ({
-        ...extractUGCData(ugc, ['META']),
-        reason: 3,
-      })),
+      promotedUGC: [],
       bookmarks: {
         ugcBookmarks: [],
         challengeBookmarks: [],
@@ -103,7 +98,7 @@ export default {
         })),
         items: user.itemUnlocks.map((item) => ({
           id: item.itemId,
-          count: item.count,
+          count: 1,
         })),
       },
     }

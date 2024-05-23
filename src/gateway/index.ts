@@ -40,10 +40,6 @@ const fastify = Fastify({
 //   // this does nothing
 // )
 
-// fastify.all('/*', (req, reply) => {
-//   console.log(req)
-// })
-
 fastify.post('/gatewayApi', (req, reply) => {
   if (req.headers['content-type'] === 'application/x-encrypted') {
     reply.send({ jsonrpc: '2.0', id: randomUUID(), result: null })

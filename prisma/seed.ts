@@ -5,7 +5,7 @@ import { main as progression } from './progression'
 const prisma = new PrismaClient()
 
 async function main() {
-  const intialRewards = await customization(prisma)
+  await customization(prisma)
   await progression(prisma)
 
   await prisma.user.create({
@@ -16,19 +16,26 @@ async function main() {
       divisionRank: 1,
       tagData: {
         create: {
-          frame: '742845892',
-          bg: '1310589350',
-          detail: '1640298601',
+          frame: '2573550572',
+          bg: '232356850',
+          detail: '3420869487',
         },
       },
-      itemUnlocks: {
-        createMany: {
-          data: intialRewards.map((reward) => ({
-            itemId: reward.id,
-            count: 1,
-          })),
-        },
-      },
+      // itemUnlocks: {
+      //   createMany: {
+      //     data: items.map((reward) => ({
+      //       itemId: reward.id,
+      //     })),
+      //   },
+      // },
+      // kitUnlocks: {
+      //   createMany: {
+      //     data: kits.map((kit) => ({
+      //       kitId: kit.id.toLowerCase(),
+      //       opened: kit.opened,
+      //     })),
+      //   },
+      // },
     },
   })
 }

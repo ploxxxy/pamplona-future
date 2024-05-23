@@ -92,7 +92,7 @@ interface ExtendedUgc extends Ugc {
 
 export const extractUGCData = (
   ugc: ExtendedUgc,
-  dataTypes: ('META' | 'STATS' | 'USER_STATS')[]
+  dataTypes: ('META' | 'STATS' | 'USER_STATS' )[] | string[]
 ): ReachThisData | TimeTrialData | null => {
   const needMeta = dataTypes.includes('META')
   const needUserStats = dataTypes.includes('USER_STATS')
@@ -112,14 +112,14 @@ export const extractUGCData = (
             published: ugc.published,
             reported: false,
             blocked: false,
-            levelId: 2354048661,
+            levelId: ugc.levelId,
             transform: {
               x: ugc.transformX,
               y: ugc.transformY,
               z: ugc.transformZ,
-              qx: ugc.transformQx,
+              qx: ugc.transformQx || 0.001,
               qy: ugc.transformQy,
-              qz: ugc.transformQz,
+              qz: ugc.transformQz || 0.001,
               qw: ugc.transformQw,
             },
             mapPosition: {
@@ -159,7 +159,7 @@ export const extractUGCData = (
             published: ugc.published,
             reported: false,
             blocked: false,
-            levelId: 2354048661,
+            levelId: ugc.levelId,
             transform: {
               x: ugc.transformX,
               y: ugc.transformY,
