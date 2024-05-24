@@ -38,7 +38,6 @@ export default {
       }
     }
 
-    // TODO: change to upsert ?
     await db.kitUnlock.create({
       data: {
         kitId: kitId,

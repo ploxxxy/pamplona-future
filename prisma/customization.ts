@@ -39,27 +39,31 @@ export async function main(prisma: PrismaClient) {
     })
   )
 
-  const allRewards = [
-    ...initialRewards,
-    ...runnerKits.flatMap((kit) => kit.rewards),
-  ]
-
   await prisma.kitType.createMany({
     data: kitTypes,
-    skipDuplicates: true,
-  })
-
-  await prisma.kit.createMany({
-    data: runnerKits.map((kit) => ({
-      id: kit.id,
-      kitType: kit.kitType,
-      name: kit.name,
-    })),
-    skipDuplicates: true,
   })
 
   await prisma.item.createMany({
-    data: allRewards,
-    skipDuplicates: true,
+    data: initialRewards,
   })
+
+  await prisma.$transaction(
+    runnerKits.map((kit) => {
+      return prisma.kit.create({
+        data: {
+          id: kit.id,
+          name: kit.name,
+          kitTypeRelation: {
+            connect: { id: kit.kitType },
+          },
+          rewards: {
+            connectOrCreate: kit.rewards.map((reward) => ({
+              where: { id: reward.id },
+              create: { id: reward.id, name: reward.name },
+            })),
+          },
+        },
+      })
+    })
+  )
 }

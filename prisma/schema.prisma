@@ -167,6 +167,7 @@ model Kit {
   kitTypeRelation KitType     @relation(fields: [kitType], references: [id])
   kitType         String
   kitUnlocks      KitUnlock[]
+  rewards         Item[]
 }
 
 model KitUnlock {
@@ -188,7 +189,8 @@ model KitType {
 model Item {
   id          String       @id
   name        String
-  ItemUnlocks ItemUnlock[]
+  itemUnlocks ItemUnlock[]
+  kits        Kit[]
 }
 
 model ItemUnlock {
@@ -213,14 +215,14 @@ model UgcEntry {
   ugc   Ugc    @relation(fields: [ugcId], references: [id], onDelete: Cascade)
   ugcId String
 
-  score String
+  score      String
   finishedAt String
 
-  splitTimes String[]
-  wallrunDistance String?
+  splitTimes          String[]
+  wallrunDistance     String?
   maxperframeDistance String?
-  walkDistance String?
-  totalDistance String?
+  walkDistance        String?
+  totalDistance       String?
 
   user   User   @relation(fields: [userId], references: [personaId])
   userId String

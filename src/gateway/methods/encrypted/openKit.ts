@@ -4,9 +4,6 @@ import db from '../../../common/prisma'
 export default {
   name: 'PamplonaAuthenticated.openKit',
   execute: async (params: { id: string }, session: string) => {
-
-    // FIXME: shit doesnt fucking work
-
     const personaId = getUserFromSession(session)
 
     if (!personaId) {
@@ -14,7 +11,7 @@ export default {
     }
     
     const kitId = params.id.toLowerCase()
-    
+
     const result = await db.kitUnlock.upsert({
       where: {
         kitId_userId: {
@@ -32,17 +29,16 @@ export default {
       },
       include: {
         kit: {
-          select: {
-            kitType: true
-          }
-        }
-      }
+          include: {
+            rewards: true,
+          },
+        },
+      },
     })
 
-    return {
-      id: result.kitId,
-      kitType: result.kit.kitType,
-      opened: result.opened,
-    }
+    return result.kit.rewards.map((reward) => ({
+      id: reward.id,
+      count: 1,
+    }))
   },
 }
