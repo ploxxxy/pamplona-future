@@ -26,6 +26,11 @@ export default {
           },
         },
         reachThis: true,
+        ugcEntries: {
+          where: {
+            userId: params.personaId.toString(),
+          }
+        }
       },
     })
 

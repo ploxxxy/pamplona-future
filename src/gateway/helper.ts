@@ -1,4 +1,4 @@
-import { ReachThis, TimeTrial, Ugc, User } from '@prisma/client'
+import { ReachThis, TimeTrial, Ugc, UgcEntry, User } from '@prisma/client'
 
 interface BaseUGCData {
   meta: {
@@ -88,16 +88,32 @@ interface ExtendedUgc extends Ugc {
   reachThis?: ReachThis | null
   timeTrial?: TimeTrial | null
   creator: Pick<User, 'name'>
+  ugcEntries?: UgcEntry[]
 }
 
 export const extractUGCData = (
   ugc: ExtendedUgc,
-  dataTypes: ('META' | 'STATS' | 'USER_STATS' )[] | string[]
+  dataTypes: ('META' | 'STATS' | 'USER_STATS')[] | string[]
 ): ReachThisData | TimeTrialData | null => {
   const needMeta = dataTypes.includes('META')
   const needUserStats = dataTypes.includes('USER_STATS')
+  const ugcEntry = ugc.ugcEntries?.[0] ?? null
 
   if (ugc.ugcType === 'ReachThis' && ugc.reachThis) {
+    const userStats = ugcEntry
+      ? {
+          reachedAt: ugcEntry.finishedAt,
+        }
+      : null
+
+    const userRank = ugcEntry
+      ? {
+          rank: 1, // TODO: Implement ranking
+          score: ugcEntry.finishedAt,
+          total: 1,
+        }
+      : null
+
     return {
       meta: needMeta
         ? {
@@ -117,34 +133,51 @@ export const extractUGCData = (
               x: ugc.transformX,
               y: ugc.transformY,
               z: ugc.transformZ,
-              qx: ugc.transformQx || 0.001,
+              qx: ugc.transformQx || 0.01,
               qy: ugc.transformQy,
-              qz: ugc.transformQz || 0.001,
+              qz: ugc.transformQz || 0.01,
               qw: ugc.transformQw,
             },
             mapPosition: {
-              x: ugc.reachThis.mapPositionX,
-              y: ugc.reachThis.mapPositionY,
-              z: ugc.reachThis.mapPositionZ,
+              // Fixes map icon offset
+              // x: ugc.reachThis.mapPositionX,
+              // y: ugc.reachThis.mapPositionY,
+              // z: ugc.reachThis.mapPositionZ,
+              x: ugc.transformX,
+              y: ugc.transformY,
+              z: ugc.transformZ,
             },
             typeId: 'ReachThis',
           }
         : null,
       stats: null,
-      userStats: needUserStats
-        ? {
-            reachedAt: Date.now().toString(),
-          }
-        : null,
-      userRank: needUserStats
-        ? {
-            rank: 1,
-            score: Date.now().toString(),
-            total: 1,
-          }
-        : null,
+      userStats: needUserStats ? userStats : null,
+      userRank: needUserStats ? userRank : null,
     }
   } else if (ugc.ugcType === 'TimeTrial' && ugc.timeTrial) {
+    const userStats = ugcEntry
+      ? {
+          finishedAt: ugcEntry.finishedAt,
+          finishTime: ugcEntry.finishedAt,
+          splitTimes: ugcEntry.splitTimes,
+          extraStats: {
+            wallrun_distance: ugcEntry.wallrunDistance || '0',
+            maxperframe_distance: ugcEntry.maxperframeDistance || '0',
+            walk_distance: ugcEntry.walkDistance || '0',
+            total_distance: ugcEntry.totalDistance || '0',
+          },
+        }
+      : null
+
+    const userRank = ugcEntry
+      ? {
+          // TODO: Implement ranking
+          rank: 1,
+          score: ugcEntry.finishedAt,
+          total: 1,
+        }
+      : null
+
     return {
       meta: needMeta
         ? {
@@ -164,18 +197,18 @@ export const extractUGCData = (
               x: ugc.transformX,
               y: ugc.transformY,
               z: ugc.transformZ,
-              qx: ugc.transformQx,
+              qx: ugc.transformQx || 0.01,
               qy: ugc.transformQy,
-              qz: ugc.transformQz,
+              qz: ugc.transformQz || 0.01,
               qw: ugc.transformQw,
             },
             teleportTransform: {
               x: ugc.timeTrial.teleportTransformX,
               y: ugc.timeTrial.teleportTransformY,
               z: ugc.timeTrial.teleportTransformZ,
-              qx: ugc.timeTrial.teleportTransformQx,
+              qx: ugc.timeTrial.teleportTransformQx || 0.01,
               qy: ugc.timeTrial.teleportTransformQy,
-              qz: ugc.timeTrial.teleportTransformQz,
+              qz: ugc.timeTrial.teleportTransformQz || 0.01,
               qw: ugc.timeTrial.teleportTransformQw,
             },
             ugcUrl: `https://mec-gw.ops.dice.se/ugc/prod_default/prod_default/pc/TimeTrial/${ugc.creatorId}/${ugc.timeTrial.id}`,
@@ -183,26 +216,8 @@ export const extractUGCData = (
           }
         : null,
       stats: null,
-      userStats: needUserStats
-        ? {
-            finishedAt: Date.now().toString(),
-            finishTime: Date.now().toString(),
-            splitTimes: [],
-            extraStats: {
-              wallrun_distance: '0',
-              maxperframe_distance: '0',
-              walk_distance: '0',
-              total_distance: '0',
-            },
-          }
-        : null,
-      userRank: needUserStats
-        ? {
-            rank: 1,
-            score: Date.now().toString(),
-            total: 1,
-          }
-        : null,
+      userStats: needUserStats ? userStats : null,
+      userRank: needUserStats ? userRank : null,
     }
   } else {
     return null

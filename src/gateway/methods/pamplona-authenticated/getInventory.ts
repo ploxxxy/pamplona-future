@@ -34,17 +34,8 @@ export const getInventoryFromDb = async (personaId: string) => {
       kitId: true,
       opened: true,
       kit: {
-        select: { kitType: true },
+        select: { kitType: true, rewards: true },
       },
-    },
-  })
-
-  const items = await db.itemUnlock.findMany({
-    where: {
-      userId: personaId,
-    },
-    select: {
-      itemId: true,
     },
   })
 
@@ -54,9 +45,11 @@ export const getInventoryFromDb = async (personaId: string) => {
       kitType: kit.kit.kitType,
       opened: kit.opened,
     })),
-    items: items.map((item) => ({
-      id: item.itemId,
-      count: 1,
-    })),
+    items: kits.flatMap((kit) =>
+      kit.kit.rewards.map((reward) => ({
+        id: reward.id,
+        count: 1,
+      }))
+    ),
   }
 }

@@ -17,7 +17,6 @@ model User {
   ugcBookmarks         UgcBookmark[]
   challengeBookmarks   ChallengeBookmark[]
   kitUnlocks           KitUnlock[]
-  itemUnlocks          ItemUnlock[]
   tagData              TagData?
   ugcEntries           UgcEntry[]
 }
@@ -189,17 +188,7 @@ model KitType {
 model Item {
   id          String       @id
   name        String
-  itemUnlocks ItemUnlock[]
   kits        Kit[]
-}
-
-model ItemUnlock {
-  item   Item   @relation(fields: [itemId], references: [id])
-  itemId String
-  user   User   @relation(fields: [userId], references: [personaId])
-  userId String
-
-  @@id([itemId, userId])
 }
 
 model TagData {

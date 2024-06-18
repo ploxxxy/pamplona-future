@@ -33,13 +33,9 @@ export default {
             kit: {
               select: {
                 kitType: true,
+                rewards: true,
               },
             },
-          },
-        },
-        itemUnlocks: {
-          where: {
-            userId: personaId,
           },
         },
         userGeneratedContent: {
@@ -88,7 +84,13 @@ export default {
       promotedUGC: [],
       bookmarks: {
         ugcBookmarks: [],
-        challengeBookmarks: [],
+        challengeBookmarks: [
+          {
+            challengeId: 'ch_rrt_bm1_time',
+            bookmarkTime: '1581876387148',
+            challengeType: 'RunnersRoute',
+          },
+        ],
       },
       inventory: {
         kits: user.kitUnlocks.map((kit) => ({
@@ -96,10 +98,12 @@ export default {
           kitType: kit.kit.kitType,
           opened: kit.opened,
         })),
-        items: user.itemUnlocks.map((item) => ({
-          id: item.itemId,
-          count: 1,
-        })),
+        items: user.kitUnlocks.flatMap((kit) =>
+          kit.kit.rewards.map((reward) => ({
+            id: reward.id,
+            count: 1,
+          }))
+        ),
       },
     }
   },
