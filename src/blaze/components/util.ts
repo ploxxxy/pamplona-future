@@ -148,7 +148,9 @@ export const preAuth = () => {
   }
 
   const payload: TDF[] = [
+    // Authentication source
     new TDFString('ASRC', '308903'),
+    // List of components configured on the server.
     new TDFList(
       'CIDS',
       TDFType.Integer,
@@ -158,7 +160,9 @@ export const preAuth = () => {
         30723, 30724, 21, 30726, 2000, 30727,
       ]
     ),
+    // Nucleus clientId associated with this service name.
     new TDFString('CLID', 'MirrorsEdgeCatalyst-SERVER-PC'),
+    // Contains all entries in client config of util.cfg which will be also passed to client side.
     new TDFStruct('CONF', [
       new TDFDictionary('CONF', TDFType.String, TDFType.String, 17, {
         associationListSkipInitialSet: '1',
@@ -180,13 +184,21 @@ export const preAuth = () => {
         xlspConnectionIdleTimeout: '300',
       }),
     ]),
+    // The Entitlement Source
     new TDFString('ESRC', '308903'),
+    // Service name.
     new TDFString('INST', 'mirrorsedgecatalyst-2016-pc'),
+    // Uniquely identify the machine
     new TDFInteger('MAID', 1129238128),
+    // Underage support
     new TDFInteger('MINR', 0),
+    // Persona namespace
     new TDFString('NASP', 'cem_ea_id'),
+    // Title-specific identifier for legal documents retrieval
     new TDFString('PILD', ''),
+    // Server platform.
     new TDFString('PLAT', 'pc'),
+    // Contains all info in QosSettings of util.cfg which will be also passed to client side.
     new TDFStruct('QOSS', [
       new TDFStruct('BWPS', [
         new TDFString('PSA ', ''),
@@ -195,6 +207,7 @@ export const preAuth = () => {
       ]),
       new TDFInteger('LNP ', 10),
       // TODO: investigate struct type difference
+      // Contains qos ping site information including address and port.
       new TDFDictionary('LTPS', TDFType.String, TDFType.Struct, 6, {
         'bio-dub': [
           new TDFString('PSA ', 'qos-prod-bio-dub-common-common.gos.ea.com'),
@@ -231,6 +244,7 @@ export const preAuth = () => {
       new TDFInteger('TIME', 5000000),
     ]),
     new TDFString('RSRC', '308903'),
+    // Server version.
     new TDFString('SVER', 'Blaze 15.1.1.0.5 (CL# 1893137)\n'),
   ]
 
@@ -250,36 +264,59 @@ export const postAuth = () => {
   }
 
   const payload: TDF[] = [
+    // Telemetry server info
     new TDFStruct('TELE', [
+      // Address
       new TDFString('ADRS', 'https://river.data.ea.com'),
+      // IsAnonymous
       new TDFInteger('ANON', 0),
+      // Disable
       new TDFString('DISA', ''),
+      // EnableDisconnectTelemetry
       new TDFInteger('EDCT', 0),
+      // Filter
       new TDFString('FILT', '-UION/****'),
+      // Locale
       new TDFInteger('LOC ', 1701729619),
+      // Underage
       new TDFInteger('MINR', 0),
+      // NoToggleOk
       new TDFString('NOOK', 'US,CA,MX'),
+      // Port
       new TDFInteger('PORT', 80),
+      // SendDelay
       new TDFInteger('SDLY', 15000),
+      // SessionId
       new TDFString('SESS', 'p56Xl1+oOxD'),
+      // Key
       new TDFString(
         'SKEY',
         '^�×�������Џ���������������×�������������̙Ʀٰ�ʑ��ؗ��ɓ��ܹ�ȝ��������Ǯ������������͜������۪Ӕ��' // FIXME: figure this out
       ),
+      // SendPercentage
       new TDFInteger('SPCT', 75),
+      // UseServerTime
       new TDFString('STIM', 'Default'),
+      // TelemetryServiceName
       new TDFString('SVNM', 'telemetry-3-common'),
     ]),
+    // Ticker server info
     new TDFStruct('TICK', [
+      // Address
       new TDFString('ADRS', '10.23.15.2'),
+      // Port
       new TDFInteger('PORT', 8999),
+      // Key
       new TDFString(
         'SKEY',
         '1011786733,10.23.15.2:8999,mirrorsedgecatalyst-2016-pc,10,50,50,50,50,0,12'
       ),
     ]),
+    // User options
     new TDFStruct('UROP', [
+      // TelemetryOpt
       new TDFInteger('TMOP', 0),
+      // The ID of the user whose data is to be fetched, 0 means own's settings
       new TDFInteger('UID ', 1011786733),
     ]),
   ]

@@ -55,22 +55,37 @@ const getLists = () => {
     new TDFList('LMAP', TDFType.Struct, 3, [
       [
         new TDFStruct('INFO', [
+          // Unique blaze object id for the association list.
           new TDFIntVector3('BOID', [25, 1, 1011786733]),
+          // Flags that represent additional information about this AssociationList.
           new TDFInteger('FLGS', 4),
+          // Id for the association list.
           new TDFStruct('LID ', [
+            // Name for the association list
             new TDFString('LNM ', 'friendList'),
+            // Type identifier for the association list.
             new TDFInteger('TYPE', 1),
           ]),
+          // Max size for the association list.
           new TDFInteger('LMS ', 2000),
+          // Name for the Pair/Paired list.
           new TDFString('PNAM', ''),
+          // Indicates the corresponding Pair/Paired list.
           new TDFInteger('PRID', 0),
+          // Max size for the Pair/Paired list.
           new TDFInteger('PRMS', 0),
         ]),
+        // // FIXME: crashes the game (tdf.js struct of tdfs issue)
+        // // Members of the association list.
         // new TDFList('MEML', TDFType.Struct, 1, [
         //   [
+        //     // List member id.
         //     new TDFStruct('LMID', [
+        //       // Attributes for list member
         //       new TDFInteger('ATTR', 0),
+        //       // Client platform type
         //       new TDFInteger('PLAT', 4),
+        //       // User core identification
         //       new TDFStruct('USER', [
         //         new TDFBlob('EXBB', Buffer.from('')),
         //         new TDFInteger('EXID', 2809387553),
@@ -78,12 +93,17 @@ const getLists = () => {
         //         new TDFString('NAME', 'CodeNameMeteor'),
         //         new TDFString('NASP', 'cem_ea_id'),
         //       ]),
+        //       // Time of the member added to the list.
         //       new TDFInteger('TIME', 1700257741),
         //     ]),
         //   ],
         // ]),
+        // Offset (Just echo back the value. (?) )
         new TDFInteger('OFRC', 0),
-        new TDFInteger('TOCT', 1),
+        // The total count of a list.
+        // FIXME: don't forget to update this value.
+        // new TDFInteger('TOCT', 1),
+        new TDFInteger('TOCT', 0),
       ],
       [
         new TDFStruct('INFO', [

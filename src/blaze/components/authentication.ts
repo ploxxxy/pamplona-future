@@ -72,35 +72,54 @@ const login = () => {
   }
 
   const payload: TDF[] = [
+    // Notification context
     new TDFInteger('CNTX', 0),
+    // Error code for error replies
     new TDFInteger('ERRC', 0),
+    // Session key for the UserSession
     new TDFString(
       'SKEY',
       '0540000031e5dde8_wT9NlhYTUidv3EMiZo7kaRMYV0x3$x72YrtOC*QU1v'
     ),
+    // true if this user is flagged as an anonymous account in Nucleus
     new TDFInteger('ANON', 0),
     new TDFInteger('NTOS', 0),
+    // Information about this login
     new TDFStruct('SESS', [
+      // True if this is the first time the user has logged on to this Blaze server on the Console (not a Web login) & has external data set
       new TDFInteger('1CON', 0),
+      // The unique Nucleus persona id assigned to the persona associated with this session
       new TDFInteger('BUID', 1011786733),
+      // True if this is the first time the user has logged on to this Blaze server
       new TDFInteger('FRST', 0),
+      // The SessionKey created by the Blaze server for this session
       new TDFString(
         'KEY ',
         '0540000031e5dde8_wT9NlhYTUidv3EMiZo7kaRMYV0x3$x72YrtOC*QU1v'
       ),
+      // provides the data/time this user was last authenticated by this Blaze server
       new TDFInteger('LLOG', 1700769352),
       new TDFString('MAIL', '******@ukr.net'),
+      // The persona details for the persona associated with this session
       new TDFStruct('PDTL', [
+        // Persona name
         new TDFString('DSNM', 'ploxxxxxxy'),
+        // Last authentication timestamp for persona
         new TDFInteger('LAST', 0),
+        // Nucleus personaId
         new TDFInteger('PID ', 1011786733),
         new TDFInteger('PLAT', 4),
+        // The status of persona.
         new TDFInteger('STAS', 0),
+        //  External reference value such as XUID
         new TDFInteger('XREF', 2407107883),
       ]),
+      // The Nucleus account id for the user associated with this session
       new TDFInteger('UID ', 2407107883),
     ]),
+    // True if the user old enough to opt in to receive third party email
     new TDFInteger('SPAM', 0),
+    // true if this user is flagged as an underage account in Nucleus
     new TDFInteger('UNDR', 0),
   ]
 
@@ -123,21 +142,37 @@ const listUserEntitlements2 = () => {
   const payload: TDF[] = [
     new TDFList('NLST', TDFType.Struct, 4, [
       [
+        // The device Uri of the device to which this entitlement is applied.
         new TDFString('DEVI', ''),
+        // The date the entitlement was granted
         new TDFString('GDAY', '2018-02-17T11:38Z'),
+        // The group name
         new TDFString('GNAM', 'MirrorsEdgeCatalyst'),
+        // The id of the entitlement
         new TDFInteger('ID  ', 2438693323),
+        // Indicates that this entitlement is consumable and has a use count
         new TDFInteger('ISCO', 1),
+        // The persona id associated with the entitlement
         new TDFInteger('PID ', 0),
+        // The project id
         new TDFString('PJID', '314267'),
+        // The product catalog for the entitlement
         new TDFInteger('PRCA', 0),
+        // The product id
         new TDFString('PRID', ''),
+        // The status of the entitlement
         new TDFInteger('STAT', 1),
+        // The reason for the current status
         new TDFInteger('STRC', 0),
+        // The entitlement tag
         new TDFString('TAG ', 'USED_COMPANION_MOBILE_APP_ANDROID'),
+        // The date the entitlement terminates
         new TDFString('TDAY', ''),
+        // The type of the entitlement
         new TDFInteger('TYPE', 5),
+        // The number of times the entitlement has been used
         new TDFInteger('UCNT', 0),
+        // The entitlement version
         new TDFInteger('VER ', 0),
       ],
       [

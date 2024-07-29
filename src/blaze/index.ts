@@ -1,14 +1,14 @@
+import chalk from 'chalk'
 import net from 'node:net'
 import { Readable } from 'node:stream'
 import * as Blaze from './blaze'
 import * as AssociationLists from './components/association-lists'
 import * as Authentication from './components/authentication'
+import * as Messaging from './components/messaging'
 import * as UserSessions from './components/user-sessions'
 import * as Util from './components/util'
-import * as Messaging from './components/messaging'
-import './redirector'
-import chalk from 'chalk'
 import { logPacket } from './helper'
+import './redirector'
 
 const server = net.createServer((socket) => {
   // socket.setTimeout(600)

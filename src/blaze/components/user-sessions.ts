@@ -77,15 +77,22 @@ export const userSessionExtendedData = () => {
 
   const payload: TDF[] = [
     new TDFStruct('DATA', [
+      // Network address of the user as determined by QOS and desired gameport.
       new TDFUnion('ADDR', 127, new TDFString('BPS ', '')),
+      // Country Code provided by the GeoIp database.
       new TDFString('CTY ', ''),
+      // An variable tdf set by the client.
       new TDFIntegerList('CVAR', []),
     ]),
+    // An integer keyed map of data specific to this user.
     new TDFDictionary('DMAP', 0, 0, 1, {
       '2013396993': 0,
     }),
+    // Hardware flags.
     new TDFInteger('HWFG', 0),
+    // ISP provided by the GeoIP database.
     new TDFString('ISP ', ''),
+    // Bandwidth and NAT type info.
     new TDFStruct('QDAT', [
       new TDFInteger('BWHR', 0),
       new TDFInteger('DBPS', 0),
@@ -93,18 +100,29 @@ export const userSessionExtendedData = () => {
       new TDFInteger('NATT', 0),
       new TDFInteger('UBPS', 0),
     ]),
+    // Time zone provided by the GeoIP database.
     new TDFString('TZ  ', ''),
+    // Custom user info attribute.
     new TDFInteger('UATT', 0),
+    // A list of BlazeObjectIds that the user session belongs to.
     new TDFList('ULST', 9, 1, [[30722, 2, 88123840]]),
     new TDFStruct('USER', [
+      // The master account id
       new TDFInteger('AID ', 2407107883),
+      // The user's account locale
       new TDFInteger('ALOC', 1920292161),
       new TDFBlob('EXBB', Buffer.alloc(0)),
+      // The user's ExternaId
       new TDFInteger('EXID', 2407107883),
+      // The user's BlazeId
       new TDFInteger('ID  ', 1011786733),
+      // The persona name of the user
       new TDFString('NAME', 'ploxxxxxxy'),
+      // The persona namespace for mName.
       new TDFString('NASP', 'cem_ea_id'),
+      // The user's Origin persona id
       new TDFInteger('ORIG', 1011786733),
+      // The user's Pid Id
       new TDFInteger('PIDI', 0),
     ]),
   ]
@@ -125,24 +143,39 @@ export const updateHardwareFlags = () => {
   }
 
   const payload: TDF[] = [
+    // True if this is the first time the user has logged on to this Blaze server on the Console (not a Web login) & has external data set
     new TDFInteger('1CON', 0),
+    // The user's account locale
     new TDFInteger('ALOC', 1920292161),
+    // The unique BlazeId assigned to the user account associated with this session
     new TDFInteger('BUID', 1011786733),
+    // The connection group id for users accross a shared conneciton.
     new TDFIntVector3('CGID', [30722, 2, 88123840]),
+    // Persona name
     new TDFString('DSNM', 'ploxxxxxxy'),
+    // True if this is the first time the user has logged on to this Blaze server
     new TDFInteger('FRST', 0),
+    // The SessionKey created by the Blaze server for this session
     new TDFString(
       'KEY ',
       '0540000031e5dde8_wT9NlhYTUidv3EMiZo7kaRMYV0x3$x72YrtOC*QU1v'
     ),
+    // Last authentication timestamp for persona
     new TDFInteger('LAST', 1700769152),
+    // provides the data/time this user was last authenticated by this Blaze server
     new TDFInteger('LLOG', 1700769258),
     new TDFString('MAIL', '******@ukr.net'),
+    // Persona namespace
     new TDFString('NASP', 'cem_ea_id'),
+    // Nucleus personaId
     new TDFInteger('PID ', 1011786733),
+    // Client platform type
     new TDFInteger('PLAT', 4),
+    // The Nucleus account id for the user associated with this session
     new TDFInteger('UID ', 2407107883),
+    // The type of user logging in
     new TDFInteger('USTP', 0),
+    // External reference value such as XUID
     new TDFInteger('XREF', 2407107883),
   ]
 
