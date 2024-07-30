@@ -25,20 +25,20 @@ export default {
       throw new Error('User not found')
     }
 
-    await db.$transaction(
-      Object.entries(params.stats)
-        .filter(([flag]) => {
-          // Skip all of the Mission Available flags as the game spams them
-          if (flag.includes('Available')) return
-        })
-        .map(([flag, value]) => {
-          return db.userStats.upsert({
-            where: { userId_flag: { userId: user.personaId, flag } },
-            create: { userId: user.personaId, flag, value },
-            update: { value },
-          })
-        })
-    )
+    // await db.$transaction(
+    //   Object.entries(params.stats)
+    //     .filter(([flag]) => {
+    //       // Skip all of the Mission Available flags as the game spams them
+    //       if (flag.includes('Available')) return
+    //     })
+    //     .map(([flag, value]) => {
+    //       return db.userStats.upsert({
+    //         where: { userId_flag: { userId: user.personaId, flag } },
+    //         create: { userId: user.personaId, flag, value },
+    //         update: { value },
+    //       })
+    //     })
+    // )
 
     return 'success'
   },

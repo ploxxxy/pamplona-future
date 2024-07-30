@@ -1,12 +1,14 @@
 import { PrismaClient } from '@prisma/client'
 import { main as customization } from './customization'
 import { main as progression } from './progression'
+import { main as namedChallenges } from './namedChallenges'
 
 const prisma = new PrismaClient()
 
 async function main() {
   await customization(prisma)
   await progression(prisma)
+  await namedChallenges(prisma)
 
   await prisma.user.create({
     data: {

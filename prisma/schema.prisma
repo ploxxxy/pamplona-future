@@ -19,6 +19,7 @@ model User {
   kitUnlocks           KitUnlock[]
   tagData              TagData?
   ugcEntries           UgcEntry[]
+  challengeEntries     ChallengeEntry[]
 }
 
 enum Division {
@@ -121,30 +122,38 @@ model UgcBookmark {
   userId String
 }
 
-// TODO: create a challenge table instead
-enum ChallengeId {
-  ch_rrt_tv2_time
-  ch_rrt_tv04_time
-  ch_rrt_dt4_time
-  ch_rrt_tv3_time
-  ch_rrt_anc1_time
-  ch_rrt_dt1_time
-  ch_rrt_rz3_time
-  ch_rrt_tv05_time
-  ch_rrt_dt2_time
-  ch_rrt_rz4_time
-  ch_rrt_dt3_time
-  ch_rrt_anc4_time
-  ch_rrt_anc5_time
-  ch_rrt_bm1_time
-  ch_rrt_anc6_time
-  ch_rrt_tv1_time
-  ch_rrt_dt6_time
-  ch_rrt_anc2_time
-  ch_rrt_rz2_time
-  ch_rrt_anc3_time
-  ch_rrt_dt5_time
-  ch_rrt_rz1_time
+model Challenge {
+  id            String        @id
+  contentId     String
+  challengeType ChallengeType
+
+  challengeStats     ChallengeStat[]
+  challengeEntries   ChallengeEntry[]
+  challengeBookmarks ChallengeBookmark[]
+}
+
+model ChallengeStat {
+  code String @id
+
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  challengeId String
+
+  entries ChallengeEntry[]
+}
+
+model ChallengeEntry {
+  challengeStat   ChallengeStat @relation(fields: [challengeStatId], references: [code])
+  challengeStatId String
+
+  user   User   @relation(fields: [userId], references: [personaId])
+  userId String
+
+  value Int
+
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  challengeId String
+
+  @@id([challengeStatId, userId])
 }
 
 enum ChallengeType {
@@ -153,10 +162,11 @@ enum ChallengeType {
 }
 
 model ChallengeBookmark {
-  id           String      @id @default(cuid())
-  bookmarkTime DateTime    @default(now())
-  challengeId  ChallengeId
-  user         User        @relation(fields: [userId], references: [personaId])
+  id           String    @id @default(cuid())
+  bookmarkTime DateTime  @default(now())
+  challenge    Challenge @relation(fields: [challengeId], references: [id])
+  challengeId  String
+  user         User      @relation(fields: [userId], references: [personaId])
   userId       String
 }
 
@@ -186,9 +196,9 @@ model KitType {
 }
 
 model Item {
-  id          String       @id
-  name        String
-  kits        Kit[]
+  id   String @id
+  name String
+  kits Kit[]
 }
 
 model TagData {

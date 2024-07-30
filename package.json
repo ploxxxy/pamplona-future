@@ -20,12 +20,12 @@
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "prettier-eslint": "^16.3.0",
-    "prisma": "^5.14.0",
+    "prisma": "^5.17.0",
     "tsx": "^4.10.1",
     "typescript-eslint": "^7.8.0"
   },
   "dependencies": {
-    "@prisma/client": "5.14.0",
+    "@prisma/client": "5.17.0",
     "chalk": "^5.3.0",
     "fastify": "^4.27.0",
     "json-rpc-2.0": "^1.7.0",
