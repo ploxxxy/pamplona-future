@@ -10,11 +10,8 @@ export default {
     },
     serverParams: ServerParams
   ) => {
-    console.log('need timetrial data for', params.ugcIds)
-    // console.log(serverParams.session)
-
     return []
-    
+
     // return [
     //   {
     //     meta: {

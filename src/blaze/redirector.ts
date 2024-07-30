@@ -1,4 +1,10 @@
 import http from 'node:http'
+import pino from 'pino'
+
+const logger = pino({
+  msgPrefix: '[Redirector] ',
+  level: 'debug',
+})
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <serverinstanceinfo>
@@ -15,20 +21,13 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
 </serverinstanceinfo>`
 
 const server = http.createServer((req, res) => {
-  console.log('[Redirector] Redirected')
+  logger.debug('[Redirector] Redirected')
 
- let body = ''
-  req.on('data', (chunk) => {
-    body += chunk
-  })
-
-  req.on('end', () => {
-    console.log(body)
-  })
-  
   res.statusCode = 200
   res.setHeader('Content-Type', 'application/xml')
   res.end(xml)
 })
 
-server.listen(42230, '127.0.0.1', () => console.log('[Redirector] Redirector started'))
+server.listen(42230, '127.0.0.1', () =>
+  logger.info('[Redirector] Redirector started')
+)

@@ -28,7 +28,6 @@ export const handleCommand = (
 ) => {
   switch (command) {
     case Commands.sendMessage:
-      console.log('sendMessage', packet.payload)
       // socket.write(sendMessage(0, packet).encode(0))
       socket.write(sendMessage(1, packet).encode(packet.header.msgNum))
       break
@@ -79,7 +78,7 @@ const sendMessage = (wdyw: number, packet: Blaze.Packet) => {
             // Message type
             new TDFInteger('TYPE', 0),
           ]),
-          // Source object id of the message sender 
+          // Source object id of the message sender
           new TDFIntVector3('SRCE', [30722, 1, 0]),
           // Message timestamp
           new TDFInteger('TIME', Math.floor(Date.now() / 1000)),

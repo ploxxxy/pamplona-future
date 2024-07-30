@@ -1,4 +1,10 @@
 import { ReachThis, TimeTrial, Ugc, UgcEntry, User } from '@prisma/client'
+import pino from 'pino'
+
+export const logger = pino({
+  msgPrefix: '[Gateway] ',
+  level: 'debug',
+})
 
 interface BaseUGCData {
   meta: {
@@ -133,9 +139,9 @@ export const extractUGCData = (
               x: ugc.transformX,
               y: ugc.transformY,
               z: ugc.transformZ,
-              qx: ugc.transformQx || 0.01,
+              qx: ugc.transformQx || 0.000001,
               qy: ugc.transformQy,
-              qz: ugc.transformQz || 0.01,
+              qz: ugc.transformQz || 0.000001,
               qw: ugc.transformQw,
             },
             mapPosition: {
@@ -197,18 +203,18 @@ export const extractUGCData = (
               x: ugc.transformX,
               y: ugc.transformY,
               z: ugc.transformZ,
-              qx: ugc.transformQx || 0.01,
+              qx: ugc.transformQx || 0.000001,
               qy: ugc.transformQy,
-              qz: ugc.transformQz || 0.01,
+              qz: ugc.transformQz || 0.000001,
               qw: ugc.transformQw,
             },
             teleportTransform: {
               x: ugc.timeTrial.teleportTransformX,
               y: ugc.timeTrial.teleportTransformY,
               z: ugc.timeTrial.teleportTransformZ,
-              qx: ugc.timeTrial.teleportTransformQx || 0.01,
+              qx: ugc.timeTrial.teleportTransformQx || 0.000001,
               qy: ugc.timeTrial.teleportTransformQy,
-              qz: ugc.timeTrial.teleportTransformQz || 0.01,
+              qz: ugc.timeTrial.teleportTransformQz || 0.000001,
               qw: ugc.timeTrial.teleportTransformQw,
             },
             ugcUrl: `https://mec-gw.ops.dice.se/ugc/prod_default/prod_default/pc/TimeTrial/${ugc.creatorId}/${ugc.timeTrial.id}`,

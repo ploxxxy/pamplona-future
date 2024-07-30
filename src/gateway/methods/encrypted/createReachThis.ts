@@ -35,8 +35,6 @@ export default {
       throw new Error('Invalid session')
     }
 
-    console.log(params)
-
     const user = await db.user.findFirst({
       where: {
         personaId,

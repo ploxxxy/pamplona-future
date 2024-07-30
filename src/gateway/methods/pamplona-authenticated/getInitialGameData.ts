@@ -1,6 +1,5 @@
 import { getUserFromSession } from '../..'
 import db from '../../../common/prisma'
-
 import { extractUGCData } from '../../helper'
 
 export default {
@@ -78,19 +77,14 @@ export default {
       userReachThis: user.userGeneratedContent
         .filter((ugc) => ugc.ugcType === 'ReachThis')
         .map((ugc) => extractUGCData(ugc, ['META'])),
-      userTimeTrials: user.userGeneratedContent
-        .filter((ugc) => ugc.ugcType === 'TimeTrial')
-        .map((ugc) => extractUGCData(ugc, ['META'])),
+      // userTimeTrials: user.userGeneratedContent
+      //   .filter((ugc) => ugc.ugcType === 'TimeTrial')
+      //   .map((ugc) => extractUGCData(ugc, ['META'])),
+      userTimeTrials: [],
       promotedUGC: [],
       bookmarks: {
         ugcBookmarks: [],
-        challengeBookmarks: [
-          {
-            challengeId: 'ch_rrt_bm1_time',
-            bookmarkTime: '1581876387148',
-            challengeType: 'RunnersRoute',
-          },
-        ],
+        challengeBookmarks: [],
       },
       inventory: {
         kits: user.kitUnlocks.map((kit) => ({

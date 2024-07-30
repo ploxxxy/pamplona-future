@@ -43,8 +43,6 @@ export default {
       },
     })
 
-    console.log(result)
-
     return result.map((ugc) => extractUGCData(ugc, params.dataTypes))
   },
 }

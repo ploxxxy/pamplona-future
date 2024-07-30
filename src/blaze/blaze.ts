@@ -1,6 +1,6 @@
 import { Readable } from 'node:stream'
 import { TDF } from 'tdf.js'
-import { logPacket } from './helper'
+import { logger, logPacket } from './helper'
 
 export enum MessageType {
   MESSAGE = 0,
@@ -105,7 +105,7 @@ export class Packet {
     }
 
     if (stream.readableLength != 0) {
-      console.log('found extra data after payload', stream.readableLength)
+      logger.warn('found extra data after payload', stream.readableLength)
     }
 
     return new Packet(header, payload)

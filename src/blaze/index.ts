@@ -1,4 +1,3 @@
-import chalk from 'chalk'
 import net from 'node:net'
 import { Readable } from 'node:stream'
 import * as Blaze from './blaze'
@@ -7,14 +6,11 @@ import * as Authentication from './components/authentication'
 import * as Messaging from './components/messaging'
 import * as UserSessions from './components/user-sessions'
 import * as Util from './components/util'
-import { logPacket } from './helper'
+import { logger, logPacket } from './helper'
 import './redirector'
 
 const server = net.createServer((socket) => {
-  // socket.setTimeout(600)
-
   socket.on('data', (data) => {
-    // setTimeout(() => {
     try {
       const readable = new Readable({ read() {} })
       readable.push(data)
@@ -23,41 +19,26 @@ const server = net.createServer((socket) => {
       const packet = Blaze.Packet.createFromStream(readable)
       handleIncomingPacket(packet, socket)
     } catch (error) {
-      console.log(chalk.bgRedBright('[Blaze] ERROR'), error)
-
-      console.log({
-        payloadSize:
-          (data[0] << 24) | (data[1] << 16) | (data[2] << 8) | (data[3] << 0),
-        metadataSize: (data[4] << 8) | (data[5] << 0),
-        component: (data[6] << 8) | (data[7] << 0),
-        command: (data[8] << 8) | (data[9] << 0),
-        msgNum: (data[10] >> 16) | (data[11] >> 8) | (data[12] >> 0),
-        msgType: data[13] >> 5,
-        options: data[14],
-        reserved: data[15],
-      })
-
-      console.log(data.toString('hex').match(/../g)?.join(' '))
+      logger.error(error)
     }
-    // }, 5000)
   })
 
   socket.on('end', () => {
-    console.log('[Server] Connection closed')
+    logger.info('Connection closed')
   })
 
   socket.on('error', (error) => {
-    console.log(chalk.bgRedBright('[Server] ERROR'), error)
+    logger.error(error)
   })
 
   socket.on('timeout', () => {
-    console.log('[Server] Connection timed out')
+    logger.info('Connection timed out')
     socket.destroy()
   })
 })
 
 server.on('listening', () => {
-  console.log('[Server] Server started')
+  logger.info('Server started')
 })
 
 server.listen(25565, '127.0.0.1')

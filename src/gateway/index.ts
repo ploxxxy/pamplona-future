@@ -1,8 +1,7 @@
 import Fastify from 'fastify'
 import { JSONRPCRequest, JSONRPCServer } from 'json-rpc-2.0'
-import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
-import { inspect } from 'node:util'
+import { logger } from './helper'
 
 export interface ServerParams {
   session: string | undefined
@@ -18,10 +17,10 @@ for (const folder of folders) {
       .then((m) => m.default)
       .then((m) => {
         if ('name' in m && 'execute' in m) {
-          console.log('Registering method', m.name)
+          logger.info(`Registering method ${m.name}`)
           server.addMethod(m.name, m.execute)
         } else {
-          console.error(`Error loading method ${method}`)
+          logger.warn(`Error loading method ${method}`)
         }
       })
   }
@@ -30,19 +29,9 @@ for (const folder of folders) {
 const fastify = Fastify({
   // logger: true,
 })
-
-// fastify.addContentTypeParser(
-//   'application/x-encrypted',
-//   { parseAs: 'buffer' },
-//   (req, body, done) => {
-//     done(null, body)
-//   }
-//   // this does nothing
-// )
-
 fastify.post('/gatewayApi', (req, reply) => {
   if (req.headers['content-type'] === 'application/x-encrypted') {
-    reply.send({ jsonrpc: '2.0', id: randomUUID(), result: null })
+    reply.send({ jsonrpc: '2.0', id: null, result: null })
   }
 
   const jsonRPCRequest = req.body as JSONRPCRequest
@@ -51,12 +40,12 @@ fastify.post('/gatewayApi', (req, reply) => {
   const method = jsonRPCRequest.method
 
   server.receive(jsonRPCRequest, { session }).then((response) => {
-    console.log(method)
-    // console.log('req', jsonRPCRequest.params)
+    logger.debug(method)
+    logger.debug(jsonRPCRequest.params)
     // console.log('res', response?.result)
 
     if (!response || response.error) {
-      console.error('Error', response?.error)
+      logger.error(`Error ${response?.error.message}`)
     }
 
     return reply.send(response)

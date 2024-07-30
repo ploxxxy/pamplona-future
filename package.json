@@ -18,6 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "eslint": "^8.57.0",
+    "pino-pretty": "^11.2.2",
     "prettier": "^3.2.5",
     "prettier-eslint": "^16.3.0",
     "prisma": "^5.17.0",
@@ -26,9 +27,9 @@
   },
   "dependencies": {
     "@prisma/client": "5.17.0",
-    "chalk": "^5.3.0",
     "fastify": "^4.27.0",
     "json-rpc-2.0": "^1.7.0",
+    "pino": "^9.3.2",
     "tdf.js": "github:ploxxxy/tdf.js",
     "typescript": "^5.4.5"
   }

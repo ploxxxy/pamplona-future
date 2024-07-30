@@ -9,8 +9,6 @@ export default {
   ) => {
     const personaId = getUserFromSession(session)
 
-    console.log(params.stats)
-
     if (!personaId) {
       throw new Error('Invalid session')
     }
