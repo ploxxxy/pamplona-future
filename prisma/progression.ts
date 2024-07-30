@@ -1,24 +1,9 @@
 import { PrismaClient } from '@prisma/client'
-import {
-  PamProgressionFlag,
-  PamProgressionFlagGroup,
-} from './resources/PlayerProgressionData.json'
+import progressionFlags from './resources/progressionFlags.json'
 
-export async function main(prisma: PrismaClient) {
-  const progressionFlags = PamProgressionFlag.filter(
-    (flag) => flag.SyncToOnline === 'True'
-  ).map((flag) => ({ flag: flag.SyncStatName }))
-
-  const progressionFlagGroups = PamProgressionFlagGroup.filter(
-    (flag) => flag.SyncNumberOfFlagsSetToOnline === 'True'
-  ).map((flagGroup) => ({
-    flag: flagGroup.NumberOfFlagsSyncStatName,
-  }))
-
-  const allFlags = [...progressionFlags, ...progressionFlagGroups]
-
+export async function seed(prisma: PrismaClient) {
   await prisma.progressionFlag.createMany({
-    data: allFlags,
+    data: progressionFlags,
     skipDuplicates: true,
   })
 }

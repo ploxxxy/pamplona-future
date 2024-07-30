@@ -1,44 +1,10 @@
 import { PrismaClient } from '@prisma/client'
-import { PamRunnerKitDefinitionsMeta } from './resources/RunnerKitDefinitionsMeta.json'
+import kitTypes from './resources/kitTypes.json'
+import initialRewards from './resources/initialRewards.json'
+import runnerKits from './resources/runnerKits.json'
 
-// TODO: change to customization from
-// UI/Art/PlayerTags (no echoes)
-// Gameplay/Social/PlayerTagDefinitions (no echoes)
-export async function main(prisma: PrismaClient) {
-  const kitTypes = PamRunnerKitDefinitionsMeta.RunnerKitTypes.member.map(
-    (kitType) => ({
-      id: kitType.PamRunnerKitTypeMeta.KitTypeGuid,
-      name: kitType.PamRunnerKitTypeMeta.DisplayName,
-    })
-  )
-
-  const runnerKits = PamRunnerKitDefinitionsMeta.RunnerKits.member.map(
-    (kit) => ({
-      id: kit.PamRunnerKitMeta.KitGuid,
-      kitType: kit.PamRunnerKitMeta.KitTypeGuid,
-      name: kit.PamRunnerKitMeta.RewardDescriptionSid,
-      rewards: Array.isArray(kit.PamRunnerKitMeta.Rewards.member)
-        ? kit.PamRunnerKitMeta.Rewards.member.map((reward) => ({
-            id: reward.PamRunnerKitRewardMeta.Hash.toString(),
-            name: reward.PamRunnerKitRewardMeta.Name,
-          }))
-        : [
-            {
-              id: kit.PamRunnerKitMeta.Rewards.member.PamRunnerKitRewardMeta.Hash.toString(),
-              name: kit.PamRunnerKitMeta.Rewards.member.PamRunnerKitRewardMeta
-                .Name,
-            },
-          ],
-    })
-  )
-
-  const initialRewards = PamRunnerKitDefinitionsMeta.InitialRewards.member.map(
-    (reward) => ({
-      id: reward.PamRunnerKitRewardMeta.Hash.toString(),
-      name: reward.PamRunnerKitRewardMeta.Name,
-    })
-  )
-
+// TODO: add echoes (?)
+export async function seed(prisma: PrismaClient) {
   await prisma.kitType.createMany({
     data: kitTypes,
   })

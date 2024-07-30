@@ -1,0 +1,106 @@
+[
+  {
+    "id": "6b868e18-4115-46f3-aa96-032253eff97a",
+    "name": "Test Kit Type 2"
+  },
+  {
+    "id": "9a16c38d-539a-465b-b0ed-1960665a8a82",
+    "name": "Test Kit Type 2"
+  },
+  {
+    "id": "6c8c3feb-2f36-483a-aada-07f28b482ccd",
+    "name": "MissionKit"
+  },
+  {
+    "id": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "Basic Kit Phase 1"
+  },
+  {
+    "id": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "Basic Kit Phase 2"
+  },
+  {
+    "id": "bb7861a9-4b9d-4adb-8660-c9ff6c0f7986",
+    "name": "Basic Kit Phase 3"
+  },
+  {
+    "id": "38eef404-cd00-4964-9f10-e12e9313ccb8",
+    "name": "Basic Kit Phase 4"
+  },
+  {
+    "id": "c6509071-d1c5-4352-94a6-5ca46d678de8",
+    "name": "Basic Kit Phase 5"
+  },
+  {
+    "id": "cbdefd11-5229-4444-8d36-c3b6406b874d",
+    "name": "Basic Kit Phase 6"
+  },
+  {
+    "id": "1c2f1e19-292d-49df-8a75-0441f6c3b32c",
+    "name": "Basic Kit Phase 7"
+  },
+  {
+    "id": "e6042f6c-ad8c-4f52-a17b-1b54ea3b38f5",
+    "name": "Advanced Kit Phase 1"
+  },
+  {
+    "id": "324095ff-4340-4300-a91c-b5010826b674",
+    "name": "Advanced Kit Phase 2"
+  },
+  {
+    "id": "7283a61b-470e-47d9-9622-92c4ff684caa",
+    "name": "Advanced Kit Phase"
+  },
+  {
+    "id": "2d9fb044-295e-45c4-ae30-32ffb5629961",
+    "name": "Advanced Kit Phase 4"
+  },
+  {
+    "id": "0ba6e906-1abe-48e4-aee0-c2262266c790",
+    "name": "Advanced Kit Phase 5"
+  },
+  {
+    "id": "f1a67d70-66ef-44f0-aeaf-c86205b39871",
+    "name": "Advanced Kit Phase 6"
+  },
+  {
+    "id": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "Advanced Kit Phase 7"
+  },
+  {
+    "id": "d194df7e-8c8b-4a92-9bcb-4edd40ab0960",
+    "name": "Elite Kit Phase 2"
+  },
+  {
+    "id": "e3ccce96-2fee-46ff-a690-f6cdfab56feb",
+    "name": "Elite Kit Phase 7"
+  },
+  {
+    "id": "5bd6d9de-36df-47b4-b700-f18275be9fbf",
+    "name": "Preorder Kit Speed"
+  },
+  {
+    "id": "8c7d0548-24da-4105-a214-945fc7a45a1a",
+    "name": "Beta Kit"
+  },
+  {
+    "id": "0831c039-1ec2-49de-96ba-8a663f5d268e",
+    "name": "Engagement Kit"
+  },
+  {
+    "id": "3fb530df-e8ef-4ab5-bdac-7e11ca2e0e6d",
+    "name": "Preorder Kit Combat"
+  },
+  {
+    "id": "7b8f24af-f3e4-4189-8b7d-d37bf0d112da",
+    "name": "Re-engagement Kit 1"
+  },
+  {
+    "id": "392c6d30-5130-464f-9465-ef4dd1e460ce",
+    "name": "Re-engagement Kit 2"
+  },
+  {
+    "id": "83b55549-5970-4750-b033-0d12925ea8d6",
+    "name": "Re-engagement Kit 3"
+  }
+]

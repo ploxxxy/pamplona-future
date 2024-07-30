@@ -1,0 +1,1074 @@
+[
+  {
+    "id": "2f1280f1-5d02-4f62-b1fe-c6ebfbc9fc03",
+    "kitType": "6c8c3feb-2f36-483a-aada-07f28b482ccd",
+    "name": "",
+    "rewards": [
+      {
+        "id": "1288457120",
+        "name": "singe-bird-wing"
+      }
+    ]
+  },
+  {
+    "id": "5bf1faf8-794b-47ce-aeaa-f29cc496b86c",
+    "kitType": "6c8c3feb-2f36-483a-aada-07f28b482ccd",
+    "name": "",
+    "rewards": [
+      {
+        "id": "397901330",
+        "name": "pigeon"
+      }
+    ]
+  },
+  {
+    "id": "a9d996d9-6985-47fc-8a7d-32fe360d1082",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_ACH_ACHIEVEMENT_1_DESC",
+    "rewards": [
+      {
+        "id": "1288457120",
+        "name": "singe-bird-wing"
+      }
+    ]
+  },
+  {
+    "id": "7d3bf62c-c47b-4a68-9a9e-3f72ab447b93",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_ACH_ACHIEVEMENT_2_DESC",
+    "rewards": [
+      {
+        "id": "397901330",
+        "name": "pigeon"
+      }
+    ]
+  },
+  {
+    "id": "cdc8864d-fa35-404e-9c9a-8bdf86366e1f",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_ACH_ACHIEVEMENT_3_DESC",
+    "rewards": [
+      {
+        "id": "2648777142",
+        "name": "shattered-glass-panel"
+      },
+      {
+        "id": "3119226193",
+        "name": "Customization_Projection_ChaosLines_Red"
+      }
+    ]
+  },
+  {
+    "id": "ef3eccbf-cbe8-4a0f-a3f1-0dad80d6dc4a",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_ACH_ACHIEVEMENT_4_DESC",
+    "rewards": [
+      {
+        "id": "3606065238",
+        "name": "shattered-protector-helmet"
+      }
+    ]
+  },
+  {
+    "id": "78321fcf-e4d0-4b03-9a7e-3e861a5dedac",
+    "kitType": "bb7861a9-4b9d-4adb-8660-c9ff6c0f7986",
+    "name": "ID_ACH_ACHIEVEMENT_5_DESC",
+    "rewards": [
+      {
+        "id": "2683930401",
+        "name": "c4"
+      },
+      {
+        "id": "3788651620",
+        "name": "spheres_01"
+      }
+    ]
+  },
+  {
+    "id": "06cd3e46-a1db-4201-a574-4a7c3b5746e4",
+    "kitType": "38eef404-cd00-4964-9f10-e12e9313ccb8",
+    "name": "ID_ACH_ACHIEVEMENT_6_DESC",
+    "rewards": [
+      {
+        "id": "1396890443",
+        "name": "gift"
+      },
+      {
+        "id": "1996148657",
+        "name": "Customization_Projection_Ghost_Red"
+      }
+    ]
+  },
+  {
+    "id": "81761505-be87-4e25-a12d-e11435025d9f",
+    "kitType": "c6509071-d1c5-4352-94a6-5ca46d678de8",
+    "name": "ID_ACH_ACHIEVEMENT_7_DESC",
+    "rewards": [
+      {
+        "id": "4201732671",
+        "name": "fly"
+      }
+    ]
+  },
+  {
+    "id": "b8b9099a-31ae-43e8-98a0-364220fdebac",
+    "kitType": "0ba6e906-1abe-48e4-aee0-c2262266c790",
+    "name": "ID_ACH_ACHIEVEMENT_8_DESC",
+    "rewards": [
+      {
+        "id": "4161462718",
+        "name": "black-november"
+      },
+      {
+        "id": "232356850",
+        "name": "blocks_03"
+      },
+      {
+        "id": "755475321",
+        "name": "Customization_Projection_Streams_Green"
+      }
+    ]
+  },
+  {
+    "id": "ab1eac40-5392-4cc5-abfe-2cf89a7f7659",
+    "kitType": "cbdefd11-5229-4444-8d36-c3b6406b874d",
+    "name": "ID_ACH_ACHIEVEMENT_9_DESC",
+    "rewards": [
+      {
+        "id": "810778811",
+        "name": "shattered-turret"
+      }
+    ]
+  },
+  {
+    "id": "4ef21635-2bc3-44c7-84d9-533f810c9675",
+    "kitType": "f1a67d70-66ef-44f0-aeaf-c86205b39871",
+    "name": "ID_ACH_ACHIEVEMENT_10_DESC",
+    "rewards": [
+      {
+        "id": "1824461692",
+        "name": "july-revolution"
+      },
+      {
+        "id": "2645211691",
+        "name": "grid_02"
+      },
+      {
+        "id": "870379730",
+        "name": "Customization_Projection_Ghost_Orange"
+      }
+    ]
+  },
+  {
+    "id": "5fee722c-8608-4a0d-a258-b7aa9678a872",
+    "kitType": "cbdefd11-5229-4444-8d36-c3b6406b874d",
+    "name": "ID_ACH_ACHIEVEMENT_11_DESC",
+    "rewards": [
+      {
+        "id": "3051441250",
+        "name": "claw-marks"
+      }
+    ]
+  },
+  {
+    "id": "f51d9463-0a60-4ea7-b40e-2d18bd0f67ea",
+    "kitType": "1c2f1e19-292d-49df-8a75-0441f6c3b32c",
+    "name": "ID_ACH_ACHIEVEMENT_12_DESC",
+    "rewards": [
+      {
+        "id": "3420869487",
+        "name": "cat-profile"
+      }
+    ]
+  },
+  {
+    "id": "f152dc7b-c000-4819-9c88-b2e877097429",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_ACH_ACHIEVEMENT_13_DESC",
+    "rewards": [
+      {
+        "id": "216500560",
+        "name": "che-noah"
+      },
+      {
+        "id": "1399141803",
+        "name": "organic_02"
+      },
+      {
+        "id": "2626703006",
+        "name": "Customization_Projection_Streams_Teal"
+      }
+    ]
+  },
+  {
+    "id": "b6cc16fe-2958-48fc-9d92-6839ba310c2a",
+    "kitType": "1c2f1e19-292d-49df-8a75-0441f6c3b32c",
+    "name": "ID_ACH_ACHIEVEMENT_14_DESC",
+    "rewards": [
+      {
+        "id": "869446906",
+        "name": "shatteret-shard-building"
+      }
+    ]
+  },
+  {
+    "id": "adc337db-95e4-4a7c-9728-c91db6f6c3f5",
+    "kitType": "1c2f1e19-292d-49df-8a75-0441f6c3b32c",
+    "name": "ID_ACH_ACHIEVEMENT_15_DESC",
+    "rewards": [
+      {
+        "id": "948181069",
+        "name": "shatteret-padlock"
+      }
+    ]
+  },
+  {
+    "id": "d4a9bd51-8e80-4535-8335-7e45f53444b9",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_ACH_ACHIEVEMENT_16_DESC",
+    "rewards": [
+      {
+        "id": "1070254556",
+        "name": "double-dragon"
+      },
+      {
+        "id": "411643776",
+        "name": "hex_01"
+      },
+      {
+        "id": "1402692594",
+        "name": "Customization_Projection_HalfTone_Orange"
+      }
+    ]
+  },
+  {
+    "id": "0021b2f9-cebd-4707-a194-d6d99b29bbbc",
+    "kitType": "1c2f1e19-292d-49df-8a75-0441f6c3b32c",
+    "name": "ID_ACH_ACHIEVEMENT_18_DESC",
+    "rewards": [
+      {
+        "id": "2737174629",
+        "name": "Evolved_Invincible"
+      },
+      {
+        "id": "162594790",
+        "name": "Customization_Projection_Streams_Yellow"
+      }
+    ]
+  },
+  {
+    "id": "79741b91-e054-4266-919f-b3975e2ad453",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_ACH_ACHIEVEMENT_19_DESC",
+    "rewards": [
+      {
+        "id": "1143444729",
+        "name": "Evolved_Triforce"
+      }
+    ]
+  },
+  {
+    "id": "9ec2990a-cab5-4bfe-828f-0d2b321f3646",
+    "kitType": "38eef404-cd00-4964-9f10-e12e9313ccb8",
+    "name": "ID_ACH_ACHIEVEMENT_20_DESC",
+    "rewards": [
+      {
+        "id": "3834883717",
+        "name": "Evolved_Cross"
+      }
+    ]
+  },
+  {
+    "id": "934f383a-b437-45cb-9f66-2e481b30e41d",
+    "kitType": "cbdefd11-5229-4444-8d36-c3b6406b874d",
+    "name": "ID_ACH_ACHIEVEMENT_21_DESC",
+    "rewards": [
+      {
+        "id": "3743738366",
+        "name": "Evolved_Crusher"
+      }
+    ]
+  },
+  {
+    "id": "86e7cdca-157b-4259-bbe7-f9c8b17f993f",
+    "kitType": "1c2f1e19-292d-49df-8a75-0441f6c3b32c",
+    "name": "ID_ACH_ACHIEVEMENT_22_DESC",
+    "rewards": [
+      {
+        "id": "1001049153",
+        "name": "Evolved_Celtic"
+      }
+    ]
+  },
+  {
+    "id": "bf6a83c1-81b2-4f89-992f-1347888783c6",
+    "kitType": "e3ccce96-2fee-46ff-a690-f6cdfab56feb",
+    "name": "ID_ACH_ACHIEVEMENT_23_DESC",
+    "rewards": [
+      {
+        "id": "660883694",
+        "name": "Elite_Arrow"
+      },
+      {
+        "id": "1950253329",
+        "name": "blocks_01"
+      },
+      {
+        "id": "2500107292",
+        "name": "Customization_Projection_Triangles_Blue"
+      }
+    ]
+  },
+  {
+    "id": "bb556cf0-acb3-4604-9045-389bf8bd1081",
+    "kitType": "bb7861a9-4b9d-4adb-8660-c9ff6c0f7986",
+    "name": "ID_ACH_ACHIEVEMENT_24_DESC",
+    "rewards": [
+      {
+        "id": "1120748012",
+        "name": "Evolved_Nova"
+      }
+    ]
+  },
+  {
+    "id": "f0eafe92-1596-42e1-a00c-b9f71d8c8006",
+    "kitType": "c6509071-d1c5-4352-94a6-5ca46d678de8",
+    "name": "ID_ACH_ACHIEVEMENT_25_DESC",
+    "rewards": [
+      {
+        "id": "1189189939",
+        "name": "Evolved_Hexagon"
+      },
+      {
+        "id": "3369933158",
+        "name": "Customization_Projection_Rain_Yellow"
+      }
+    ]
+  },
+  {
+    "id": "aba7f111-2c64-43a1-b9de-78f67e16e83c",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_ACH_ACHIEVEMENT_26_DESC",
+    "rewards": [
+      {
+        "id": "3020191357",
+        "name": "Elite_Hexagon"
+      },
+      {
+        "id": "2463240344",
+        "name": "organic_03"
+      },
+      {
+        "id": "1558888422",
+        "name": "Customization_Projection_Ghost_Yellow"
+      }
+    ]
+  },
+  {
+    "id": "25590f12-e99d-4275-a4d8-8faad5e9943f",
+    "kitType": "e6042f6c-ad8c-4f52-a17b-1b54ea3b38f5",
+    "name": "ID_ACH_ACHIEVEMENT_29_DESC",
+    "rewards": [
+      {
+        "id": "3962444443",
+        "name": "rising-sun"
+      },
+      {
+        "id": "501936717",
+        "name": "crystaline_08"
+      },
+      {
+        "id": "3769053394",
+        "name": "Customization_Projection_Streams_Orange"
+      }
+    ]
+  },
+  {
+    "id": "d5f67426-c843-4849-85fb-e1b8572a0b11",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_ACH_ACHIEVEMENT_30_DESC",
+    "rewards": [
+      {
+        "id": "224056286",
+        "name": "Elite_The_Hood"
+      }
+    ]
+  },
+  {
+    "id": "2b716623-3f3f-41e2-b14c-eca7b21e3cdf",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_ACH_ACHIEVEMENT_31_DESC",
+    "rewards": [
+      {
+        "id": "3220149199",
+        "name": "Elite_Shinobi"
+      }
+    ]
+  },
+  {
+    "id": "73fb7b63-82f2-448f-874e-9c1efa86d8c0",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_ACH_ACHIEVEMENT_32_DESC",
+    "rewards": [
+      {
+        "id": "795818827",
+        "name": "Elite_Shift"
+      }
+    ]
+  },
+  {
+    "id": "50b16769-cfb4-42cd-bef4-ace38bec9df6",
+    "kitType": "e6042f6c-ad8c-4f52-a17b-1b54ea3b38f5",
+    "name": "ID_ACH_ACHIEVEMENT_33_DESC",
+    "rewards": [
+      {
+        "id": "1798401691",
+        "name": "Elite_Razor_Claw"
+      },
+      {
+        "id": "2925611712",
+        "name": "organic_05"
+      },
+      {
+        "id": "1724971609",
+        "name": "Customization_Projection_HalfTone_Green"
+      }
+    ]
+  },
+  {
+    "id": "9fd1c80c-9fa6-494e-a6d1-6cad0c8ddd91",
+    "kitType": "e6042f6c-ad8c-4f52-a17b-1b54ea3b38f5",
+    "name": "ID_ACH_ACHIEVEMENT_34_DESC",
+    "rewards": [
+      {
+        "id": "3963579151",
+        "name": "Elite_Shield"
+      },
+      {
+        "id": "1508639107",
+        "name": "grid_03"
+      },
+      {
+        "id": "2278102450",
+        "name": "Customization_Projection_Scanline_Orange"
+      }
+    ]
+  },
+  {
+    "id": "c21288bd-ed45-49df-862b-ae566eab0a19",
+    "kitType": "d194df7e-8c8b-4a92-9bcb-4edd40ab0960",
+    "name": "ID_ACH_ACHIEVEMENT_35_DESC",
+    "rewards": [
+      {
+        "id": "3333905111",
+        "name": "Elite_Blades"
+      },
+      {
+        "id": "1056070740",
+        "name": "crystaline_06"
+      },
+      {
+        "id": "4149651964",
+        "name": "Customization_Projection_ChaosLines_Blue"
+      }
+    ]
+  },
+  {
+    "id": "e4abd89a-7b4d-47dd-9229-baf6c1a6d491",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_ACH_ACHIEVEMENT_36_DESC",
+    "rewards": [
+      {
+        "id": "2190769590",
+        "name": "Elite_Circle"
+      },
+      {
+        "id": "731010150",
+        "name": "Customization_Projection_Triangles_Yellow"
+      }
+    ]
+  },
+  {
+    "id": "f03d6e7a-8198-4898-8b44-a0d5b19eab8a",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_ACH_ACHIEVEMENT_37_DESC",
+    "rewards": [
+      {
+        "id": "2573550572",
+        "name": "Elite_Nova_Prime"
+      }
+    ]
+  },
+  {
+    "id": "00821411-68a8-47ac-a22e-7890174a2f73",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_ACH_ACHIEVEMENT_40_DESC",
+    "rewards": [
+      {
+        "id": "4080907579",
+        "name": "butterfly"
+      }
+    ]
+  },
+  {
+    "id": "1b3249f9-fd95-4647-8af6-faa206dc7e1c",
+    "kitType": "bb7861a9-4b9d-4adb-8660-c9ff6c0f7986",
+    "name": "ID_ACH_ACHIEVEMENT_42_DESC",
+    "rewards": [
+      {
+        "id": "940859624",
+        "name": "open-hand-with-droplet"
+      },
+      {
+        "id": "2942898097",
+        "name": "Customization_Projection_Streams_Red"
+      }
+    ]
+  },
+  {
+    "id": "2291e3a0-aa65-4a2d-84cf-ccbba73df707",
+    "kitType": "7283a61b-470e-47d9-9622-92c4ff684caa",
+    "name": "ID_ACH_ACHIEVEMENT_43_DESC",
+    "rewards": [
+      {
+        "id": "3924022394",
+        "name": "geococcyx"
+      },
+      {
+        "id": "524736417",
+        "name": "spheres_03"
+      },
+      {
+        "id": "1112968441",
+        "name": "Customization_Projection_Rain_Green"
+      }
+    ]
+  },
+  {
+    "id": "18d7396b-5d95-4a98-b08a-8ce44d4da3d0",
+    "kitType": "e3ccce96-2fee-46ff-a690-f6cdfab56feb",
+    "name": "ID_ACH_ACHIEVEMENT_58_DESC",
+    "rewards": [
+      {
+        "id": "3814728368",
+        "name": "mountain-peak"
+      },
+      {
+        "id": "3542490953",
+        "name": "grid_01"
+      },
+      {
+        "id": "1448742558",
+        "name": "Customization_Projection_Ghost_Teal"
+      }
+    ]
+  },
+  {
+    "id": "ec594201-154e-4cad-9faf-a668351000de",
+    "kitType": "bb7861a9-4b9d-4adb-8660-c9ff6c0f7986",
+    "name": "ID_ACH_ACHIEVEMENT_44_DESC",
+    "rewards": [
+      {
+        "id": "3328861619",
+        "name": "delivery"
+      }
+    ]
+  },
+  {
+    "id": "371956a4-bec3-492d-960b-22848a24adf0",
+    "kitType": "38eef404-cd00-4964-9f10-e12e9313ccb8",
+    "name": "ID_ACH_ACHIEVEMENT_45_DESC",
+    "rewards": [
+      {
+        "id": "756825431",
+        "name": "closed-fist-revolutionary"
+      }
+    ]
+  },
+  {
+    "id": "59400be4-407c-48db-bd64-5ceba91a5295",
+    "kitType": "38eef404-cd00-4964-9f10-e12e9313ccb8",
+    "name": "ID_ACH_ACHIEVEMENT_46_DESC",
+    "rewards": [
+      {
+        "id": "420718923",
+        "name": "pickpocketing-hand"
+      }
+    ]
+  },
+  {
+    "id": "af9b9d32-ebed-4c92-9252-3f290c750b87",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_ACH_ACHIEVEMENT_47_DESC",
+    "rewards": [
+      {
+        "id": "2863864526",
+        "name": "battlefield-dog-tag"
+      },
+      {
+        "id": "3814603228",
+        "name": "crystaline_03"
+      },
+      {
+        "id": "2532402073",
+        "name": "Customization_Projection_Scanline_Green"
+      }
+    ]
+  },
+  {
+    "id": "223f2113-06bb-4430-991b-195d7468e0f2",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_ACH_ACHIEVEMENT_50_DESC",
+    "rewards": [
+      {
+        "id": "2743303796",
+        "name": "leon"
+      },
+      {
+        "id": "4277077029",
+        "name": "Evolved_Triburst"
+      },
+      {
+        "id": "1223506364",
+        "name": "Customization_Projection_HalfTone_Blue"
+      }
+    ]
+  },
+  {
+    "id": "6598f72a-b951-4178-afb8-313355c26715",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_ACH_ACHIEVEMENT_51_DESC",
+    "rewards": [
+      {
+        "id": "1846159064",
+        "name": "big-thick-book"
+      },
+      {
+        "id": "3804099507",
+        "name": "crystaline_04"
+      },
+      {
+        "id": "3720563836",
+        "name": "Customization_Projection_Scanline_Blue"
+      }
+    ]
+  },
+  {
+    "id": "a41e8d29-fa20-4095-95bc-4f97ed94db6d",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_ACH_ACHIEVEMENT_52_DESC",
+    "rewards": [
+      {
+        "id": "1485773914",
+        "name": "rat"
+      },
+      {
+        "id": "3176491650",
+        "name": "crystaline_05"
+      },
+      {
+        "id": "1725571356",
+        "name": "Customization_Projection_Rain_Blue"
+      }
+    ]
+  },
+  {
+    "id": "1ec986bd-13ad-46e1-964d-18e37070991c",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_ACH_ACHIEVEMENT_55_DESC",
+    "rewards": [
+      {
+        "id": "1345791921",
+        "name": "Evolved_Square"
+      }
+    ]
+  },
+  {
+    "id": "e064cdb7-2db0-4dc0-a367-458fe0217cfe",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_ACH_ACHIEVEMENT_56_DESC",
+    "rewards": [
+      {
+        "id": "2398900257",
+        "name": "Evolved_Frame"
+      }
+    ]
+  },
+  {
+    "id": "56ef37ef-77d5-4af4-88d8-72a8e03f0403",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_ACH_ACHIEVEMENT_57_DESC",
+    "rewards": [
+      {
+        "id": "717478196",
+        "name": "ghost"
+      }
+    ]
+  },
+  {
+    "id": "8f86b5a0-2b1a-4984-a430-1e561b09e8c9",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_ACH_ACHIEVEMENT_59_DESC",
+    "rewards": [
+      {
+        "id": "24378910",
+        "name": "angel-wings"
+      }
+    ]
+  },
+  {
+    "id": "da909884-cf75-4611-b87b-e6dae82d55dc",
+    "kitType": "5bd6d9de-36df-47b4-b700-f18275be9fbf",
+    "name": "ID_KIT_NOTIFICATION_SPEED_RUNNER",
+    "rewards": [
+      {
+        "id": "944773566",
+        "name": "cheetah"
+      },
+      {
+        "id": "3357235129",
+        "name": "preorder_speedrunner_bg"
+      },
+      {
+        "id": "2082001158",
+        "name": "Customization_Projection_HalfTone_Yellow"
+      }
+    ]
+  },
+  {
+    "id": "1345fff3-feb7-46e8-b776-82a585466098",
+    "kitType": "3fb530df-e8ef-4ab5-bdac-7e11ca2e0e6d",
+    "name": "ID_KIT_NOTIFICATION_COMBAT_RUNNER",
+    "rewards": [
+      {
+        "id": "2364205284",
+        "name": "fist"
+      },
+      {
+        "id": "4189180625",
+        "name": "preorder_combat_bg"
+      },
+      {
+        "id": "1544417233",
+        "name": "Customization_Projection_Scanline_Red"
+      }
+    ]
+  },
+  {
+    "id": "a8b5f5f6-0a32-4fbb-93ec-654bcd6de806",
+    "kitType": "0831c039-1ec2-49de-96ba-8a663f5d268e",
+    "name": "ID_KIT_NOTIFICATION_FRONT_RUNNER",
+    "rewards": [
+      {
+        "id": "4093061924",
+        "name": "shattered-oldschool-footprint"
+      }
+    ]
+  },
+  {
+    "id": "c5b8cef2-66a7-4119-bbba-1a9e712c797f",
+    "kitType": "8c7d0548-24da-4105-a214-945fc7a45a1a",
+    "name": "ID_KIT_NOTIFICATION_EARLY_RUNNER",
+    "rewards": [
+      {
+        "id": "1823346219",
+        "name": "stallion"
+      }
+    ]
+  },
+  {
+    "id": "60ba559a-e18d-4698-86bb-144e2bea8ded",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_KIT_NOTIFICATION_RECORDINGS_1",
+    "rewards": [
+      {
+        "id": "1437370938",
+        "name": "crystaline_07"
+      }
+    ]
+  },
+  {
+    "id": "8dc5a500-1d55-4b78-9a24-3d1f21e95938",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_KIT_NOTIFICATION_RECORDINGS_2",
+    "rewards": [
+      {
+        "id": "4036551115",
+        "name": "spider"
+      },
+      {
+        "id": "1223661873",
+        "name": "Customization_Projection_Rain_Red"
+      }
+    ]
+  },
+  {
+    "id": "1348e106-5b53-4749-bc68-a314671e873a",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_KIT_NOTIFICATION_RECORDINGS_3",
+    "rewards": [
+      {
+        "id": "2758977332",
+        "name": "Evolved_Arrow"
+      },
+      {
+        "id": "537486201",
+        "name": "Customization_Projection_Ghost_Green"
+      }
+    ]
+  },
+  {
+    "id": "c46b4d54-0b69-4220-93b0-7491d5ec023a",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_KIT_NOTIFICATION_SECRETBAGS_1",
+    "rewards": [
+      {
+        "id": "2332386109",
+        "name": "spheres_02"
+      }
+    ]
+  },
+  {
+    "id": "847b7b7a-6483-4e57-8dfc-3db9af94775b",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_KIT_NOTIFICATION_SECRETBAGS_2",
+    "rewards": [
+      {
+        "id": "215898171",
+        "name": "key"
+      },
+      {
+        "id": "42501458",
+        "name": "Customization_Projection_Triangles_Orange"
+      }
+    ]
+  },
+  {
+    "id": "9d18dedf-62eb-440c-873e-baa4840d947e",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_KIT_NOTIFICATION_SECRETBAGS_3",
+    "rewards": [
+      {
+        "id": "1758633580",
+        "name": "thumbs-up"
+      },
+      {
+        "id": "1224138686",
+        "name": "Customization_Projection_HalfTone_Teal"
+      }
+    ]
+  },
+  {
+    "id": "269774c3-f4bf-4aba-ad09-1bd7eeee147e",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_KIT_NOTIFICATION_BILLBOARDS_1",
+    "rewards": [
+      {
+        "id": "2710233375",
+        "name": "grid_04"
+      }
+    ]
+  },
+  {
+    "id": "f25fad77-2ab1-4459-a1bf-73f940cf4ab2",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_KIT_NOTIFICATION_BILLBOARDS_2",
+    "rewards": [
+      {
+        "id": "2213229352",
+        "name": "anchor"
+      },
+      {
+        "id": "668878093",
+        "name": "Evolved_Hexangle"
+      },
+      {
+        "id": "3721474942",
+        "name": "Customization_Projection_Scanline_Teal"
+      }
+    ]
+  },
+  {
+    "id": "dde96e6d-469d-487c-9117-ce1365c8adee",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_KIT_NOTIFICATION_ELECTRONICPARTS_1",
+    "rewards": [
+      {
+        "id": "339938089",
+        "name": "grid_05"
+      }
+    ]
+  },
+  {
+    "id": "6671b289-222d-4b78-9a61-4855da4ec381",
+    "kitType": "bb7861a9-4b9d-4adb-8660-c9ff6c0f7986",
+    "name": "ID_KIT_NOTIFICATION_ELECTRONICPARTS_2",
+    "rewards": [
+      {
+        "id": "347023981",
+        "name": "shattered-light-bulb"
+      },
+      {
+        "id": "3459691569",
+        "name": "Customization_Projection_Triangles_Red"
+      }
+    ]
+  },
+  {
+    "id": "301f39bf-a027-4535-8ed3-ab293c1c20e9",
+    "kitType": "c6509071-d1c5-4352-94a6-5ca46d678de8",
+    "name": "ID_KIT_NOTIFICATION_ELECTRONICPARTS_3",
+    "rewards": [
+      {
+        "id": "3187831945",
+        "name": "destoyed-security-camera"
+      },
+      {
+        "id": "1403638578",
+        "name": "Customization_Projection_ChaosLines_Orange"
+      }
+    ]
+  },
+  {
+    "id": "930dd4d3-9715-47f7-b655-022c7ef056aa",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_KIT_NOTIFICATION_ELECTRONICPARTS_4",
+    "rewards": [
+      {
+        "id": "1956834512",
+        "name": "cowboyhat-and-bandana"
+      },
+      {
+        "id": "1118477620",
+        "name": "hex_02"
+      },
+      {
+        "id": "2625791900",
+        "name": "Customization_Projection_Streams_Blue"
+      }
+    ]
+  },
+  {
+    "id": "fd478a49-8144-44c9-ac02-5833b8867d57",
+    "kitType": "49f6ec1e-805d-455e-b211-8228bed1c3e3",
+    "name": "ID_KIT_NOTIFICATION_INTEL_1",
+    "rewards": [
+      {
+        "id": "866999881",
+        "name": "hex_03"
+      }
+    ]
+  },
+  {
+    "id": "7f420d89-4064-42f2-a7d1-c7e7be6627fa",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_KIT_NOTIFICATION_INTEL_2",
+    "rewards": [
+      {
+        "id": "3868061485",
+        "name": "two-pigeons"
+      },
+      {
+        "id": "1779343174",
+        "name": "Customization_Projection_ChaosLines_Yellow"
+      }
+    ]
+  },
+  {
+    "id": "d49d24fb-a726-4c5f-a903-f62921f29294",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_KIT_NOTIFICATION_INTEL_3",
+    "rewards": [
+      {
+        "id": "2387001060",
+        "name": "Evolved_Circle"
+      },
+      {
+        "id": "4157003967",
+        "name": "crystaline_01"
+      },
+      {
+        "id": "2501018398",
+        "name": "Customization_Projection_Triangles_Teal"
+      }
+    ]
+  },
+  {
+    "id": "52bcfb04-cf5e-4eba-9dc8-089973ecafd7",
+    "kitType": "df0241ff-5b96-403a-96d5-ed0e77fcdfd5",
+    "name": "ID_KIT_NOTIFICATION_OPPMISSIONS_1",
+    "rewards": [
+      {
+        "id": "3331975617",
+        "name": "organic_04"
+      }
+    ]
+  },
+  {
+    "id": "408b3a94-a824-4a57-a042-2e8be63e361d",
+    "kitType": "38eef404-cd00-4964-9f10-e12e9313ccb8",
+    "name": "ID_KIT_NOTIFICATION_OPPMISSIONS_2",
+    "rewards": [
+      {
+        "id": "70859530",
+        "name": "jacknife"
+      },
+      {
+        "id": "3807408409",
+        "name": "Customization_Projection_ChaosLines_Green"
+      }
+    ]
+  },
+  {
+    "id": "bca9801e-f32e-409b-9709-0386790ab503",
+    "kitType": "772bca36-59fc-46d3-81a3-5622a3c4bcd9",
+    "name": "ID_KIT_NOTIFICATION_OPPMISSIONS_3",
+    "rewards": [
+      {
+        "id": "927967605",
+        "name": "mercury-god-helmet"
+      },
+      {
+        "id": "3965951354",
+        "name": "Evolved_Shield"
+      },
+      {
+        "id": "1726482462",
+        "name": "Customization_Projection_Rain_Teal"
+      }
+    ]
+  },
+  {
+    "id": "2fd08ba5-d355-4de1-8c5d-91036d4f66fe",
+    "kitType": "7b8f24af-f3e4-4189-8b7d-d37bf0d112da",
+    "name": "ID_KIT_NOTIFICATION_REENGAGEMENT_1",
+    "rewards": [
+      {
+        "id": "3089268753",
+        "name": "ikarus_portrait"
+      }
+    ]
+  },
+  {
+    "id": "0c163f9b-345e-46ae-a2da-2d6444157c7d",
+    "kitType": "392c6d30-5130-464f-9465-ef4dd1e460ce",
+    "name": "ID_KIT_NOTIFICATION_REENGAGEMENT_2",
+    "rewards": [
+      {
+        "id": "2361194228",
+        "name": "feather"
+      }
+    ]
+  },
+  {
+    "id": "42a98283-325a-4c91-ae7f-40aa3fc07683",
+    "kitType": "83b55549-5970-4750-b033-0d12925ea8d6",
+    "name": "ID_KIT_NOTIFICATION_REENGAGEMENT_3",
+    "rewards": [
+      {
+        "id": "3784620829",
+        "name": "bee"
+      }
+    ]
+  }
+]

@@ -1,14 +1,16 @@
 import { PrismaClient } from '@prisma/client'
-import { main as customization } from './customization'
-import { main as progression } from './progression'
-import { main as namedChallenges } from './namedChallenges'
+import { seed as customization } from './customization'
+import { seed as namedChallenges } from './namedChallenges'
+import { seed as progression } from './progression'
 
 const prisma = new PrismaClient()
 
 async function main() {
-  await customization(prisma)
-  await progression(prisma)
-  await namedChallenges(prisma)
+  await Promise.all([
+    customization(prisma),
+    namedChallenges(prisma),
+    progression(prisma),
+  ])
 
   await prisma.user.create({
     data: {
