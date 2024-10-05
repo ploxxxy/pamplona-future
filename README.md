@@ -36,7 +36,7 @@ More info will be available in the [wiki](https://github.com/ploxxxy/pamplona-fu
 ## Setup
 ### Requirements
 - Recent version of Node.js installed using the official Windows installer or via [fnm](https://github.com/Schniz/fnm) on other platforms
-- Local or remote PostgreSQL server and permission to create databases
+- Local PostgreSQL server and permission to create databases
 
 ### Installation
 Create a new PostgreSQL database and make sure you can connect to it with an account that has editing permissions. Then, clone the repository and create a new file called `.env` in the project root. In this file add a connection string in the following format:
@@ -46,6 +46,9 @@ DATABASE_URL=postgresql://[username]:[password]@localhost:5432/[database]
 ```
 
 To test the connection and initialize the database, run the command `npm run resetdb`. Once that completes successfully, run `npm start`.
+
+### Connecting
+Add [catalyst-mitm](https://github.com/ploxxxy/catalyst-mitm) to the installation directory of the game to redirect all traffic to localhost. When launched, the game should connect to your new server.
 
 ## Credits & Resources
 - WarrantyVoider
