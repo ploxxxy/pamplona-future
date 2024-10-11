@@ -41,7 +41,7 @@ server.on('listening', () => {
   logger.info('Server started')
 })
 
-server.listen(25565, '127.0.0.1')
+server.listen(25565)
 
 const handleIncomingPacket = (packet: Blaze.Packet, socket: net.Socket) => {
   logPacket(packet.header, packet.payload, true)

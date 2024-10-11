@@ -28,6 +28,6 @@ const server = http.createServer((req, res) => {
   res.end(xml)
 })
 
-server.listen(42230, '127.0.0.1', () =>
+server.listen(42230, () =>
   logger.info('[Redirector] Redirector started')
 )
