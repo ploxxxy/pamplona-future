@@ -1,6 +1,6 @@
 import { getUserFromSession } from '../..'
 import db from '../../../common/prisma'
-import { extractUGCData } from '../../helper'
+import { extractUGCData, Float } from '../../helper'
 
 export default {
   name: 'PamplonaAuthenticated.getInitialGameData',
@@ -59,10 +59,12 @@ export default {
       throw new Error('User not found')
     }
 
-    const userStats = user.userStats.reduce(
-      (a: { [key: string]: number }, v) => ((a[v.flag] = v.value), a),
-      {}
-    )
+    const userStats: { [key: string]: Float } = {}
+    for (const userFlag of user.userStats) {
+      userStats[userFlag.flag] = new Float(userFlag.value)
+    }
+
+    // const tempFlag = params.levelIds[0] << 0 === -1940918635
 
     return {
       playerInfo: {
@@ -77,10 +79,9 @@ export default {
       userReachThis: user.userGeneratedContent
         .filter((ugc) => ugc.ugcType === 'ReachThis')
         .map((ugc) => extractUGCData(ugc, ['META'])),
-      // userTimeTrials: user.userGeneratedContent
-      //   .filter((ugc) => ugc.ugcType === 'TimeTrial')
-      //   .map((ugc) => extractUGCData(ugc, ['META'])),
-      userTimeTrials: [],
+      userTimeTrials: user.userGeneratedContent
+        .filter((ugc) => ugc.ugcType === 'TimeTrial')
+        .map((ugc) => extractUGCData(ugc, ['META'])),
       promotedUGC: [],
       bookmarks: {
         ugcBookmarks: [],

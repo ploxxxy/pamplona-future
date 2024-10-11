@@ -1,7 +1,12 @@
 import Fastify from 'fastify'
 import { JSONRPCRequest, JSONRPCServer } from 'json-rpc-2.0'
 import fs from 'node:fs'
-import { logger } from './helper'
+import {
+  chunkStringFixed,
+  logger,
+  monkeyStringify,
+  serializeFloat,
+} from './helper'
 
 export interface ServerParams {
   session: string | undefined
@@ -39,6 +44,14 @@ fastify.post('/gatewayApi', (req, reply) => {
 
   const method = jsonRPCRequest.method
 
+  // if (
+  //   method === 'PamplonaAuthenticated.getInitialGameData' &&
+  //   jsonRPCRequest.params.levelIds[0] << 0 === -1940918635
+  // ) {
+  //   reply.header('Content-Type', 'application/json;charset=utf-8')
+  //   return reply.send(chunkStringFixed(sex(jsonRPCRequest.id)))
+  // }
+
   server.receive(jsonRPCRequest, { session }).then((response) => {
     logger.debug(method)
     logger.debug(jsonRPCRequest.params)
@@ -48,8 +61,34 @@ fastify.post('/gatewayApi', (req, reply) => {
       logger.error(`Error ${response?.error.message}`)
     }
 
-    return reply.send(response)
+    // TODO: stringify using fast-json-stringify
+    // TODO: make similar requests into one thing (getOverview ... getLeaderboard, etc)
+    // TODO: create util functions, eg:
+    //                  getPlayerInfo + getPlayerInventory = getIntiialGameData
+
+    // return reply.send(response)
+
+    reply.raw.setHeader('Connection', 'close')
+    reply.raw.setHeader('Access-Control-Allow-Origin', '*')
+    reply.raw.setHeader('Content-Type', 'application/json;charset=utf-8')
+
+    if (!response) {
+      return reply.send(
+        chunkStringFixed(
+          monkeyStringify({ jsonrpc: '2.0', id: null, result: null })
+        )
+      )
+    }
+
+    return reply.send(chunkStringFixed(monkeyStringify(response)))
   })
+})
+
+fastify.options('/gatewayApi', (req, reply) => {
+  reply.header('Access-Control-Allow-Origin', '*')
+  reply.header('Access-Control-Allow-Methods', 'POST')
+  reply.header('Access-Control-Allow-Headers', 'Content-Type, X-GatewaySession')
+  reply.send()
 })
 
 try {

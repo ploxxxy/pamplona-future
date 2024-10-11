@@ -1,4 +1,5 @@
 import { ReachThis, TimeTrial, Ugc, UgcEntry, User } from '@prisma/client'
+import { Readable } from 'node:stream'
 import pino from 'pino'
 
 export const logger = pino({
@@ -21,13 +22,13 @@ interface BaseUGCData {
     blocked: boolean
     levelId: number
     transform: {
-      x: number
-      y: number
-      z: number
-      qx: number
-      qy: number
-      qz: number
-      qw: number
+      x: Float
+      y: Float
+      z: Float
+      qx: Float
+      qy: Float
+      qz: Float
+      qw: Float
     }
     typeId: 'ReachThis' | 'TimeTrial'
   } | null
@@ -37,9 +38,9 @@ export interface ReachThisData extends BaseUGCData {
   meta:
     | (BaseUGCData['meta'] & {
         mapPosition: {
-          x: number
-          y: number
-          z: number
+          x: Float
+          y: Float
+          z: Float
         }
         typeId: 'ReachThis'
       })
@@ -59,13 +60,13 @@ export interface TimeTrialData extends BaseUGCData {
   meta:
     | (BaseUGCData['meta'] & {
         teleportTransform: {
-          x: number
-          y: number
-          z: number
-          qx: number
-          qy: number
-          qz: number
-          qw: number
+          x: Float
+          y: Float
+          z: Float
+          qx: Float
+          qy: Float
+          qz: Float
+          qw: Float
         }
         ugcUrl: string
         typeId: 'TimeTrial'
@@ -136,22 +137,22 @@ export const extractUGCData = (
             blocked: false,
             levelId: ugc.levelId,
             transform: {
-              x: ugc.transformX,
-              y: ugc.transformY,
-              z: ugc.transformZ,
-              qx: ugc.transformQx || 0.000001,
-              qy: ugc.transformQy,
-              qz: ugc.transformQz || 0.000001,
-              qw: ugc.transformQw,
+              x: new Float(ugc.transformX),
+              y: new Float(ugc.transformY),
+              z: new Float(ugc.transformZ),
+              qx: new Float(ugc.transformQx),
+              qy: new Float(ugc.transformQy),
+              qz: new Float(ugc.transformQz),
+              qw: new Float(ugc.transformQw),
             },
             mapPosition: {
               // Fixes map icon offset
               // x: ugc.reachThis.mapPositionX,
               // y: ugc.reachThis.mapPositionY,
               // z: ugc.reachThis.mapPositionZ,
-              x: ugc.transformX,
-              y: ugc.transformY,
-              z: ugc.transformZ,
+              x: new Float(ugc.transformX),
+              y: new Float(ugc.transformY),
+              z: new Float(ugc.transformZ),
             },
             typeId: 'ReachThis',
           }
@@ -200,22 +201,22 @@ export const extractUGCData = (
             blocked: false,
             levelId: ugc.levelId,
             transform: {
-              x: ugc.transformX,
-              y: ugc.transformY,
-              z: ugc.transformZ,
-              qx: ugc.transformQx || 0.000001,
-              qy: ugc.transformQy,
-              qz: ugc.transformQz || 0.000001,
-              qw: ugc.transformQw,
+              x: new Float(ugc.transformX),
+              y: new Float(ugc.transformY),
+              z: new Float(ugc.transformZ),
+              qx: new Float(ugc.transformQx),
+              qy: new Float(ugc.transformQy),
+              qz: new Float(ugc.transformQz),
+              qw: new Float(ugc.transformQw),
             },
             teleportTransform: {
-              x: ugc.timeTrial.teleportTransformX,
-              y: ugc.timeTrial.teleportTransformY,
-              z: ugc.timeTrial.teleportTransformZ,
-              qx: ugc.timeTrial.teleportTransformQx || 0.000001,
-              qy: ugc.timeTrial.teleportTransformQy,
-              qz: ugc.timeTrial.teleportTransformQz || 0.000001,
-              qw: ugc.timeTrial.teleportTransformQw,
+              x: new Float(ugc.timeTrial.teleportTransformX),
+              y: new Float(ugc.timeTrial.teleportTransformY),
+              z: new Float(ugc.timeTrial.teleportTransformZ),
+              qx: new Float(ugc.timeTrial.teleportTransformQx),
+              qy: new Float(ugc.timeTrial.teleportTransformQy),
+              qz: new Float(ugc.timeTrial.teleportTransformQz),
+              qw: new Float(ugc.timeTrial.teleportTransformQw),
             },
             ugcUrl: `https://mec-gw.ops.dice.se/ugc/prod_default/prod_default/pc/TimeTrial/${ugc.creatorId}/${ugc.timeTrial.id}`,
             typeId: 'TimeTrial',
@@ -227,5 +228,69 @@ export const extractUGCData = (
     }
   } else {
     return null
+  }
+}
+
+export const chunkStringFixed = (str: string, numChunks = 15) => {
+  const chunkSize = Math.ceil(str.length / numChunks)
+  // const chunks = []
+
+  // for (let i = 0; i < numChunks; i++) {
+  //   const start = i * chunkSize
+  //   const end =
+  //     (i + 1) * chunkSize <= str.length ? (i + 1) * chunkSize : str.length
+  //   chunks.push(str.substring(start, end))
+  // }
+
+  // return chunks
+  const readable = new Readable({ objectMode: true })
+  let index = 0
+  readable._read = () => {
+    if (index >= str.length) {
+      readable.push(null)
+      return
+    }
+
+    const end = Math.min(index + chunkSize, str.length)
+    const chunk = str.substring(index, end)
+    index = end
+    readable.push(chunk)
+  }
+
+  return readable
+}
+
+export class Float extends Number {}
+
+export function monkeyStringify(obj?: object): string {
+  if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
+    return value(obj)
+  }
+
+  return `{${Object.keys(obj)
+    .map((k) =>
+      typeof obj[k] === 'function' ? null : `"${k}":${value(obj[k])}`
+    )
+    .filter((i) => i)}}`
+}
+
+function value(val: unknown): string | undefined {
+  switch (typeof val) {
+    case 'string':
+      return `"${val.replace(/\\/g, '\\\\').replace('"', '\\"')}"`
+    case 'number':
+    case 'boolean':
+      return `${val}`
+    case 'function':
+      console.log('got function')
+      return 'null'
+    case 'object':
+      if (val instanceof Date) return `"${val.toISOString()}"`
+      if (val instanceof Float) return val.toFixed(1)
+      if (Array.isArray(val)) return `[${val.map(value).join(',')}]`
+      if (val === null) {
+        return 'null'
+      }
+      return monkeyStringify(val)
   }
 }
