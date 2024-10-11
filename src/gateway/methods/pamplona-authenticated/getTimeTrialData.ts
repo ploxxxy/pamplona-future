@@ -1,20 +1,49 @@
-import { ServerParams } from '../..'
+import { getUserFromSession } from '../..'
+import db from '../../../common/prisma'
+import { extractUGCData } from '../../helper'
 
 export default {
   name: 'PamplonaAuthenticated.getTimeTrialData',
-  execute: (
+  execute: async (
     params: {
       ugcIds: { userId: string; id: string }[]
       dataTypes: string[]
       personaId: string
     },
-    serverParams: ServerParams
+    session: string
   ) => {
-    console.log('need timetrial data for', params.ugcIds)
-    // console.log(serverParams.session)
+    const personaId = getUserFromSession(session)
 
-    return []
-    
+    if (!personaId) {
+      throw new Error('Invalid session')
+    }
+
+    const ugcIds = params.ugcIds.map((ugc) => ugc.id)
+
+    const result = await db.ugc.findMany({
+      where: {
+        timeTrial: {
+          id: { in: ugcIds },
+        },
+        ugcType: 'TimeTrial',
+      },
+      include: {
+        ugcEntries: {
+          where: {
+            userId: personaId,
+          },
+        },
+        timeTrial: true,
+        creator: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    })
+
+    return result.map((ugc) => extractUGCData(ugc, params.dataTypes))
+
     // return [
     //   {
     //     meta: {
