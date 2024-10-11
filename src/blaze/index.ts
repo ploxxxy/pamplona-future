@@ -1,5 +1,6 @@
 import net from 'node:net'
-import { Readable } from 'node:stream'
+import { PassThrough } from 'node:stream'
+import { Buffer } from 'node:buffer'
 import * as Blaze from './blaze'
 import * as AssociationLists from './components/association-lists'
 import * as Authentication from './components/authentication'
@@ -10,16 +11,26 @@ import { logger, logPacket } from './helper'
 import './redirector'
 
 const server = net.createServer((socket) => {
-  socket.on('data', (data) => {
-    try {
-      const readable = new Readable({ read() {} })
-      readable.push(data)
-      readable.push(null)
+  let buffer = Buffer.alloc(0)
 
-      const packet = Blaze.Packet.createFromStream(readable)
-      handleIncomingPacket(packet, socket)
-    } catch (error) {
-      logger.error(error)
+  socket.on('data', (data) => {
+    buffer = Buffer.concat([buffer, data])
+
+    while (buffer.length >= 16) {
+      const payloadSize = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3] << 0)
+
+      if (buffer.length >= payloadSize + 16) {
+        const packetData = buffer.subarray(0, payloadSize + 16)
+        const dataStream = new PassThrough()
+        dataStream.write(packetData)
+
+        const packet = Blaze.Packet.createFromStream(dataStream)
+        handleIncomingPacket(packet, socket)
+
+        buffer = buffer.subarray(payloadSize + 16)
+      } else {
+        break
+      }
     }
   })
 
@@ -41,7 +52,7 @@ server.on('listening', () => {
   logger.info('Server started')
 })
 
-server.listen(25565, '127.0.0.1')
+server.listen(25565)
 
 const handleIncomingPacket = (packet: Blaze.Packet, socket: net.Socket) => {
   logPacket(packet.header, packet.payload, true)
