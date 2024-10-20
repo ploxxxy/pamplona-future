@@ -1,7 +1,9 @@
-import Fastify from 'fastify'
-import { JSONRPCRequest, JSONRPCServer } from 'json-rpc-2.0'
+import express from 'express'
+import { JSONRPCRequest, JSONRPCResponse, JSONRPCServer } from 'json-rpc-2.0'
 import fs from 'node:fs'
 import { logger } from './helper'
+
+const app = express()
 
 export interface ServerParams {
   session: string | undefined
@@ -26,38 +28,36 @@ for (const folder of folders) {
   }
 }
 
-const fastify = Fastify({
-  // logger: true,
-})
-fastify.post('/gatewayApi', (req, reply) => {
-  if (req.headers['content-type'] === 'application/x-encrypted') {
-    reply.send({ jsonrpc: '2.0', id: null, result: null })
+function insertFloats(data: JSONRPCResponse | null) {
+  return JSON.stringify(data).replace(/("q[x-z]":0),/g, '$1.0,')
+}
+
+app.use(express.json())
+
+app.post('/gatewayApi', (req, res) => {
+  if (req.header('content-type') === 'application/x-encrypted') {
+    res.send({ jsonrpc: '2.0', id: null, result: null })
   }
 
-  const jsonRPCRequest = req.body as JSONRPCRequest
-  const session = req.headers['x-gatewaysession'] as string | undefined
+  const RPC = req.body as JSONRPCRequest
+  const session = req.header('x-gatewaysession') as string | undefined
+  const method = RPC.method
 
-  const method = jsonRPCRequest.method
-
-  server.receive(jsonRPCRequest, { session }).then((response) => {
+  server.receive(RPC, { session }).then((response) => {
     logger.debug(method)
-    logger.debug(jsonRPCRequest.params)
-    // console.log('res', response?.result)
+    logger.debug(RPC.params)
 
     if (!response || response.error) {
       logger.error(`Error ${response?.error.message}`)
     }
 
-    return reply.send(response)
+    res.set('content-type', 'application/json')
+
+    return res.send(insertFloats(response))
   })
 })
 
-try {
-  fastify.listen({ port: 3000, host: '0.0.0.0' })
-} catch (err) {
-  fastify.log.error(err)
-  process.exit(1)
-}
+app.listen(3000)
 
 export function getUserFromSession(sessionId: string) {
   return '1011786733'
