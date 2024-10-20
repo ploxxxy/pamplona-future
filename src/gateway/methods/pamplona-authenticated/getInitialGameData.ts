@@ -64,6 +64,18 @@ export default {
       {}
     )
 
+    const promotedUGC = await db.ugc.findMany({
+      include: {
+        reachThis: true,
+        timeTrial: true,
+        creator: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    })
+
     return {
       playerInfo: {
         name: user.name,
@@ -81,7 +93,12 @@ export default {
       //   .filter((ugc) => ugc.ugcType === 'TimeTrial')
       //   .map((ugc) => extractUGCData(ugc, ['META'])),
       userTimeTrials: [],
-      promotedUGC: [],
+      promotedUGC: promotedUGC.map((ugc) => {
+        return {
+          ...extractUGCData(ugc, ['META']),
+          reason: 3,
+        }
+      }),
       bookmarks: {
         ugcBookmarks: [],
         challengeBookmarks: [],
