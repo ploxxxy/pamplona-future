@@ -105,8 +105,8 @@ export default {
       },
       inventory: {
         kits: user.kitUnlocks.map((kit) => ({
-          id: kit.kitId,
-          kitType: kit.kit.kitType,
+          id: kit.kitId.toUpperCase(),
+          kitType: kit.kit.kitType.toUpperCase(),
           opened: kit.opened,
         })),
         items: user.kitUnlocks.flatMap((kit) =>
