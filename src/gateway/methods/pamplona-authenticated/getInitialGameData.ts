@@ -59,10 +59,7 @@ export default {
       throw new Error('User not found')
     }
 
-    const userStats = user.userStats.reduce(
-      (a: { [key: string]: number }, v) => ((a[v.flag] = v.value), a),
-      {}
-    )
+    const userStats = user.userStats[0]['stats']
 
     const promotedUGC = await db.ugc.findMany({
       include: {

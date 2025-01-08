@@ -29,7 +29,10 @@ for (const folder of folders) {
 }
 
 function insertFloats(data: JSONRPCResponse | null) {
-  return JSON.stringify(data).replace(/("q[x-z]":0),/g, '$1.0,')
+  const newData = JSON.stringify(data)
+    .replace(/("q[x-z]":0),/g, '$1.0,')
+    .replace(/("p[f-g]_.*?":\d*)/g, '$1.0')
+  return newData
 }
 
 app.use(express.json())
