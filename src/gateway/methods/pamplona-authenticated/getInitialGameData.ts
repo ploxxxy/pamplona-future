@@ -62,6 +62,12 @@ export default {
     const userStats = user.userStats[0]['stats']
 
     const promotedUGC = await db.ugc.findMany({
+      take: 100,
+      where: {
+        NOT: {
+          creatorId: personaId
+        }
+      },
       include: {
         reachThis: true,
         timeTrial: true,
