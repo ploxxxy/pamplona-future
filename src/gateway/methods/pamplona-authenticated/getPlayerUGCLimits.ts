@@ -22,7 +22,7 @@ export default {
       ugcCount,
       maxUgc: 100,
       publishedCount,
-      maxPublished: 100, // TODO: change back to 10
+      maxPublished: 10
     }
   },
 }

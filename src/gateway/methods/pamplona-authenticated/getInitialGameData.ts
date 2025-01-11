@@ -59,10 +59,25 @@ export default {
       throw new Error('User not found')
     }
 
-    const userStats = user.userStats.reduce(
-      (a: { [key: string]: number }, v) => ((a[v.flag] = v.value), a),
-      {}
-    )
+    const userStats = user.userStats[0]['stats']
+
+    const promotedUGC = await db.ugc.findMany({
+      take: 100,
+      where: {
+        NOT: {
+          creatorId: personaId
+        }
+      },
+      include: {
+        reachThis: true,
+        timeTrial: true,
+        creator: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    })
 
     return {
       playerInfo: {
@@ -81,15 +96,20 @@ export default {
       //   .filter((ugc) => ugc.ugcType === 'TimeTrial')
       //   .map((ugc) => extractUGCData(ugc, ['META'])),
       userTimeTrials: [],
-      promotedUGC: [],
+      promotedUGC: promotedUGC.map((ugc) => {
+        return {
+          ...extractUGCData(ugc, ['META']),
+          reason: 3,
+        }
+      }),
       bookmarks: {
         ugcBookmarks: [],
         challengeBookmarks: [],
       },
       inventory: {
         kits: user.kitUnlocks.map((kit) => ({
-          id: kit.kitId,
-          kitType: kit.kit.kitType,
+          id: kit.kitId.toUpperCase(),
+          kitType: kit.kit.kitType.toUpperCase(),
           opened: kit.opened,
         })),
         items: user.kitUnlocks.flatMap((kit) =>

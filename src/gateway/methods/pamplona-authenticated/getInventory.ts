@@ -41,8 +41,8 @@ export const getInventoryFromDb = async (personaId: string) => {
 
   return {
     kits: kits.map((kit) => ({
-      id: kit.kitId,
-      kitType: kit.kit.kitType,
+      id: kit.kitId.toUpperCase(),
+      kitType: kit.kit.kitType.toUpperCase(),
       opened: kit.opened,
     })),
     items: kits.flatMap((kit) =>
