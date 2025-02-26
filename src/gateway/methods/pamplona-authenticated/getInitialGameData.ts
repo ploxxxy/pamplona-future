@@ -1,6 +1,6 @@
 import { getUserFromSession } from '../..'
 import db from '../../../common/prisma'
-import { extractUGCData } from '../../helper'
+import { extractUGCData, Float } from '../../helper'
 
 export default {
   name: 'PamplonaAuthenticated.getInitialGameData',
@@ -59,10 +59,26 @@ export default {
       throw new Error('User not found')
     }
 
-    const userStats = user.userStats.reduce(
-      (a: { [key: string]: number }, v) => ((a[v.flag] = v.value), a),
-      {}
-    )
+    const userStats: { [key: string]: Float } = {}
+    for (const userFlag of user.userStats) {
+      userStats[userFlag.flag] = new Float(userFlag.value)
+    }
+
+    const promotedUGC = await db.ugc.findMany({
+      include: {
+        reachThis: true,
+        timeTrial: true,
+        creator: {
+          select: {
+            name: true,
+          },
+        },
+      },
+      where: {
+        creatorId: '1337133700',
+      },
+      take: 100,
+    })
 
     return {
       playerInfo: {
@@ -77,19 +93,26 @@ export default {
       userReachThis: user.userGeneratedContent
         .filter((ugc) => ugc.ugcType === 'ReachThis')
         .map((ugc) => extractUGCData(ugc, ['META'])),
-      // userTimeTrials: user.userGeneratedContent
-      //   .filter((ugc) => ugc.ugcType === 'TimeTrial')
-      //   .map((ugc) => extractUGCData(ugc, ['META'])),
       userTimeTrials: [],
-      promotedUGC: [],
+      promotedUGC: [
+        ...promotedUGC
+          // .filter((ugc) => ugc.ugcType === 'ReachThis')
+          .map((ugc) => {
+            return {
+              meta: extractUGCData(ugc, ['META'])?.meta,
+              reason: Math.floor(Math.random() * 5) + 1,
+            }
+          }),
+      ],
+      // promotedUGC: [],
       bookmarks: {
         ugcBookmarks: [],
         challengeBookmarks: [],
       },
       inventory: {
         kits: user.kitUnlocks.map((kit) => ({
-          id: kit.kitId,
-          kitType: kit.kit.kitType,
+          id: kit.kitId.toUpperCase(),
+          kitType: kit.kit.kitType.toUpperCase(),
           opened: kit.opened,
         })),
         items: user.kitUnlocks.flatMap((kit) =>
