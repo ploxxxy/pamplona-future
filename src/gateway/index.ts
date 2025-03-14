@@ -46,6 +46,8 @@ app.post('/gatewayApi', (req, res) => {
   const session = req.header('x-gatewaysession') as string | undefined
   const method = RPC.method
 
+  RPC.id = RPC.id?.toString() || null
+
   server.receive(RPC, { session }).then((response) => {
     logger.debug(method)
     logger.debug(RPC.params)
@@ -54,9 +56,11 @@ app.post('/gatewayApi', (req, res) => {
       logger.error(`Error ${response?.error.message}`)
     }
 
-    res.set('content-type', 'application/json')
+    res.set('Content-Type', 'application/json')
+    res.set('Access-Control-Allow-Origin', '*')
 
-    return res.send(insertFloats(response))
+    res.write(insertFloats(response))
+    res.end()
   })
 })
 
