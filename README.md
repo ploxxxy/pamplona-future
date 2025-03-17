@@ -47,7 +47,7 @@ Create a new PostgreSQL database and make sure you can connect to it with an acc
 DATABASE_URL=postgresql://[username]:[password]@localhost:5432/[database]
 ```
 
-To test the connection and initialize the database, run the command `npm run resetdb`. Once that completes successfully, run `npm start` to launch the server.
+To test the connection and initialize the database, run the command `npm run resetdb`. Once that completes successfully, run `npm dev` to launch the server.
 
 ### Connecting
 Add [catalyst-mitm](https://github.com/ploxxxy/catalyst-mitm) to the installation directory of the game to redirect all traffic to localhost. When launched, the game should connect to your new server.
