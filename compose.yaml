@@ -18,7 +18,9 @@ services:
       - "25565:25565"
       - "42230:42230"
     environment:
-       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    volumes:
+      - ./:/app
     command: sh -c "npm run resetdb && npm run dev"
     restart: unless-stopped
 

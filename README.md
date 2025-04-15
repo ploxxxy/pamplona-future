@@ -53,7 +53,7 @@ To test the connection and initialize the database, run the command `npm run res
 ### Deploying via Docker
 Once Docker is installed, clone this repository, rename `.env.example` to `.env`, modify connection values if you need to, and run `docker compose up -d` from the root of the project. 
 
-Logs can be displayed by using `docker compose logs -f backend`. To stop server and database containers run `docker compose down`. If you need to rebuild server when newer version come out, do `git pull`, and run `docker compose up -d --build`.
+Logs can be displayed by using `docker compose logs -f backend`. To stop server and database containers run `docker compose down`.
 
 ### Connecting
 Add [catalyst-mitm](https://github.com/ploxxxy/catalyst-mitm) to the installation directory of the game to redirect all traffic to localhost. When launched, the game should connect to your new server.

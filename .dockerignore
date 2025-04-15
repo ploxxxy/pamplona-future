@@ -1,7 +1,0 @@
-compose.yaml
-dockerfile
-.env.example
-eslint.config.mjs
-.git
-.gitignore
-README.md
