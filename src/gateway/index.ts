@@ -93,12 +93,14 @@ fastify.post('*', (req, reply) => {
 })
 
 try {
-  fastify.listen({ port: typeof process.env.NODE_PORT === 'number' ? process.env.NODE_PORT : 3000, host: '0.0.0.0' })
+  const nodePort: number = parseInt(process.env.GATEWAY_PORT ?? 'default', 10) || 3000
+  fastify.listen({ port: nodePort, host: '0.0.0.0' })
+  logger.debug(`Gateway listening on port ${nodePort}`)
 } catch (err) {
   fastify.log.error(err)
   process.exit(1)
 }
 
 export function getUserFromSession(sessionId: string) {
-  return `'${process.env.PERSONA_ID ?? "133713371337"}'`
+  return process.env.PERSONA_ID ?? "133713371337"
 }

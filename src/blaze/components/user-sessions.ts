@@ -15,6 +15,8 @@ import { Socket } from 'node:net'
 import * as Blaze from '../blaze'
 
 const personaId: number = parseInt(process.env.PERSONA_ID ?? 'default', 10) || 133713371337;
+const userId: number = parseInt(process.env.USER_ID ?? 'default', 10) || 133713371337;
+const personaUsername: string = process.env.PERSONA_USERNAME ?? "ploxxxxxxy";
 
 export enum Commands {
   validateSessionKey = 1,
@@ -110,16 +112,16 @@ export const userSessionExtendedData = () => {
     new TDFList('ULST', 9, 1, [[30722, 2, 88123840]]),
     new TDFStruct('USER', [
       // The master account id
-      new TDFInteger('AID ', 2407107883),
+      new TDFInteger('AID ', userId),
       // The user's account locale
       new TDFInteger('ALOC', 1920292161),
       new TDFBlob('EXBB', Buffer.alloc(0)),
       // The user's ExternaId
-      new TDFInteger('EXID', 2407107883),
+      new TDFInteger('EXID', userId),
       // The user's BlazeId
       new TDFInteger('ID  ', personaId),
       // The persona name of the user
-      new TDFString('NAME', `'${process.env.PERSONA_USERNAME ?? "ploxxxxxxy"}'`),
+      new TDFString('NAME', personaUsername),
       // The persona namespace for mName.
       new TDFString('NASP', 'cem_ea_id'),
       // The user's Origin persona id
@@ -154,7 +156,7 @@ export const updateHardwareFlags = () => {
     // The connection group id for users accross a shared conneciton.
     new TDFIntVector3('CGID', [30722, 2, 88123840]),
     // Persona name
-    new TDFString('DSNM', 'ploxxxxxxy'),
+    new TDFString('DSNM', personaUsername),
     // True if this is the first time the user has logged on to this Blaze server
     new TDFInteger('FRST', 0),
     // The SessionKey created by the Blaze server for this session
@@ -174,11 +176,11 @@ export const updateHardwareFlags = () => {
     // Client platform type
     new TDFInteger('PLAT', 4),
     // The Nucleus account id for the user associated with this session
-    new TDFInteger('UID ', 2407107883),
+    new TDFInteger('UID ', userId),
     // The type of user logging in
     new TDFInteger('USTP', 0),
     // External reference value such as XUID
-    new TDFInteger('XREF', 2407107883),
+    new TDFInteger('XREF', userId),
   ]
 
   return new Blaze.Packet(header, payload)

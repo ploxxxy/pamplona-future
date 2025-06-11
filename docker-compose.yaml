@@ -1,19 +1,21 @@
 services:
-  db:
+  pamplona-future-db:
     image: postgres:17
+    container_name: pamplona-future-db
     env_file:
       - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: always
 
-  server:
+  pamplona-future:
     build: .
     depends_on:
-      - db
+      - pamplona-future-db
+    container_name: pamplona-future
     ports:
-      - "${NODE_PORT}:3000"
-      - "25565:25565"
+      - "${GATEWAY_PORT}:${GATEWAY_PORT}"
+      - "${BLAZE_PORT}:${BLAZE_PORT}"
       - "42230:42230"
     env_file:
       - .env

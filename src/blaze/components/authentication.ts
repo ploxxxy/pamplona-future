@@ -4,6 +4,8 @@ import * as Blaze from '../blaze'
 import * as UserSessions from './user-sessions'
 
 const personaId: number = parseInt(process.env.PERSONA_ID ?? 'default', 10) || 133713371337;
+const userId: number = parseInt(process.env.USER_ID ?? 'default', 10) || 133713371337;
+const personaUsername: string = process.env.PERSONA_USERNAME ?? "ploxxxxxxy";
 
 export enum Commands {
   login = 10,
@@ -105,7 +107,7 @@ const login = () => {
       // The persona details for the persona associated with this session
       new TDFStruct('PDTL', [
         // Persona name
-        new TDFString('DSNM', `'${process.env.PERSONA_USERNAME ?? "ploxxxxxxy"}'`),
+        new TDFString('DSNM', personaUsername),
         // Last authentication timestamp for persona
         new TDFInteger('LAST', 0),
         // Nucleus personaId
@@ -114,10 +116,10 @@ const login = () => {
         // The status of persona.
         new TDFInteger('STAS', 0),
         //  External reference value such as XUID
-        new TDFInteger('XREF', 2407107883),
+        new TDFInteger('XREF', userId),
       ]),
       // The Nucleus account id for the user associated with this session
-      new TDFInteger('UID ', 2407107883),
+      new TDFInteger('UID ', userId),
     ]),
     // True if the user old enough to opt in to receive third party email
     new TDFInteger('SPAM', 0),
