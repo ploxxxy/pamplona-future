@@ -14,6 +14,8 @@ import {
 import { Socket } from 'node:net'
 import * as Blaze from '../blaze'
 
+const personaId: number = parseInt(process.env.PERSONA_ID ?? 'default', 10) || 133713371337;
+
 export enum Commands {
   validateSessionKey = 1,
   userSessionExtendedData = 2,
@@ -115,13 +117,13 @@ export const userSessionExtendedData = () => {
       // The user's ExternaId
       new TDFInteger('EXID', 2407107883),
       // The user's BlazeId
-      new TDFInteger('ID  ', 1011786733),
+      new TDFInteger('ID  ', personaId),
       // The persona name of the user
-      new TDFString('NAME', 'ploxxxxxxy'),
+      new TDFString('NAME', `'${process.env.PERSONA_USERNAME ?? "ploxxxxxxy"}'`),
       // The persona namespace for mName.
       new TDFString('NASP', 'cem_ea_id'),
       // The user's Origin persona id
-      new TDFInteger('ORIG', 1011786733),
+      new TDFInteger('ORIG', personaId),
       // The user's Pid Id
       new TDFInteger('PIDI', 0),
     ]),
@@ -148,7 +150,7 @@ export const updateHardwareFlags = () => {
     // The user's account locale
     new TDFInteger('ALOC', 1920292161),
     // The unique BlazeId assigned to the user account associated with this session
-    new TDFInteger('BUID', 1011786733),
+    new TDFInteger('BUID', personaId),
     // The connection group id for users accross a shared conneciton.
     new TDFIntVector3('CGID', [30722, 2, 88123840]),
     // Persona name
@@ -168,7 +170,7 @@ export const updateHardwareFlags = () => {
     // Persona namespace
     new TDFString('NASP', 'cem_ea_id'),
     // Nucleus personaId
-    new TDFInteger('PID ', 1011786733),
+    new TDFInteger('PID ', personaId),
     // Client platform type
     new TDFInteger('PLAT', 4),
     // The Nucleus account id for the user associated with this session
@@ -196,7 +198,7 @@ export const updateExtendedDataAttribute = () => {
 
   const payload: TDF[] = [
     new TDFInteger('FLGS', 3),
-    new TDFInteger('ID  ', 1011786733),
+    new TDFInteger('ID  ', personaId),
   ]
 
   return new Blaze.Packet(header, payload)
@@ -269,7 +271,7 @@ const validateSessionKey = () => {
       new TDFList('ULST', TDFType.IntVector3, 1, [[30722, 2, 88123840]]),
     ]),
     new TDFInteger('SUBS', 1),
-    new TDFInteger('USID', 1011786733),
+    new TDFInteger('USID', personaId),
   ]
 
   return new Blaze.Packet(header, payload)

@@ -1,5 +1,6 @@
 FROM node:22-alpine
+ARG NODE_PORT=3000
 WORKDIR /app
 COPY . .
 RUN npm i -g pnpm prisma && pnpm install
-EXPOSE 3000 25565 42230
+EXPOSE ${NODE_PORT} 25565 42230

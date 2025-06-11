@@ -11,6 +11,8 @@ import { Socket } from 'node:net'
 import * as Blaze from '../blaze'
 import * as UserSessions from './user-sessions'
 
+const personaId: number = parseInt(process.env.PERSONA_ID ?? 'default', 10) || 133713371337;
+
 export enum Commands {
   fetchClientConfig = 1,
   ping = 2,
@@ -309,7 +311,7 @@ export const postAuth = () => {
       // Key
       new TDFString(
         'SKEY',
-        '1011786733,10.23.15.2:8999,mirrorsedgecatalyst-2016-pc,10,50,50,50,50,0,12'
+        process.env.PERSONA_ID + ',10.23.15.2:8999,mirrorsedgecatalyst-2016-pc,10,50,50,50,50,0,12'
       ),
     ]),
     // User options
@@ -317,7 +319,7 @@ export const postAuth = () => {
       // TelemetryOpt
       new TDFInteger('TMOP', 0),
       // The ID of the user whose data is to be fetched, 0 means own's settings
-      new TDFInteger('UID ', 1011786733),
+      new TDFInteger('UID ', personaId),
     ]),
   ]
 

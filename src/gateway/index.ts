@@ -93,12 +93,12 @@ fastify.post('*', (req, reply) => {
 })
 
 try {
-  fastify.listen({ port: 3000, host: '0.0.0.0' })
+  fastify.listen({ port: typeof process.env.NODE_PORT === 'number' ? process.env.NODE_PORT : 3000, host: '0.0.0.0' })
 } catch (err) {
   fastify.log.error(err)
   process.exit(1)
 }
 
 export function getUserFromSession(sessionId: string) {
-  return '1011786733'
+  return `'${process.env.PERSONA_ID ?? "133713371337"}'`
 }
