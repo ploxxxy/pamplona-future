@@ -12,7 +12,7 @@ import * as Blaze from '../blaze'
 import * as UserSessions from './user-sessions'
 
 const nodePort: number = parseInt(process.env.GATEWAY_PORT ?? 'default', 10) || 3000
-const personaId: number = parseInt(process.env.PERSONA_ID ?? 'default', 10) || 133713371337;
+const personaId: number = parseInt(process.env.PERSONA_ID ?? "133713371337");
 
 export enum Commands {
   fetchClientConfig = 1,

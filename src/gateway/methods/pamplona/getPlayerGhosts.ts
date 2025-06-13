@@ -1,4 +1,4 @@
-const personaId: number = parseInt(process.env.PERSONA_ID ?? 'default', 10) || 133713371337;
+const personaId: number = parseInt(process.env.PERSONA_ID ?? "133713371337");
 
 export default {
   name: 'Pamplona.getPlayerGhosts',
