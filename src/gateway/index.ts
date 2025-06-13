@@ -93,7 +93,7 @@ fastify.post('*', (req, reply) => {
 })
 
 try {
-  const nodePort: number = parseInt(process.env.GATEWAY_PORT ?? 'default', 10) || 3000
+  const nodePort: number = parseInt(process.env.GATEWAY_PORT ?? "3000")
   fastify.listen({ port: nodePort, host: '0.0.0.0' })
   logger.debug(`Gateway listening on port ${nodePort}`)
 } catch (err) {

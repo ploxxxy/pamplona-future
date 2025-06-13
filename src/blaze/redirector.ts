@@ -6,7 +6,7 @@ const logger = pino({
   level: 'debug',
 })
 
-const blazePort: number = parseInt(process.env.BLAZE_PORT ?? 'default', 10) || 25565
+const blazePort: number = parseInt(process.env.BLAZE_PORT ?? "25565")
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <serverinstanceinfo>

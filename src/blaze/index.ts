@@ -10,7 +10,7 @@ import * as Util from './components/util'
 import { logger, logPacket } from './helper'
 import './redirector'
 
-const blazePort: number = parseInt(process.env.BLAZE_PORT ?? 'default', 10) || 25565
+const blazePort: number = parseInt(process.env.BLAZE_PORT ?? "25565")
 
 const server = net.createServer((socket) => {
   let buffer = Buffer.alloc(0)

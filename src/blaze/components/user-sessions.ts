@@ -14,8 +14,8 @@ import {
 import { Socket } from 'node:net'
 import * as Blaze from '../blaze'
 
-const personaId: number = parseInt(process.env.PERSONA_ID ?? 'default', 10) || 133713371337;
-const userId: number = parseInt(process.env.USER_ID ?? 'default', 10) || 133713371337;
+const personaId: number = parseInt(process.env.PERSONA_ID ?? "133713371337");
+const userId: number = parseInt(process.env.USER_ID ?? "133713371337")
 const personaUsername: string = process.env.PERSONA_USERNAME ?? "ploxxxxxxy";
 
 export enum Commands {
