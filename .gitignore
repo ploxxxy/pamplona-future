@@ -4,3 +4,4 @@ build
 temp
 .env
 .pnpm-store
+package-lock.json
